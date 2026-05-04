@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation'
 import styles from './log.module.css'
 
 const SYMPTOMS = [
-  { key: 'cramps',        label: 'Cramps',       emoji: '😣' },
-  { key: 'bloating',      label: 'Bloating',     emoji: '🫧' },
-  { key: 'skin_breakout', label: 'Skin breakout',emoji: '😕' },
-  { key: 'low_energy',    label: 'Low energy',   emoji: '🪫' },
-  { key: 'mood_low',      label: 'Mood low',     emoji: '🌧' },
-  { key: 'headache',      label: 'Headache',     emoji: '🤕' },
+  { key: 'cramps',        label: 'Cramps'       },
+  { key: 'bloating',      label: 'Bloating'     },
+  { key: 'skin_breakout', label: 'Skin breakout'},
+  { key: 'low_energy',    label: 'Low energy'   },
+  { key: 'mood_low',      label: 'Mood low'     },
+  { key: 'headache',      label: 'Headache'     },
 ] as const
 
 type SymptomKey = typeof SYMPTOMS[number]['key']
@@ -38,12 +38,10 @@ export default function LogPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    // Log period start if provided
     if (periodDate) {
       await logPeriodStart(user.id, periodDate, flow || undefined)
     }
 
-    // Log symptoms
     if (activeSymptoms.size > 0) {
       const today = new Date().toISOString().split('T')[0]
       const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
@@ -60,7 +58,6 @@ export default function LogPage() {
     <div className={styles.page}>
       <h1 className={`display ${styles.title}`}>Log</h1>
 
-      {/* Period start */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Period start</h2>
         <input
@@ -85,18 +82,16 @@ export default function LogPage() {
         )}
       </section>
 
-      {/* Symptom tags */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>How are you feeling today?</h2>
         <div className={styles.symptomGrid}>
-          {SYMPTOMS.map(({ key, label, emoji }) => (
+          {SYMPTOMS.map(({ key, label }) => (
             <button
               key={key}
               className={`${styles.symptomBtn} ${activeSymptoms.has(key) ? styles.symptomActive : ''}`}
               onClick={() => toggleSymptom(key)}
             >
-              <span>{emoji}</span>
-              <span>{label}</span>
+              {label}
             </button>
           ))}
         </div>
@@ -107,7 +102,7 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? '✓ Saved!' : saving ? 'Saving…' : 'Save'}
+        {saved ? 'Saved' : saving ? 'Saving...' : 'Save'}
       </button>
     </div>
   )

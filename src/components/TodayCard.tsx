@@ -5,9 +5,9 @@ import styles from './TodayCard.module.css'
 
 const PHASE_DESCRIPTIONS: Record<string, string> = {
   Menstrual:  'Your body is releasing. Rest, warmth, and gentle movement support you best right now.',
-  Follicular: 'Energy is rising. Your skin is clearer, your mind sharper — a great time to plan and create.',
+  Follicular: 'Energy is rising. Your skin is clearer, your mind sharper. A great time to plan and create.',
   Ovulation:  'You are at your peak. Confidence is high, skin is luminous, and connection comes naturally.',
-  Luteal:     'Slowing down is wisdom. Your body is preparing — honour rest and reduce stimulation.',
+  Luteal:     'Slowing down is wisdom. Your body is preparing. Honour rest and reduce stimulation.',
   unknown:    'Log your first period to unlock your personal cycle insights.',
 }
 
@@ -33,20 +33,22 @@ export default function TodayCard({
 
   return (
     <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
-      <div className={styles.top}>
-        <div className={styles.phaseInfo}>
-          <span className={`display ${styles.phaseName}`}>{phaseName}</span>
-          {countdown !== null && countdown >= 0 && (
-            <span className={styles.countdown}>
-              {countdown === 0 ? 'Period due today' : `${countdown}d until next period`}
-            </span>
-          )}
-        </div>
+
+      <div className={styles.ringRow}>
         <CycleRing
           cycleDay={cycleDay}
           cycleLength={cycleLength}
           phaseName={phaseName}
         />
+      </div>
+
+      <div className={styles.phaseInfo}>
+        <span className={`display ${styles.phaseName}`}>{phaseName}</span>
+        {countdown !== null && countdown >= 0 && (
+          <span className={styles.countdown}>
+            {countdown === 0 ? 'Period due today' : `${countdown} days until next period`}
+          </span>
+        )}
       </div>
 
       <p className={styles.description}>{description}</p>

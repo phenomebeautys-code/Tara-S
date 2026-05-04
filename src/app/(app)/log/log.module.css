@@ -1,4 +1,8 @@
-.page { display: flex; flex-direction: column; gap: var(--space-5); }
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
 
 .title {
   font-size: 2rem;
@@ -25,8 +29,7 @@
   padding: var(--space-3) var(--space-4);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 16px;
   background: var(--color-surface);
   color: var(--color-text);
   outline: none;
@@ -41,7 +44,7 @@
 
 .flowBtn {
   flex: 1;
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-2);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-full);
   font-size: 0.875rem;
@@ -67,15 +70,17 @@
 .symptomBtn {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3);
+  justify-content: center;
+  padding: var(--space-3) var(--space-2);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--color-text);
   transition: all 0.15s;
-  text-align: left;
+  text-align: center;
+  min-height: 48px;
 }
 
 .symptomActive {
@@ -86,14 +91,13 @@
 
 .saveBtn {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4) var(--space-4);
   background: var(--color-primary);
   color: white;
   border-radius: var(--radius-full);
   font-size: 1rem;
   font-weight: 600;
   transition: background 0.2s, opacity 0.2s;
-  margin-top: auto;
 }
 
 .saveBtn:hover { background: var(--color-accent); }
