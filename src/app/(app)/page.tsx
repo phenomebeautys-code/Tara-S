@@ -7,19 +7,30 @@ import TodayCard from '@/components/TodayCard'
 import PwaPrompt from '@/components/PwaPrompt'
 import styles from './home.module.css'
 
-function getGreeting() {
+function getGreeting(name?: string | null) {
   const h = new Date().getHours()
-  if (h < 12) return 'Good morning'
-  if (h < 17) return 'Good afternoon'
-  return 'Good evening'
+  const time = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'
+  return name ? `${time}, ${name}` : time
 }
 
 export default function HomePage() {
   const [userId, setUserId] = useState<string | null>(null)
+  const [displayName, setDisplayName] = useState<string | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => setUserId(data.user?.id ?? null))
+    supabase.auth.getUser().then(async ({ data }) => {
+      const uid = data.user?.id ?? null
+      setUserId(uid)
+      if (uid) {
+        const { data: profile } = await supabase
+          .from('users')
+          .select('display_name')
+          .eq('id', uid)
+          .single()
+        setDisplayName(profile?.display_name ?? null)
+      }
+    })
   }, [])
 
   const { stats, phase, loading } = useCycleStats(userId)
@@ -29,7 +40,7 @@ export default function HomePage() {
       <header className={styles.header}>
         <span className={`display ${styles.logo}`}>TARA-S</span>
         <div className={styles.headerRight}>
-          <span className={styles.greeting}>{getGreeting()}</span>
+          <span className={styles.greeting}>{getGreeting(displayName)}</span>
           <Link href="/about" className={styles.aboutLink}>About</Link>
         </div>
       </header>
