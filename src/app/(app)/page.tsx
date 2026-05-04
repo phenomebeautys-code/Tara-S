@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useCycleStats } from '@/lib/hooks/useCycleStats'
 import TodayCard from '@/components/TodayCard'
@@ -27,7 +28,10 @@ export default function HomePage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <span className={`display ${styles.logo}`}>TARA-S</span>
-        <span className={styles.greeting}>{getGreeting()}</span>
+        <div className={styles.headerRight}>
+          <span className={styles.greeting}>{getGreeting()}</span>
+          <Link href="/about" className={styles.aboutLink}>About</Link>
+        </div>
       </header>
 
       {loading ? (

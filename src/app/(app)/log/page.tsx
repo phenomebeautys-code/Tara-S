@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation'
 import styles from './log.module.css'
 
 const SYMPTOMS = [
-  { key: 'cramps',        label: 'Cramps'       },
-  { key: 'bloating',      label: 'Bloating'     },
-  { key: 'skin_breakout', label: 'Skin breakout'},
-  { key: 'low_energy',    label: 'Low energy'   },
-  { key: 'mood_low',      label: 'Mood low'     },
-  { key: 'headache',      label: 'Headache'     },
+  { key: 'cramps',        label: 'Cramps'        },
+  { key: 'bloating',      label: 'Bloating'      },
+  { key: 'skin_breakout', label: 'Skin breakout' },
+  { key: 'low_energy',    label: 'Low energy'    },
+  { key: 'mood_low',      label: 'Mood low'      },
+  { key: 'headache',      label: 'Headache'      },
 ] as const
 
 type SymptomKey = typeof SYMPTOMS[number]['key']
@@ -56,7 +56,12 @@ export default function LogPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={`display ${styles.title}`}>Log</h1>
+
+      <div className={styles.greeting}>
+        <p className={`display ${styles.greetingName}`}>tara-s</p>
+        <p className={styles.greetingMeaning}>The woman, in Khoekhoegowab.</p>
+        <p className={styles.greetingBody}>She has always known her body. This space is yours to remember.</p>
+      </div>
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Period start</h2>

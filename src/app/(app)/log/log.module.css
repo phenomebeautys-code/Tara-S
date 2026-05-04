@@ -4,10 +4,36 @@
   gap: var(--space-5);
 }
 
-.title {
-  font-size: 2rem;
+.greeting {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.greetingName {
+  font-size: 2.6rem;
   font-weight: 300;
+  font-style: italic;
+  line-height: 1;
   color: var(--color-primary);
+  letter-spacing: 0.04em;
+}
+
+.greetingMeaning {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.greetingBody {
+  font-size: 0.975rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 34ch;
 }
 
 .section {
@@ -91,7 +117,7 @@
 
 .saveBtn {
   width: 100%;
-  padding: var(--space-4) var(--space-4);
+  padding: var(--space-4);
   background: var(--color-primary);
   color: white;
   border-radius: var(--radius-full);
