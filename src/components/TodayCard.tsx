@@ -43,15 +43,6 @@ export default function TodayCard({
       {phase?.phase_skin_note && (
         <p className={`display ${styles.skinNote}`}>{phase.phase_skin_note}</p>
       )}
-
-      <a
-        href={`https://phenomebeauty.co.za/book?utm_source=period-app&phase=${phaseName.toLowerCase()}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={styles.ctaBtn}
-      >
-        Book a Phenomebeauty appointment
-      </a>
     </div>
   )
 }
