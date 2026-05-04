@@ -4,35 +4,43 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  // If env vars are missing, allow request to pass through
+  if (!supabaseUrl || !supabaseKey) {
+    return supabaseResponse
+  }
+
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll()
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        supabaseResponse = NextResponse.next({ request })
+        cookiesToSet.forEach(({ name, value, options }) =>
+          supabaseResponse.cookies.set(name, value, options)
+        )
+      },
+    },
+  })
+
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+
+    const publicPaths = ['/login', '/signup', '/offline']
+    const isPublic = publicPaths.some((p) => request.nextUrl.pathname.startsWith(p))
+
+    if (!user && !isPublic) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
     }
-  )
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  const publicPaths = ['/login', '/signup', '/offline']
-  const isPublic = publicPaths.some((p) => request.nextUrl.pathname.startsWith(p))
-
-  if (!user && !isPublic) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
+  } catch {
+    // If Supabase call fails, let request through rather than breaking the app
   }
 
   return supabaseResponse
