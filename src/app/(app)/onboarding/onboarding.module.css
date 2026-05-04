@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-5);
+  background: var(--color-bg);
 }
 
 .inner {
@@ -11,65 +12,71 @@
   max-width: 400px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
-.title {
-  font-size: 2.2rem;
-  font-weight: 300;
-  color: var(--color-primary);
-  line-height: 1.2;
+/* Dot progress */
+.dots {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
 }
 
-.subtitle {
-  color: var(--color-text-muted);
-  margin-top: calc(-1 * var(--space-4));
-}
-
-.progressBar {
-  height: 4px;
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
   background: var(--color-border);
-  border-radius: var(--radius-full);
-  overflow: hidden;
+  transition: background 0.3s, transform 0.3s;
 }
 
-.progressFill {
-  height: 100%;
+.dotActive {
   background: var(--color-primary);
-  border-radius: var(--radius-full);
-  transition: width 0.4s ease;
+  transform: scale(1.4);
 }
 
-.card {
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
+.dotDone {
+  background: var(--color-secondary);
+}
+
+/* Question */
+.questionWrap {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
-.stepLabel {
-  font-size: 1.1rem;
-  font-weight: 500;
+.question {
+  font-size: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.2;
   color: var(--color-text);
+  letter-spacing: 0.01em;
 }
 
+.sub {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* Date input */
 .dateInput {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 16px;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: var(--color-surface);
   outline: none;
+  transition: border-color 0.2s;
 }
 
 .dateInput:focus { border-color: var(--color-primary); }
 
+/* Actions */
 .actions {
   display: flex;
   flex-direction: column;
@@ -78,23 +85,52 @@
 
 .primaryBtn {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4);
   background: var(--color-primary);
   color: white;
   border-radius: var(--radius-full);
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
   transition: background 0.2s, opacity 0.2s;
 }
 
 .primaryBtn:hover { background: var(--color-accent); }
-.primaryBtn:disabled { opacity: 0.5; }
+.primaryBtn:disabled { opacity: 0.4; }
 
 .skipBtn {
   text-align: center;
   color: var(--color-text-muted);
   font-size: 0.875rem;
   padding: var(--space-2);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  font-style: italic;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.skipBtn:hover { opacity: 1; }
+
+/* Ready screen */
+.readyWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  text-align: center;
+  align-items: center;
+}
+
+.readyTitle {
+  font-size: 3rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-primary);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.readySub {
+  font-size: 0.975rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  max-width: 30ch;
 }
