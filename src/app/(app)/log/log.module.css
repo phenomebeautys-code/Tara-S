@@ -1,39 +1,48 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
-.greeting {
+.header {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding-bottom: var(--space-5);
+  padding-bottom: var(--space-6);
   border-bottom: 1px solid var(--color-border);
 }
 
-.greetingName {
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.title {
   font-size: 2.6rem;
   font-weight: 300;
   font-style: italic;
-  line-height: 1;
+  line-height: 1.2;
   color: var(--color-primary);
   letter-spacing: 0.04em;
 }
 
-.greetingMeaning {
-  font-size: 0.8rem;
+.meaning {
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--color-text-muted);
 }
 
-.greetingBody {
+.body {
   font-size: 0.975rem;
   line-height: 1.7;
   color: var(--color-text-muted);
   max-width: 34ch;
+  font-style: italic;
 }
 
 .section {
@@ -43,10 +52,10 @@
 }
 
 .sectionTitle {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   color: var(--color-text-muted);
 }
 
@@ -54,11 +63,12 @@
   width: 100%;
   padding: var(--space-3) var(--space-4);
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   font-size: 16px;
   background: var(--color-surface);
   color: var(--color-text);
   outline: none;
+  transition: border-color 0.2s;
 }
 
 .dateInput:focus { border-color: var(--color-primary); }
@@ -90,7 +100,7 @@
 .symptomGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
+  gap: var(--space-3);
 }
 
 .symptomBtn {
@@ -99,7 +109,7 @@
   justify-content: center;
   padding: var(--space-3) var(--space-2);
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-full);
   background: var(--color-surface);
   font-size: 0.875rem;
   font-weight: 500;
@@ -123,6 +133,7 @@
   border-radius: var(--radius-full);
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
   transition: background 0.2s, opacity 0.2s;
 }
 

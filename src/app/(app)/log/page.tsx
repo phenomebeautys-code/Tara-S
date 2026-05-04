@@ -57,14 +57,15 @@ export default function LogPage() {
   return (
     <div className={styles.page}>
 
-      <div className={styles.greeting}>
-        <p className={`display ${styles.greetingName}`}>tara-s</p>
-        <p className={styles.greetingMeaning}>The woman, in Khoekhoegowab.</p>
-        <p className={styles.greetingBody}>She has always known her body. This space is yours to remember.</p>
-      </div>
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>Log</p>
+        <h1 className={`display ${styles.title}`}>tara-s</h1>
+        <p className={styles.meaning}>The woman, in Khoekhoegowab.</p>
+        <p className={styles.body}>She has always known her body. This space is yours to remember.</p>
+      </header>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Period start</h2>
+        <h2 className={styles.sectionTitle}>When did it begin?</h2>
         <input
           type="date"
           value={periodDate}
@@ -107,8 +108,9 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? 'Saved' : saving ? 'Saving...' : 'Save'}
+        {saved ? 'Saved ✓' : saving ? 'Saving...' : 'Save to Tara'}
       </button>
+
     </div>
   )
 }

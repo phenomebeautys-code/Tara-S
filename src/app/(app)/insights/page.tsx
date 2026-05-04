@@ -43,7 +43,7 @@ export default function InsightsPage() {
         <ul className={styles.list}>
           {insights.map((insight, i) => (
             <li key={i} className={styles.item}>
-              <span className={styles.itemPrefix}>We noticed —</span>
+              <span className={styles.itemPrefix}>Tara noticed —</span>
               <span className={styles.itemText}>{insight}</span>
             </li>
           ))}
