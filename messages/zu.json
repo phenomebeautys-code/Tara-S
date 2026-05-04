@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "TARA-S",
+    "tagline": "Umngane wakho wenhlangano"
+  },
+  "home": {
+    "today": "Namuhla",
+    "cycleDay": "Usuku lwenhlangano",
+    "daysUntil": "izinsuku kuze kufike inyanga yakho elandela",
+    "bookNow": "Buka i-aphoyintimenti ye-Phenomebeauty",
+    "logPeriod": "Rekhoda ukuqala kwesikhathi"
+  },
+  "phases": {
+    "Menstrual": "Inyanga",
+    "Follicular": "Esikhathini sokukhula",
+    "Ovulation": "Isikhathi sokubekezela",
+    "Luteal": "Isikhathi sokuhlela",
+    "unknown": "Rekhoda inyanga yakho yokuqala ukuze uqale"
+  },
+  "risk": {
+    "low": "Kubukeka kahle — buka ngokukhululeka",
+    "medium": "Kunezingozi ezithile — izinhlangano ezingalingani",
+    "high": "Xwayisa — inyanga ingase ibe seduze",
+    "unknown": "Rekhoda izinyanga eziningi ukuze uthole izibikezelo",
+    "bookAnyway": "Buka ngandlela thile",
+    "chooseDate": "Khetha usuku olunye"
+  },
+  "onboarding": {
+    "title": "Siyakwamukela ku-TARA-S",
+    "subtitle": "Ake sizibone inhlangano yakho",
+    "step1": "Inyanga yakho yokuqala yaqala nini?",
+    "step2": "Eyangaphambili?",
+    "step3": "Eyangaphambili? (akudingekile)",
+    "skip": "Yeqa — Ngizofaka lokhu kamuva",
+    "continue": "Qhubeka",
+    "done": "Asiqale"
+  },
+  "insights": {
+    "title": "Izibonelo Zakho",
+    "subtitle": "Kusekelwe emsebenzini wenhlangano yakho"
+  },
+  "privacy": {
+    "title": "Idatha Yakho Kanye Nobumfihlo",
+    "subtitle": "Sikholelwa ekusobalaleni ngokuphelele",
+    "export": "Landa idatha yami (CSV)",
+    "delete": "Susa i-akhawunti yami ngokuphelele",
+    "stored": "Idatha yakho igcinwe ngokuvikeleka phezu kwamakhompyutha e-Supabase e-EU.",
+    "collected": "Siqoqa: izinsuku zenyanga, amalogi ezimpawu, izinsuku zama-aphoyintimenti. Akukho okunye.",
+    "never": "Asisoze sithengise idatha yakho. Nini nangabe."
+  }
+}

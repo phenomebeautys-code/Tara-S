@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "TARA-S",
+    "tagline": "Your cycle companion"
+  },
+  "home": {
+    "today": "Today",
+    "cycleDay": "Cycle day",
+    "daysUntil": "days until your next period",
+    "bookNow": "Book a Phenomebeauty appointment",
+    "logPeriod": "Log period start"
+  },
+  "phases": {
+    "Menstrual": "Menstrual",
+    "Follicular": "Follicular",
+    "Ovulation": "Ovulation",
+    "Luteal": "Luteal",
+    "unknown": "Log your first period to get started"
+  },
+  "risk": {
+    "low": "Looking good — book freely",
+    "medium": "Some uncertainty — irregular cycles",
+    "high": "Caution — period may be near",
+    "unknown": "Log more periods to enable predictions",
+    "bookAnyway": "Book anyway",
+    "chooseDate": "Choose another date"
+  },
+  "onboarding": {
+    "title": "Welcome to TARA-S",
+    "subtitle": "Let's get to know your cycle",
+    "step1": "When did your last period start?",
+    "step2": "And the one before that?",
+    "step3": "And the one before that? (optional)",
+    "skip": "Skip — I'll add this later",
+    "continue": "Continue",
+    "done": "Let's go"
+  },
+  "insights": {
+    "title": "Your Insights",
+    "subtitle": "Based on your cycle history"
+  },
+  "privacy": {
+    "title": "Your Data & Privacy",
+    "subtitle": "We believe in radical transparency",
+    "export": "Download my data (CSV)",
+    "delete": "Delete my account permanently",
+    "stored": "Your data is stored securely on Supabase servers in the EU.",
+    "collected": "We collect: period dates, symptom logs, appointment dates. Nothing else.",
+    "never": "We never sell your data. Ever."
+  }
+}

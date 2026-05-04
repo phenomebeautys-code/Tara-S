@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary:     #C4614A;
+  --color-secondary:   #E8A598;
+  --color-accent:      #A0522D;
+  --color-bg:          #FAF3EC;
+  --color-surface:     #FFFFFF;
+  --color-border:      #E8D5C0;
+  --color-text:        #3D3530;
+  --color-text-muted:  #9B7E8E;
+
+  --phase-menstrual:   #C4614A;
+  --phase-follicular:  #8FAF8A;
+  --phase-ovulation:   #D4899A;
+  --phase-luteal:      #9B7E8E;
+
+  --risk-low:          #2D5A3D;
+  --risk-medium:       #C4614A;
+  --risk-high:         #8B2635;
+  --risk-unknown:      #9B7E8E;
+
+  --font-display:      'Cormorant Garamond', Georgia, serif;
+  --font-body:         'Inter', system-ui, sans-serif;
+
+  --space-1: 4px;   --space-2: 8px;
+  --space-3: 12px;  --space-4: 16px;
+  --space-5: 24px;  --space-6: 32px;
+  --space-8: 48px;  --space-10: 64px;
+
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-full: 9999px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.display { font-family: var(--font-display); }
+
+/* Phase colour utility classes */
+.phase-menstrual { color: var(--phase-menstrual); background: color-mix(in srgb, var(--phase-menstrual) 12%, var(--color-bg)); }
+.phase-follicular { color: #3D6B3A; background: color-mix(in srgb, var(--phase-follicular) 15%, var(--color-bg)); }
+.phase-ovulation { color: #8B3A52; background: color-mix(in srgb, var(--phase-ovulation) 15%, var(--color-bg)); }
+.phase-luteal { color: #5C3D52; background: color-mix(in srgb, var(--phase-luteal) 15%, var(--color-bg)); }
+
+/* Risk colour utility classes */
+.risk-low { color: var(--risk-low); background: color-mix(in srgb, var(--risk-low) 10%, var(--color-bg)); }
+.risk-medium { color: var(--color-accent); background: color-mix(in srgb, var(--risk-medium) 10%, var(--color-bg)); }
+.risk-high { color: var(--risk-high); background: color-mix(in srgb, var(--risk-high) 10%, var(--color-bg)); }
+.risk-unknown { color: var(--color-text-muted); background: color-mix(in srgb, var(--risk-unknown) 10%, var(--color-bg)); }

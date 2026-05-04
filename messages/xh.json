@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "TARA-S",
+    "tagline": "Umhlobo wakho womjikelo"
+  },
+  "home": {
+    "today": "Namhlanje",
+    "cycleDay": "Usuku lomjikelo",
+    "daysUntil": "iintsuku de kufike inyanga yakho elandelayo",
+    "bookNow": "Bhukisha i-aphoyintimenti ye-Phenomebeauty",
+    "logPeriod": "Rekhoda ukuqala kwexesha"
+  },
+  "phases": {
+    "Menstrual": "Inyanga",
+    "Follicular": "Ixesha lokukhula",
+    "Ovulation": "Ixesha lokuzala",
+    "Luteal": "Ixesha lokucinga",
+    "unknown": "Rekhoda inyanga yakho yokuqala ukuze uqale"
+  },
+  "risk": {
+    "low": "Kubukeka kakuhle — bhukisha ngokukhululeka",
+    "medium": "Kukho ukungaqiniseki — imijikelo engalinganiyo",
+    "high": "Lumkela — inyanga inokuba iseduze",
+    "unknown": "Rekhoda iinyanga ezininzi ukuze ufumane iimfuno",
+    "bookAnyway": "Bhukisha nangona kunjalo",
+    "chooseDate": "Khetha usuku olunye"
+  },
+  "onboarding": {
+    "title": "Wamkelekile ku-TARA-S",
+    "subtitle": "Masazi umjikelo wakho",
+    "step1": "Inyanga yakho yokuqala yaqala nini?",
+    "step2": "Eyangaphambili?",
+    "step3": "Eyangaphambili? (akufunekanga)",
+    "skip": "Tsiba — Ndiza kufaka oku emva koku",
+    "continue": "Qhubeka",
+    "done": "Masiye"
+  },
+  "insights": {
+    "title": "Iingcaciso Zakho",
+    "subtitle": "Kususelwa kwimbali yomjikelo wakho"
+  },
+  "privacy": {
+    "title": "Idatha Yakho Kunye Nobumfihlo",
+    "subtitle": "Sikholelwa ekusobalaleni okugqibeleleyo",
+    "export": "Khuphela idatha yam (CSV)",
+    "delete": "Cima i-akhawunti yam ngokugqibeleleyo",
+    "stored": "Idatha yakho igcinwe ngokukhuselekileyo kwiiseva ze-Supabase e-EU.",
+    "collected": "Siqokelela: iintsuku zenyanga, amalogi ezimpawu, iintsuku ze-aphoyintimenti. Akukho nto yimbi.",
+    "never": "Asisoze sithengise idatha yakho. Nangaliphi na ixesha."
+  }
+}

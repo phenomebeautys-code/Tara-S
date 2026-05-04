@@ -1,0 +1,65 @@
+.card {
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  border: 1.5px solid var(--color-border);
+  transition: background 0.4s;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phaseBadge {
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.cycleDay {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+.countdown {
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.countdown strong {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+.skinNote {
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.5;
+  opacity: 0.85;
+}
+
+.ctaBtn {
+  display: block;
+  text-align: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-top: var(--space-2);
+  transition: opacity 0.2s;
+}
+
+.ctaBtn:hover { opacity: 0.85; }

@@ -1,0 +1,51 @@
+{
+  "app": {
+    "name": "TARA-S",
+    "tagline": "Jou siklus-metgesel"
+  },
+  "home": {
+    "today": "Vandag",
+    "cycleDay": "Siklusdag",
+    "daysUntil": "dae tot jou volgende tydperk",
+    "bookNow": "Bespreek 'n Phenomebeauty-afspraak",
+    "logPeriod": "Teken tydperkbegin aan"
+  },
+  "phases": {
+    "Menstrual": "Menstruasie",
+    "Follicular": "Follikulêre fase",
+    "Ovulation": "Ovulasie",
+    "Luteal": "Luteale fase",
+    "unknown": "Teken jou eerste tydperk aan om te begin"
+  },
+  "risk": {
+    "low": "Lyk goed — bespreek vrylik",
+    "medium": "Effense onsekerheid — onreëlmatige siklusse",
+    "high": "Versigtig — tydperk mag naby wees",
+    "unknown": "Teken meer tydperke aan vir voorspellings",
+    "bookAnyway": "Bespreek tog",
+    "chooseDate": "Kies 'n ander datum"
+  },
+  "onboarding": {
+    "title": "Welkom by TARA-S",
+    "subtitle": "Kom ons leer jou siklus ken",
+    "step1": "Wanneer het jou laaste tydperk begin?",
+    "step2": "En die een voor dit?",
+    "step3": "En die een voor dit? (opsioneel)",
+    "skip": "Slaan oor — ek sal dit later byvoeg",
+    "continue": "Gaan voort",
+    "done": "Kom ons gaan"
+  },
+  "insights": {
+    "title": "Jou Insigte",
+    "subtitle": "Gebaseer op jou siklusgeskiedenis"
+  },
+  "privacy": {
+    "title": "Jou Data en Privaatheid",
+    "subtitle": "Ons glo in radikale deursigtigheid",
+    "export": "Laai my data af (CSV)",
+    "delete": "Vee my rekening permanent uit",
+    "stored": "Jou data word veilig gestoor op Supabase-bedieners in die EU.",
+    "collected": "Ons versamel: tydperkdatums, simptoomloglêers, afspraakdatums. Niks anders nie.",
+    "never": "Ons verkoop nooit jou data nie. Ooit."
+  }
+}

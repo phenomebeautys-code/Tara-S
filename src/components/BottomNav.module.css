@@ -1,0 +1,33 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  background: var(--color-surface);
+  border-top: 1.5px solid var(--color-border);
+  padding: 0 var(--space-2);
+  z-index: 100;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition: color 0.2s;
+}
+
+.item.active { color: var(--color-primary); }
+
+.icon { font-size: 1.25rem; line-height: 1; }
+.label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
