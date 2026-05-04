@@ -1,11 +1,14 @@
+'use client'
 import type { CycleStats, CyclePhase } from '@/lib/hooks/useCycleStats'
+import CycleRing from './CycleRing'
 import styles from './TodayCard.module.css'
 
-const PHASE_CLASS: Record<string, string> = {
-  Menstrual:  'phase-menstrual',
-  Follicular: 'phase-follicular',
-  Ovulation:  'phase-ovulation',
-  Luteal:     'phase-luteal',
+const PHASE_DESCRIPTIONS: Record<string, string> = {
+  Menstrual:  'Your body is releasing. Rest, warmth, and gentle movement support you best right now.',
+  Follicular: 'Energy is rising. Your skin is clearer, your mind sharper — a great time to plan and create.',
+  Ovulation:  'You are at your peak. Confidence is high, skin is luminous, and connection comes naturally.',
+  Luteal:     'Slowing down is wisdom. Your body is preparing — honour rest and reduce stimulation.',
+  unknown:    'Log your first period to unlock your personal cycle insights.',
 }
 
 function daysUntil(dateStr: string | null): number | null {
@@ -22,26 +25,37 @@ export default function TodayCard({
   phase: CyclePhase | null
 }) {
   const phaseName = phase?.phase_name ?? 'unknown'
-  const phaseClass = PHASE_CLASS[phaseName] ?? ''
+  const cycleDay = phase?.cycle_day ?? 0
+  const cycleLength = stats?.avg_cycle_length ?? 28
   const countdown = daysUntil(stats?.predicted_next_start ?? null)
+  const description = PHASE_DESCRIPTIONS[phaseName] ?? PHASE_DESCRIPTIONS.unknown
+  const skinNote = phase?.phase_skin_note
 
   return (
-    <div className={`${styles.card} ${phaseClass}`}>
+    <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
       <div className={styles.top}>
-        <span className={`display ${styles.phaseBadge}`}>{phaseName}</span>
-        {phase && (
-          <span className={styles.cycleDay}>Day {phase.cycle_day}</span>
-        )}
+        <div className={styles.phaseInfo}>
+          <span className={`display ${styles.phaseName}`}>{phaseName}</span>
+          {countdown !== null && countdown >= 0 && (
+            <span className={styles.countdown}>
+              {countdown === 0 ? 'Period due today' : `${countdown}d until next period`}
+            </span>
+          )}
+        </div>
+        <CycleRing
+          cycleDay={cycleDay}
+          cycleLength={cycleLength}
+          phaseName={phaseName}
+        />
       </div>
 
-      {countdown !== null && countdown >= 0 && (
-        <p className={styles.countdown}>
-          <strong>{countdown}</strong> days until your next period
-        </p>
-      )}
+      <p className={styles.description}>{description}</p>
 
-      {phase?.phase_skin_note && (
-        <p className={`display ${styles.skinNote}`}>{phase.phase_skin_note}</p>
+      {skinNote && (
+        <div className={styles.skinNote}>
+          <span className={styles.skinLabel}>Skin today</span>
+          <p className={`display ${styles.skinText}`}>{skinNote}</p>
+        </div>
       )}
     </div>
   )

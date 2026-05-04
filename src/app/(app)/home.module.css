@@ -1,4 +1,13 @@
-.page { display: flex; flex-direction: column; gap: var(--space-5); }
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding-bottom: calc(72px + var(--space-6));
+  min-height: 100dvh;
+  padding-top: var(--space-5);
+  padding-left: var(--space-5);
+  padding-right: var(--space-5);
+}
 
 .header {
   display: flex;
@@ -8,14 +17,22 @@
 }
 
 .logo {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 300;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   color: var(--color-primary);
 }
 
+.greeting {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
 .skeleton {
-  height: 220px;
+  height: 280px;
   border-radius: var(--radius-lg);
   background: linear-gradient(90deg, var(--color-border) 25%, var(--color-surface) 50%, var(--color-border) 75%);
   background-size: 200% 100%;
@@ -23,6 +40,6 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
+  0%  { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }

@@ -6,6 +6,13 @@ import TodayCard from '@/components/TodayCard'
 import PwaPrompt from '@/components/PwaPrompt'
 import styles from './home.module.css'
 
+function getGreeting() {
+  const h = new Date().getHours()
+  if (h < 12) return 'Good morning'
+  if (h < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
 export default function HomePage() {
   const [userId, setUserId] = useState<string | null>(null)
 
@@ -20,6 +27,7 @@ export default function HomePage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <span className={`display ${styles.logo}`}>TARA-S</span>
+        <span className={styles.greeting}>{getGreeting()}</span>
       </header>
 
       {loading ? (
