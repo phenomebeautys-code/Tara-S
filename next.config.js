@@ -1,5 +1,20 @@
-// This file is intentionally empty.
-// next-intl is configured in next.config.mjs
-// This file exists only to prevent Next.js from complaining about its absence.
-// It will be ignored in favour of next.config.mjs
-module.exports = {}
+// @ts-check
+const createNextIntlPlugin = require('next-intl/plugin')
+const withNextIntl = createNextIntlPlugin('./i18n.ts')
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache' },
+          { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },
+        ],
+      },
+    ]
+  },
+}
+
+module.exports = withNextIntl(nextConfig)

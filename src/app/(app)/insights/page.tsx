@@ -2,12 +2,10 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
-import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import styles from './insights.module.css'
 
 export default function InsightsPage() {
-  const t = useTranslations('insights')
   const [insights, setInsights] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -25,9 +23,9 @@ export default function InsightsPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>{t('eyebrow')}</p>
-        <h1 className={`display ${styles.title}`}>{t('title')}</h1>
-        <p className={styles.subtitle}>{t('subtitle')}</p>
+        <p className={styles.eyebrow}>Insights</p>
+        <h1 className={`display ${styles.title}`}>What your body is telling you.</h1>
+        <p className={styles.subtitle}>Patterns drawn from what you have logged.</p>
       </header>
 
       {loading ? (
@@ -36,15 +34,15 @@ export default function InsightsPage() {
         </div>
       ) : insights.length === 0 ? (
         <div className={styles.empty}>
-          <p className={styles.emptyTitle}>{t('empty_title')}</p>
-          <p className={styles.emptyBody}>{t('empty_body')}</p>
-          <Link href="/log" className={styles.emptyLink}>{t('empty_cta')}</Link>
+          <p className={styles.emptyTitle}>Your patterns will surface here as you log.</p>
+          <p className={styles.emptyBody}>Begin with your last period.</p>
+          <Link href="/log" className={styles.emptyLink}>Log a period</Link>
         </div>
       ) : (
         <ul className={styles.list}>
           {insights.map((insight, i) => (
             <li key={i} className={styles.item}>
-              <span className={styles.itemPrefix}>{t('prefix')}</span>
+              <span className={styles.itemPrefix}>Tara noticed —</span>
               <span className={styles.itemText}>{insight}</span>
             </li>
           ))}
