@@ -131,7 +131,7 @@ export default function OnboardingPage() {
           </button>
           {!current.required && (
             <button className={styles.skipBtn} onClick={handleSkip}>
-              I am not sure — continue anyway
+              I am not sure, continue anyway
             </button>
           )}
         </div>
