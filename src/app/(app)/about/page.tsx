@@ -26,7 +26,7 @@ export default function AboutPage() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>The mission</h2>
-        <p>Built by Phenome for South African women. Not imported, not adapted. Made here, from here, for you. Every phase, every symptom, every skin note was written with the South African woman in mind, in the land where the oldest understanding of the female body was first spoken aloud.</p>
+        <p>Built by Phenomebeauty for South African women. Not imported, not adapted. Made here, from here, for you. Every phase, every symptom, every skin note was written with the South African woman in mind, in the land where the oldest understanding of the female body was first spoken aloud.</p>
       </section>
 
       <footer className={styles.footer}>
