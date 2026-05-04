@@ -15,6 +15,39 @@
   gap: var(--space-6);
 }
 
+/* Welcome screen */
+.welcomeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.welcomeTitle {
+  font-size: 3.5rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+}
+
+.welcomeMeaning {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.welcomeBody {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  max-width: 30ch;
+  padding-top: var(--space-2);
+}
+
 /* Dot progress */
 .dots {
   display: flex;
@@ -32,7 +65,7 @@
 
 .dotActive {
   background: var(--color-primary);
-  transform: scale(1.4);
+  transform: scale(1.5);
 }
 
 .dotDone {
@@ -61,8 +94,9 @@
   color: var(--color-text-muted);
 }
 
-/* Date input */
-.dateInput {
+/* Inputs */
+.dateInput,
+.textInput {
   width: 100%;
   padding: var(--space-4);
   border: 1.5px solid var(--color-border);
@@ -74,7 +108,15 @@
   transition: border-color 0.2s;
 }
 
-.dateInput:focus { border-color: var(--color-primary); }
+.dateInput:focus,
+.textInput:focus {
+  border-color: var(--color-primary);
+}
+
+.textInput::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
 
 /* Actions */
 .actions {
@@ -104,7 +146,7 @@
   font-size: 0.875rem;
   padding: var(--space-2);
   font-style: italic;
-  opacity: 0.8;
+  opacity: 0.7;
   transition: opacity 0.2s;
 }
 
@@ -115,16 +157,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  text-align: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .readyTitle {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-weight: 300;
   font-style: italic;
   color: var(--color-primary);
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: 0.02em;
 }
 
@@ -132,5 +173,5 @@
   font-size: 0.975rem;
   line-height: 1.8;
   color: var(--color-text-muted);
-  max-width: 30ch;
+  max-width: 32ch;
 }

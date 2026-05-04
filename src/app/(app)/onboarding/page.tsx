@@ -5,7 +5,9 @@ import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
 import { useRouter } from 'next/navigation'
 import styles from './onboarding.module.css'
 
-const STEPS = [
+type Stage = 'welcome' | 'name' | 'dates' | 'ready'
+
+const DATE_STEPS = [
   {
     question: 'When did your last period begin?',
     sub: 'This helps us find where you are in your cycle today.',
@@ -24,23 +26,39 @@ const STEPS = [
 ]
 
 export default function OnboardingPage() {
-  const [step, setStep] = useState(0)
+  const [stage, setStage] = useState<Stage>('welcome')
+  const [name, setName] = useState('')
+  const [dateStep, setDateStep] = useState(0)
   const [dates, setDates] = useState<(string | null)[]>([null, null, null])
-  const [ready, setReady] = useState(false)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   function setDate(val: string) {
     const next = [...dates]
-    next[step] = val || null
+    next[dateStep] = val || null
     setDates(next)
   }
 
-  async function save() {
+  function handleDateContinue() {
+    if (dateStep < DATE_STEPS.length - 1) {
+      setDateStep(dateStep + 1)
+    } else {
+      setStage('ready')
+    }
+  }
+
+  async function handleEnter() {
     setLoading(true)
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
+
+    if (name.trim()) {
+      await supabase
+        .from('users')
+        .update({ display_name: name.trim() })
+        .eq('id', user.id)
+    }
 
     const validDates = dates.filter(Boolean).sort() as string[]
     for (const d of validDates) {
@@ -55,34 +73,84 @@ export default function OnboardingPage() {
     router.push('/')
   }
 
-  function handleContinue() {
-    if (step < STEPS.length - 1) {
-      setStep(step + 1)
-    } else {
-      setReady(true)
-    }
+  // Welcome breath screen
+  if (stage === 'welcome') {
+    return (
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          <div className={styles.welcomeWrap}>
+            <p className={`display ${styles.welcomeTitle}`}>tara-s</p>
+            <p className={styles.welcomeMeaning}>The woman, in Khoekhoegowab.</p>
+            <p className={styles.welcomeBody}>
+              Before we begin, a few questions to find your rhythm.
+            </p>
+            <button
+              className={styles.primaryBtn}
+              onClick={() => setStage('name')}
+            >
+              I am ready
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
-  function handleSkip() {
-    if (step < STEPS.length - 1) {
-      setStep(step + 1)
-    } else {
-      setReady(true)
-    }
+  // Name screen
+  if (stage === 'name') {
+    return (
+      <div className={styles.container}>
+        <div className={styles.inner}>
+          <div className={styles.questionWrap}>
+            <p className={`display ${styles.question}`}>What do you go by?</p>
+            <p className={styles.sub}>TARA-S will use this to greet you.</p>
+          </div>
+
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name"
+            autoComplete="given-name"
+            className={styles.textInput}
+          />
+
+          <div className={styles.actions}>
+            <button
+              className={styles.primaryBtn}
+              onClick={() => setStage('dates')}
+              disabled={!name.trim()}
+            >
+              Continue
+            </button>
+            <button
+              className={styles.skipBtn}
+              onClick={() => setStage('dates')}
+            >
+              Continue without a name
+            </button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
-  if (ready) {
+  // Ready screen
+  if (stage === 'ready') {
+    const firstName = name.trim()
     return (
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.readyWrap}>
-            <p className={`display ${styles.readyTitle}`}>You are ready.</p>
+            <p className={`display ${styles.readyTitle}`}>
+              {firstName ? `You are ready, ${firstName}.` : 'You are ready.'}
+            </p>
             <p className={styles.readySub}>
               TARA-S will learn alongside you. The more you log, the more she understands.
             </p>
             <button
               className={styles.primaryBtn}
-              onClick={save}
+              onClick={handleEnter}
               disabled={loading}
             >
               {loading ? 'One moment...' : 'Enter'}
@@ -93,17 +161,18 @@ export default function OnboardingPage() {
     )
   }
 
-  const current = STEPS[step]
+  // Date steps
+  const current = DATE_STEPS[dateStep]
 
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
 
         <div className={styles.dots}>
-          {STEPS.map((_, i) => (
+          {DATE_STEPS.map((_, i) => (
             <span
               key={i}
-              className={`${styles.dot} ${i === step ? styles.dotActive : ''} ${i < step ? styles.dotDone : ''}`}
+              className={`${styles.dot} ${i === dateStep ? styles.dotActive : ''} ${i < dateStep ? styles.dotDone : ''}`}
             />
           ))}
         </div>
@@ -115,7 +184,7 @@ export default function OnboardingPage() {
 
         <input
           type="date"
-          value={dates[step] ?? ''}
+          value={dates[dateStep] ?? ''}
           onChange={(e) => setDate(e.target.value)}
           max={new Date().toISOString().split('T')[0]}
           className={styles.dateInput}
@@ -124,13 +193,13 @@ export default function OnboardingPage() {
         <div className={styles.actions}>
           <button
             className={styles.primaryBtn}
-            onClick={handleContinue}
-            disabled={current.required && !dates[step]}
+            onClick={handleDateContinue}
+            disabled={current.required && !dates[dateStep]}
           >
             Continue
           </button>
           {!current.required && (
-            <button className={styles.skipBtn} onClick={handleSkip}>
+            <button className={styles.skipBtn} onClick={handleDateContinue}>
               I am not sure, continue anyway
             </button>
           )}
