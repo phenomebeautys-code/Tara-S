@@ -60,7 +60,7 @@
   border-color: var(--color-primary);
 }
 
-.form button {
+.form button[type='submit'] {
   width: 100%;
   padding: var(--space-3) var(--space-4);
   background: var(--color-primary);
@@ -72,16 +72,31 @@
   transition: background 0.2s, opacity 0.2s;
 }
 
-.form button:hover { background: var(--color-accent); }
-.form button:disabled { opacity: 0.6; }
+.form button[type='submit']:hover { background: var(--color-accent); }
+.form button[type='submit']:disabled { opacity: 0.6; }
 
-.sent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
+.error {
+  font-size: 0.875rem;
+  color: #e53e3e;
   text-align: center;
-  color: var(--color-text-muted);
 }
 
-.sent span { font-size: 2.5rem; }
+.toggle {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.toggle button {
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.toggle button:hover {
+  text-decoration: underline;
+}
