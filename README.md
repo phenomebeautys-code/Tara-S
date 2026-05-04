@@ -71,6 +71,7 @@ All schema + logic lives in Supabase migrations:
 - All tables have RLS — users access only their own data
 - Cascade deletes — one user deletion wipes all related data
 - One-tap CSV export and account deletion in `/privacy`
+- 
 - No analytics, no third-party data sharing
 
 ## Roadmap
