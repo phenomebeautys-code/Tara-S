@@ -1,5 +1,4 @@
 import { getRequestConfig } from 'next-intl/server'
-import { cookies } from 'next/headers'
 
 export const locales = ['en', 'af', 'zu', 'xh'] as const
 export type Locale = typeof locales[number]
@@ -13,11 +12,12 @@ export const localeNames: Record<Locale, string> = {
 }
 
 export default getRequestConfig(async ({ requestLocale }) => {
-  const locale = (await requestLocale) ?? defaultLocale
-  const validLocale = locales.includes(locale as Locale) ? (locale as Locale) : defaultLocale
-
+  let locale = await requestLocale
+  if (!locale || !locales.includes(locale as Locale)) {
+    locale = defaultLocale
+  }
   return {
-    locale: validLocale,
-    messages: (await import(`./messages/${validLocale}.json`)).default,
+    locale,
+    messages: (await import(`./messages/${locale}.json`)).default,
   }
 })
