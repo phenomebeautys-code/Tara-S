@@ -9,7 +9,7 @@ export default function PrivacyPage() {
   const router = useRouter()
 
   async function handleDelete() {
-    if (!confirm('This will permanently delete all your data. This cannot be undone.')) return
+    if (!confirm('This will permanently delete everything. It cannot be undone. Are you sure?')) return
     setDeleting(true)
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -58,32 +58,37 @@ export default function PrivacyPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={`display ${styles.title}`}>Your Data &amp; Privacy</h1>
-      <p className={styles.subtitle}>We believe in radical transparency</p>
+
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>Privacy</p>
+        <h1 className={`display ${styles.title}`}>What we hold, and why.</h1>
+        <p className={styles.subtitle}>This is yours. All of it.</p>
+      </header>
 
       <div className={styles.section}>
-        <h2>What we collect</h2>
-        <p>Period start and end dates, symptom logs, appointment dates. Nothing else.</p>
+        <h2 className={styles.sectionTitle}>What we collect</h2>
+        <p>Your dates. Your symptoms. Nothing else. We do not need your location, your contacts, or your habits outside this app.</p>
       </div>
 
       <div className={styles.section}>
-        <h2>Where it&apos;s stored</h2>
-        <p>Securely on Supabase servers in the EU. Your data is never shared or sold.</p>
+        <h2 className={styles.sectionTitle}>Where it lives</h2>
+        <p>Securely held on servers in the EU. Never shared. Never sold. Not to anyone, for any reason.</p>
       </div>
 
       <div className={styles.section}>
-        <h2>Your rights</h2>
-        <p>You own your data. Export or delete it at any time, instantly.</p>
+        <h2 className={styles.sectionTitle}>What you can do</h2>
+        <p>Take it all with you, or let it go completely. One tap to download everything. One tap to delete it all, forever.</p>
       </div>
 
       <div className={styles.actions}>
         <button className={styles.exportBtn} onClick={handleExport}>
-          Download my data (CSV)
+          Download my data
         </button>
         <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
-          {deleting ? 'Deleting...' : 'Delete my account permanently'}
+          {deleting ? 'Deleting...' : 'Delete everything'}
         </button>
       </div>
+
     </div>
   )
 }

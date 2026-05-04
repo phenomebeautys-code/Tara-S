@@ -1,60 +1,96 @@
-.page { display: flex; flex-direction: column; gap: var(--space-5); }
-
-.title {
-  font-size: 2rem;
-  font-weight: 300;
-  color: var(--color-primary);
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
 }
 
-.subtitle { color: var(--color-text-muted); margin-top: calc(-1 * var(--space-4)); }
-
-.section {
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-4);
+.header {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.section h2 {
-  font-size: 0.875rem;
+.eyebrow {
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
   color: var(--color-text-muted);
 }
 
-.section p { font-size: 0.95rem; line-height: 1.6; }
+.title {
+  font-size: 2.6rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--color-primary);
+  letter-spacing: 0.02em;
+}
 
-.actions { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-3); }
+.subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text-muted);
+  letter-spacing: 0.01em;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.section p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
 
 .exportBtn {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4);
   background: var(--color-surface);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-full);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--color-text);
   transition: border-color 0.2s;
 }
 
-.exportBtn:hover { border-color: var(--color-primary); }
+.exportBtn:hover { border-color: var(--color-primary); color: var(--color-primary); }
 
 .deleteBtn {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
-  background: color-mix(in srgb, var(--risk-high) 8%, var(--color-bg));
-  border: 1.5px solid var(--risk-high);
+  padding: var(--space-4);
+  background: transparent;
+  border: 1.5px solid color-mix(in srgb, var(--risk-high) 40%, transparent);
   border-radius: var(--radius-full);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--risk-high);
-  transition: background 0.2s;
+  opacity: 0.7;
+  transition: opacity 0.2s, border-color 0.2s;
 }
 
-.deleteBtn:hover { background: color-mix(in srgb, var(--risk-high) 15%, var(--color-bg)); }
-.deleteBtn:disabled { opacity: 0.5; }
+.deleteBtn:hover { opacity: 1; border-color: var(--risk-high); }
+.deleteBtn:disabled { opacity: 0.3; }
