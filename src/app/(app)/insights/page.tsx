@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
+import Link from 'next/link'
 import styles from './insights.module.css'
 
 export default function InsightsPage() {
@@ -21,20 +22,34 @@ export default function InsightsPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={`display ${styles.title}`}>Your Insights</h1>
-      <p className={styles.subtitle}>Based on your cycle history</p>
+
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>Insights</p>
+        <h1 className={`display ${styles.title}`}>What your body is telling you.</h1>
+        <p className={styles.subtitle}>Patterns drawn from what you have logged.</p>
+      </header>
 
       {loading ? (
-        <div className={styles.skeleton} />
+        <div className={styles.skeletonList}>
+          {[1, 2, 3].map((n) => <div key={n} className={styles.skeletonItem} />)}
+        </div>
       ) : insights.length === 0 ? (
-        <p className={styles.empty}>No insights yet — log your first period to get started.</p>
+        <div className={styles.empty}>
+          <p className={styles.emptyTitle}>Your patterns will surface here as you log.</p>
+          <p className={styles.emptyBody}>Begin with your last period.</p>
+          <Link href="/log" className={styles.emptyLink}>Log a period</Link>
+        </div>
       ) : (
         <ul className={styles.list}>
           {insights.map((insight, i) => (
-            <li key={i} className={styles.item}>{insight}</li>
+            <li key={i} className={styles.item}>
+              <span className={styles.itemPrefix}>We noticed —</span>
+              <span className={styles.itemText}>{insight}</span>
+            </li>
           ))}
         </ul>
       )}
+
     </div>
   )
 }
