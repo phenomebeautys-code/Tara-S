@@ -1,51 +1,65 @@
 {
-  "app": {
-    "name": "TARA-S",
-    "tagline": "Your cycle companion"
+  "nav": {
+    "home": "Home",
+    "log": "Log",
+    "insights": "Insights",
+    "about": "About",
+    "privacy": "Privacy"
   },
   "home": {
-    "today": "Today",
-    "cycleDay": "Cycle day",
-    "daysUntil": "days until your next period",
-    "bookNow": "Book a Phenomebeauty appointment",
-    "logPeriod": "Log period start"
+    "greeting_morning": "Good morning",
+    "greeting_afternoon": "Good afternoon",
+    "greeting_evening": "Good evening"
   },
-  "phases": {
-    "Menstrual": "Menstrual",
-    "Follicular": "Follicular",
-    "Ovulation": "Ovulation",
-    "Luteal": "Luteal",
-    "unknown": "Log your first period to get started"
-  },
-  "risk": {
-    "low": "Looking good — book freely",
-    "medium": "Some uncertainty — irregular cycles",
-    "high": "Caution — period may be near",
-    "unknown": "Log more periods to enable predictions",
-    "bookAnyway": "Book anyway",
-    "chooseDate": "Choose another date"
-  },
-  "onboarding": {
-    "title": "Welcome to TARA-S",
-    "subtitle": "Let's get to know your cycle",
-    "step1": "When did your last period start?",
-    "step2": "And the one before that?",
-    "step3": "And the one before that? (optional)",
-    "skip": "Skip — I'll add this later",
-    "continue": "Continue",
-    "done": "Let's go"
+  "log": {
+    "eyebrow": "Log",
+    "title": "tara-s",
+    "meaning": "The woman, in Khoekhoegowab.",
+    "body": "She has always known her body. This space is yours to remember.",
+    "section_period": "When did it begin?",
+    "section_symptoms": "How are you feeling today?",
+    "flow_light": "light",
+    "flow_medium": "medium",
+    "flow_heavy": "heavy",
+    "symptom_cramps": "Cramps",
+    "symptom_bloating": "Bloating",
+    "symptom_skin_breakout": "Skin breakout",
+    "symptom_low_energy": "Low energy",
+    "symptom_mood_low": "Mood low",
+    "symptom_headache": "Headache",
+    "save": "Save to Tara",
+    "saving": "Saving...",
+    "saved": "Saved ✓"
   },
   "insights": {
-    "title": "Your Insights",
-    "subtitle": "Based on your cycle history"
+    "eyebrow": "Insights",
+    "title": "What your body is telling you.",
+    "subtitle": "Patterns drawn from what you have logged.",
+    "prefix": "Tara noticed —",
+    "empty_title": "Your patterns will surface here as you log.",
+    "empty_body": "Begin with your last period.",
+    "empty_cta": "Log a period"
   },
   "privacy": {
-    "title": "Your Data & Privacy",
-    "subtitle": "We believe in radical transparency",
-    "export": "Download my data (CSV)",
-    "delete": "Delete my account permanently",
-    "stored": "Your data is stored securely on Supabase servers in the EU.",
-    "collected": "We collect: period dates, symptom logs, appointment dates. Nothing else.",
-    "never": "We never sell your data. Ever."
+    "eyebrow": "Privacy",
+    "title": "What we hold, and why.",
+    "subtitle": "This is yours. All of it.",
+    "section_collect_title": "What we collect",
+    "section_collect_body": "Your dates. Your symptoms. Nothing else. We do not need your location, your contacts, or your habits outside this app.",
+    "section_storage_title": "Where it lives",
+    "section_storage_body": "Securely held on servers in the EU. Never shared. Never sold. Not to anyone, for any reason.",
+    "section_control_title": "What you can do",
+    "section_control_body": "Take it all with you, or let it go completely. One tap to download everything. One tap to delete it all, forever.",
+    "export_btn": "Download my data",
+    "delete_btn": "Delete everything",
+    "delete_confirm": "This will permanently delete everything. It cannot be undone. Are you sure?",
+    "deleting": "Deleting..."
+  },
+  "about": {
+    "eyebrow": "About"
+  },
+  "common": {
+    "app_name": "TARA-S",
+    "language_label": "Language"
   }
 }

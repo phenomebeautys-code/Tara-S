@@ -1,51 +1,68 @@
 {
-  "app": {
-    "name": "TARA-S",
-    "tagline": "Umhlobo wakho womjikelo"
+  "_notes": "Xhosa translations verified against: UNISA Learn Online Xhosa Theme 9 (body and wellness); Scribd Xhosa body parts and health phrases; Ndiphethwe construction from academic sources. Emotionally weighted strings flagged for human review.",
+  "nav": {
+    "home": "Ikhaya",
+    "log": "Rekhoda",
+    "insights": "Ulwazi",
+    "about": "Malunga",
+    "privacy": "Imfihlo"
   },
   "home": {
-    "today": "Namhlanje",
-    "cycleDay": "Usuku lomjikelo",
-    "daysUntil": "iintsuku de kufike inyanga yakho elandelayo",
-    "bookNow": "Bhukisha i-aphoyintimenti ye-Phenomebeauty",
-    "logPeriod": "Rekhoda ukuqala kwexesha"
+    "greeting_morning": "Molo ekuseni",
+    "greeting_afternoon": "Molo emini",
+    "greeting_evening": "Molo ngokuhlwa"
   },
-  "phases": {
-    "Menstrual": "Inyanga",
-    "Follicular": "Ixesha lokukhula",
-    "Ovulation": "Ixesha lokuzala",
-    "Luteal": "Ixesha lokucinga",
-    "unknown": "Rekhoda inyanga yakho yokuqala ukuze uqale"
-  },
-  "risk": {
-    "low": "Kubukeka kakuhle — bhukisha ngokukhululeka",
-    "medium": "Kukho ukungaqiniseki — imijikelo engalinganiyo",
-    "high": "Lumkela — inyanga inokuba iseduze",
-    "unknown": "Rekhoda iinyanga ezininzi ukuze ufumane iimfuno",
-    "bookAnyway": "Bhukisha nangona kunjalo",
-    "chooseDate": "Khetha usuku olunye"
-  },
-  "onboarding": {
-    "title": "Wamkelekile ku-TARA-S",
-    "subtitle": "Masazi umjikelo wakho",
-    "step1": "Inyanga yakho yokuqala yaqala nini?",
-    "step2": "Eyangaphambili?",
-    "step3": "Eyangaphambili? (akufunekanga)",
-    "skip": "Tsiba — Ndiza kufaka oku emva koku",
-    "continue": "Qhubeka",
-    "done": "Masiye"
+  "log": {
+    "eyebrow": "Rekhoda",
+    "title": "tara-s",
+    "meaning": "Umfazi, ngolwimi lwamaKhoekhoe.",
+    "body": "Ubehlala azi umzimba wakhe. Le ndawo yeyakho ukukhumbula.",
+    "section_period": "Yaqala nini?",
+    "section_symptoms": "Uziva njani namhlanje?",
+    "flow_light": "kancinci",
+    "flow_medium": "phakathi",
+    "flow_heavy": "kakhulu",
+    "symptom_cramps": "Izihlabo",
+    "symptom_bloating": "Ukuvuvuka kwesisu",
+    "symptom_skin_breakout": "Iziphaluka zolusu",
+    "symptom_skin_breakout_review": "// NEEDS HUMAN REVIEW",
+    "symptom_low_energy": "Amandla aphantsi",
+    "symptom_mood_low": "Inkxalabo ephantsi",
+    "symptom_mood_low_review": "// NEEDS HUMAN REVIEW — register uncertain",
+    "symptom_headache": "Intloko ebuhlungu",
+    "save": "Gcina ku-Tara",
+    "saving": "Igcina...",
+    "saved": "Kugcinwe ✓"
   },
   "insights": {
-    "title": "Iingcaciso Zakho",
-    "subtitle": "Kususelwa kwimbali yomjikelo wakho"
+    "eyebrow": "Ulwazi",
+    "title": "Oko umzimba wakho ukuxelela.",
+    "subtitle": "Iinkqubo ezivela kwinto oyirekhodileyo.",
+    "prefix": "UTara uqaphele —",
+    "empty_title": "Iinkqubo zakho ziya kubonakala apha njengoko urekhoda.",
+    "empty_body": "Qala ngexesha lakho lokugqibela.",
+    "empty_cta": "Rekhoda ixesha"
   },
   "privacy": {
-    "title": "Idatha Yakho Kunye Nobumfihlo",
-    "subtitle": "Sikholelwa ekusobalaleni okugqibeleleyo",
-    "export": "Khuphela idatha yam (CSV)",
-    "delete": "Cima i-akhawunti yam ngokugqibeleleyo",
-    "stored": "Idatha yakho igcinwe ngokukhuselekileyo kwiiseva ze-Supabase e-EU.",
-    "collected": "Siqokelela: iintsuku zenyanga, amalogi ezimpawu, iintsuku ze-aphoyintimenti. Akukho nto yimbi.",
-    "never": "Asisoze sithengise idatha yakho. Nangaliphi na ixesha."
+    "eyebrow": "Imfihlo",
+    "title": "Esibambele yona, kunye nesizathu.",
+    "subtitle": "Oku ngokwakho. Konke.",
+    "section_collect_title": "Esikuqoqayo",
+    "section_collect_body": "Iintsuku zakho. Iimpawu zakho. Akunye. Asifuni indawo yakho, abantu obaxhumana nabo, okanye imikhwa yakho ngaphandle kwesi app.",
+    "section_storage_title": "Apho ihlala khona",
+    "section_storage_body": "Igcinwe ngokhuselo kwiiseva ze-EU. Ayabelwani. Ayathengiswa. Nakubani, nangaluphi na uzathu.",
+    "section_control_title": "Unokwenza ntoni",
+    "section_control_body": "Thabatha konke nawe, okanye yiyeke ngokupheleleyo. Cofa kanye ukuze ulayishe konke. Cofa kanye ukucima konke, ngonaphakade.",
+    "export_btn": "Layisha idatha yam",
+    "delete_btn": "Cima konke",
+    "delete_confirm": "Oku kuya kucima konke ngonaphakade. Akuphindwa. Uqinisekile?",
+    "deleting": "Iyacima..."
+  },
+  "about": {
+    "eyebrow": "Malunga"
+  },
+  "common": {
+    "app_name": "TARA-S",
+    "language_label": "Ulwimi"
   }
 }
