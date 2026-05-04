@@ -3,24 +3,23 @@
   padding: var(--space-5);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-5);
   border: 1.5px solid transparent;
   transition: background 0.6s ease, border-color 0.6s ease;
-  text-align: center;
 }
 
-.ringRow {
+.top {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
 
 .phaseInfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--space-2);
+  flex: 1;
 }
 
 .phaseName {
@@ -43,19 +42,15 @@
   font-size: 0.975rem;
   line-height: 1.7;
   opacity: 0.85;
-  max-width: 30ch;
-  text-align: center;
 }
 
 .skinNote {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: var(--space-1);
   padding-top: var(--space-4);
   border-top: 1px solid currentColor;
   opacity: 0.6;
-  width: 100%;
 }
 
 .skinLabel {
@@ -69,5 +64,4 @@
   font-size: 1rem;
   font-style: italic;
   line-height: 1.5;
-  text-align: center;
 }

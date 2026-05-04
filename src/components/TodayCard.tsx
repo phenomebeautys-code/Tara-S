@@ -33,22 +33,20 @@ export default function TodayCard({
 
   return (
     <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
-
-      <div className={styles.ringRow}>
+      <div className={styles.top}>
+        <div className={styles.phaseInfo}>
+          <span className={`display ${styles.phaseName}`}>{phaseName}</span>
+          {countdown !== null && countdown >= 0 && (
+            <span className={styles.countdown}>
+              {countdown === 0 ? 'Period due today' : `${countdown} days until next period`}
+            </span>
+          )}
+        </div>
         <CycleRing
           cycleDay={cycleDay}
           cycleLength={cycleLength}
           phaseName={phaseName}
         />
-      </div>
-
-      <div className={styles.phaseInfo}>
-        <span className={`display ${styles.phaseName}`}>{phaseName}</span>
-        {countdown !== null && countdown >= 0 && (
-          <span className={styles.countdown}>
-            {countdown === 0 ? 'Period due today' : `${countdown} days until next period`}
-          </span>
-        )}
       </div>
 
       <p className={styles.description}>{description}</p>

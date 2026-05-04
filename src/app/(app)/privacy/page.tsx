@@ -14,7 +14,6 @@ export default function PrivacyPage() {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
-      // Cascade deletes all related rows via FK constraints
       await supabase.from('users').delete().eq('id', user.id)
       await supabase.auth.signOut()
     }
@@ -74,15 +73,15 @@ export default function PrivacyPage() {
 
       <div className={styles.section}>
         <h2>Your rights</h2>
-        <p>You own your data. Export or delete it at any time — instantly.</p>
+        <p>You own your data. Export or delete it at any time, instantly.</p>
       </div>
 
       <div className={styles.actions}>
         <button className={styles.exportBtn} onClick={handleExport}>
-          ⬇ Download my data (CSV)
+          Download my data (CSV)
         </button>
         <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
-          {deleting ? 'Deleting…' : '🗑 Delete my account permanently'}
+          {deleting ? 'Deleting...' : 'Delete my account permanently'}
         </button>
       </div>
     </div>
