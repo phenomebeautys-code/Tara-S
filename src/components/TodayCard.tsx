@@ -11,6 +11,11 @@ const PHASE_DESCRIPTIONS: Record<string, string> = {
   unknown:    'Log your first period to unlock your personal cycle insights.',
 }
 
+const BOOKING_CTA: Partial<Record<string, string>> = {
+  Follicular: 'A good week for a wax.',
+  Ovulation:  'Your skin is at its best this week.',
+}
+
 function daysUntil(dateStr: string | null): number | null {
   if (!dateStr) return null
   const diff = new Date(dateStr).getTime() - Date.now()
@@ -30,6 +35,7 @@ export default function TodayCard({
   const countdown = daysUntil(stats?.predicted_next_start ?? null)
   const description = PHASE_DESCRIPTIONS[phaseName] ?? PHASE_DESCRIPTIONS.unknown
   const skinNote = phase?.phase_skin_note
+  const bookingCta = BOOKING_CTA[phaseName]
 
   return (
     <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
@@ -55,6 +61,20 @@ export default function TodayCard({
         <div className={styles.skinNote}>
           <span className={styles.skinLabel}>Skin today</span>
           <p className={`display ${styles.skinText}`}>{skinNote}</p>
+        </div>
+      )}
+
+      {bookingCta && (
+        <div className={styles.booking}>
+          <p className={styles.bookingCta}>{bookingCta}</p>
+          <a
+            href="https://phenomebeauty.nextslot.co.za/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.bookingLink}
+          >
+            Book with Phenomebeauty
+          </a>
         </div>
       )}
     </div>
