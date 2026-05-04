@@ -2,21 +2,15 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import styles from './log.module.css'
 
-const SYMPTOMS = [
-  { key: 'cramps',        label: 'Cramps'        },
-  { key: 'bloating',      label: 'Bloating'      },
-  { key: 'skin_breakout', label: 'Skin breakout' },
-  { key: 'low_energy',    label: 'Low energy'    },
-  { key: 'mood_low',      label: 'Mood low'      },
-  { key: 'headache',      label: 'Headache'      },
-] as const
-
-type SymptomKey = typeof SYMPTOMS[number]['key']
+const SYMPTOM_KEYS = ['cramps', 'bloating', 'skin_breakout', 'low_energy', 'mood_low', 'headache'] as const
+type SymptomKey = typeof SYMPTOM_KEYS[number]
 
 export default function LogPage() {
+  const t = useTranslations('log')
   const [periodDate, setPeriodDate] = useState('')
   const [flow, setFlow] = useState<'light' | 'medium' | 'heavy' | ''>('')
   const [activeSymptoms, setActiveSymptoms] = useState<Set<SymptomKey>>(new Set())
@@ -45,7 +39,7 @@ export default function LogPage() {
     if (activeSymptoms.size > 0) {
       const today = new Date().toISOString().split('T')[0]
       const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
-      SYMPTOMS.forEach(({ key }) => { payload[key] = activeSymptoms.has(key) })
+      SYMPTOM_KEYS.forEach((key) => { payload[key] = activeSymptoms.has(key) })
       await supabase.from('symptom_logs').upsert(payload)
     }
 
@@ -56,16 +50,15 @@ export default function LogPage() {
 
   return (
     <div className={styles.page}>
-
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Log</p>
-        <h1 className={`display ${styles.title}`}>tara-s</h1>
-        <p className={styles.meaning}>The woman, in Khoekhoegowab.</p>
-        <p className={styles.body}>She has always known her body. This space is yours to remember.</p>
+        <p className={styles.eyebrow}>{t('eyebrow')}</p>
+        <h1 className={`display ${styles.title}`}>{t('title')}</h1>
+        <p className={styles.meaning}>{t('meaning')}</p>
+        <p className={styles.body}>{t('body')}</p>
       </header>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>When did it begin?</h2>
+        <h2 className={styles.sectionTitle}>{t('section_period')}</h2>
         <input
           type="date"
           value={periodDate}
@@ -81,7 +74,7 @@ export default function LogPage() {
                 className={`${styles.flowBtn} ${flow === f ? styles.flowActive : ''}`}
                 onClick={() => setFlow(f)}
               >
-                {f}
+                {t(`flow_${f}`)}
               </button>
             ))}
           </div>
@@ -89,15 +82,15 @@ export default function LogPage() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>How are you feeling today?</h2>
+        <h2 className={styles.sectionTitle}>{t('section_symptoms')}</h2>
         <div className={styles.symptomGrid}>
-          {SYMPTOMS.map(({ key, label }) => (
+          {SYMPTOM_KEYS.map((key) => (
             <button
               key={key}
               className={`${styles.symptomBtn} ${activeSymptoms.has(key) ? styles.symptomActive : ''}`}
               onClick={() => toggleSymptom(key)}
             >
-              {label}
+              {t(`symptom_${key}`)}
             </button>
           ))}
         </div>
@@ -108,9 +101,8 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? 'Saved ✓' : saving ? 'Saving...' : 'Save to Tara'}
+        {saved ? t('saved') : saving ? t('saving') : t('save')}
       </button>
-
     </div>
   )
 }

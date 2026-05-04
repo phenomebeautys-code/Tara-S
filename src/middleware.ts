@@ -1,17 +1,30 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import createIntlMiddleware from 'next-intl/middleware'
+import { locales, defaultLocale } from '../i18n'
+
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: 'as-needed', // English URLs stay clean: /log, /insights etc
+})
 
 export async function middleware(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request })
+  // Run locale detection first
+  const intlResponse = intlMiddleware(request)
+
+  // Strip locale prefix for auth logic
+  const { pathname } = request.nextUrl
+  const pathnameWithoutLocale = pathname.replace(/^\/(af|zu|xh)/, '') || '/'
+
+  let supabaseResponse = intlResponse ?? NextResponse.next({ request })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
+        getAll() { return request.cookies.getAll() },
         setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
@@ -25,20 +38,16 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const { pathname } = request.nextUrl
-
   const publicPaths = ['/login', '/signup', '/offline', '/auth']
-  const isPublic = publicPaths.some((p) => pathname.startsWith(p))
+  const isPublic = publicPaths.some((p) => pathnameWithoutLocale.startsWith(p))
 
-  // Not logged in — send to login
   if (!user && !isPublic) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
 
-  // Logged in — check onboarding
-  if (user && !isPublic && pathname !== '/onboarding') {
+  if (user && !isPublic && !pathnameWithoutLocale.startsWith('/onboarding')) {
     const { data: profile } = await supabase
       .from('users')
       .select('onboarding_complete')
