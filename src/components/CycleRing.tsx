@@ -30,11 +30,11 @@ interface Props {
 }
 
 export default function CycleRing({ cycleDay, cycleLength, phaseName }: Props) {
-  const size = 96
+  const size = 148
   const cx = size / 2
   const cy = size / 2
-  const r = 36
-  const strokeWidth = 7
+  const r = 56
+  const strokeWidth = 9
 
   const safeLength = cycleLength > 0 ? cycleLength : 28
   const safeDay = Math.min(cycleDay, safeLength)
@@ -51,6 +51,15 @@ export default function CycleRing({ cycleDay, cycleLength, phaseName }: Props) {
         viewBox={`0 0 ${size} ${size}`}
         style={{ overflow: 'visible' }}
       >
+        {/* Outer glow ring — very subtle */}
+        <circle
+          cx={cx} cy={cy} r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth={strokeWidth + 8}
+          opacity={0.08}
+        />
+        {/* Track */}
         <circle
           cx={cx} cy={cy} r={r}
           fill="none"
@@ -58,6 +67,7 @@ export default function CycleRing({ cycleDay, cycleLength, phaseName }: Props) {
           strokeWidth={strokeWidth}
           className={styles.track}
         />
+        {/* Progress arc */}
         {endAngle > 0 && (
           <path
             d={describeArc(cx, cy, r, 0, Math.min(endAngle, 359.99))}
@@ -67,11 +77,12 @@ export default function CycleRing({ cycleDay, cycleLength, phaseName }: Props) {
             strokeLinecap="round"
           />
         )}
+        {/* End dot */}
         {(() => {
           const dot = polarToCartesian(cx, cy, r, endAngle)
           return (
             <circle
-              cx={dot.x} cy={dot.y} r={4}
+              cx={dot.x} cy={dot.y} r={5}
               fill={color}
               className={styles.dot}
             />

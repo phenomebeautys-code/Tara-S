@@ -1,14 +1,28 @@
 .card {
   width: 100%;
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
+  padding: var(--space-6) var(--space-5);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-5);
   border: 1.5px solid transparent;
-  transition: background 0.6s ease, border-color 0.6s ease;
+  position: relative;
   overflow: hidden;
+  transition: background 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+}
+
+/* Top accent bar — full phase colour, no opacity */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: currentColor;
+  opacity: 0.6;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
 .ringWrap {
@@ -16,7 +30,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
 }
 
 .phaseInfo {
@@ -29,7 +43,7 @@
 }
 
 .phaseName {
-  font-size: clamp(2rem, 6vw, 3rem);
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
   font-weight: 300;
   font-style: italic;
   line-height: 1;
@@ -41,13 +55,13 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 .description {
   font-size: 0.975rem;
-  line-height: 1.75;
-  opacity: 0.85;
+  line-height: 1.8;
+  opacity: 0.82;
   text-align: center;
   max-width: 34ch;
 }
@@ -61,6 +75,7 @@
   border-top: 1px solid currentColor;
   width: 100%;
   text-align: center;
+  opacity: 0.9;
 }
 
 .skinLabel {
@@ -68,7 +83,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  opacity: 0.75;
+  opacity: 0.65;
 }
 
 .skinText {
