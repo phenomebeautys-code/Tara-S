@@ -6,16 +6,16 @@ import { NextResponse } from 'next/server'
 export async function DELETE() {
   const cookieStore = await cookies()
 
-  // Regular client to identify the current user
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll: () => cookieStore.getAll(),
-        setAll: (toSet) => toSet.forEach(({ name, value, options }) =>
-          cookieStore.set(name, value, options)
-        ),
+        setAll: (toSet: { name: string; value: string; options?: Record<string, unknown> }[]) =>
+          toSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options as Parameters<typeof cookieStore.set>[2])
+          ),
       },
     }
   )
@@ -25,12 +25,10 @@ export async function DELETE() {
     return NextResponse.json({ error: 'Unauthorised' }, { status: 401 })
   }
 
-  // Delete all user data in order (child rows first)
   await supabase.from('symptom_logs').delete().eq('user_id', user.id)
   await supabase.from('period_logs').delete().eq('user_id', user.id)
   await supabase.from('users').delete().eq('id', user.id)
 
-  // Admin client to delete the auth account itself
   const admin = createAdminClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
