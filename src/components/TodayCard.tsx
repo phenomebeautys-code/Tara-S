@@ -22,10 +22,6 @@ function daysUntil(dateStr: string | null): number | null {
   return Math.ceil(diff / (1000 * 60 * 60 * 24))
 }
 
-function cleanText(text: string): string {
-  return text.replace(/\u2014/g, ' ').replace(/\s{2,}/g, ' ').trim()
-}
-
 export default function TodayCard({
   stats,
   phase,
@@ -38,7 +34,7 @@ export default function TodayCard({
   const cycleLength = stats?.avg_cycle_length ?? 28
   const countdown = daysUntil(stats?.predicted_next_start ?? null)
   const description = PHASE_DESCRIPTIONS[phaseName] ?? PHASE_DESCRIPTIONS.unknown
-  const skinNote = phase?.phase_skin_note ? cleanText(phase.phase_skin_note) : null
+  const skinNote = phase?.phase_skin_note ?? null
   const bookingCta = BOOKING_CTA[phaseName]
 
   return (

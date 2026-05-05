@@ -9,7 +9,6 @@ export default function InsightsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get session from local cache first — no network round trip
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       const uid = data.session?.user?.id
@@ -35,14 +34,14 @@ export default function InsightsPage() {
         </div>
       ) : insights.length === 0 ? (
         <div className={styles.empty}>
-          <p className={`display ${styles.emptyTitle}`}>Tara is listening.</p>
+          <p className={`display ${styles.emptyTitle}`}><span className="display">tara-s</span> is listening.</p>
           <p className={styles.emptyBody}>She will find your patterns as you go.</p>
         </div>
       ) : (
         <ul className={styles.list}>
           {insights.map((insight, i) => (
             <li key={i} className={styles.item}>
-              <span className={styles.itemPrefix}>Tara noticed</span>
+              <span className={styles.itemPrefix}><span className="display">tara-s</span> noticed</span>
               <span className={styles.itemText}>{insight}</span>
             </li>
           ))}

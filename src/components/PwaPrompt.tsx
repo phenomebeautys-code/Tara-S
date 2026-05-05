@@ -9,7 +9,6 @@ export default function PwaPrompt() {
   useEffect(() => {
     const already = localStorage.getItem('pwa-prompt-dismissed')
     if (already) return
-    // Only show if not already installed (standalone)
     const isStandalone =
       window.matchMedia('(display-mode: standalone)').matches ||
       (window.navigator as Navigator & { standalone?: boolean }).standalone === true
@@ -31,7 +30,7 @@ export default function PwaPrompt() {
     <div className={styles.banner}>
       <div className={styles.inner}>
         <p className={styles.text}>
-          💡 <strong>Add TARA-S to your home screen</strong> for faster access — no App Store needed!
+          💡 <strong>Add <span className="display">TARA-S</span> to your home screen</strong> for faster access — no App Store needed!
         </p>
         <div className={styles.steps}>
           <span>iOS: tap Share → &ldquo;Add to Home Screen&rdquo;</span>

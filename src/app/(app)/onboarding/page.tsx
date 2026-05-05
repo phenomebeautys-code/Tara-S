@@ -52,7 +52,6 @@ export default function OnboardingPage() {
 
     const validDates = dates.filter(Boolean).sort() as string[]
 
-    // Run name update and all period logs in parallel
     await Promise.all([
       name.trim()
         ? supabase.from('users').update({ display_name: name.trim() }).eq('id', user.id)
@@ -60,7 +59,6 @@ export default function OnboardingPage() {
       ...validDates.map((d) => logPeriodStart(user.id, d)),
     ])
 
-    // Only mark complete after all data is written
     await supabase
       .from('users')
       .update({ onboarding_complete: true })
@@ -95,7 +93,7 @@ export default function OnboardingPage() {
         <div className={styles.inner}>
           <div className={styles.questionWrap}>
             <p className={`display ${styles.question}`}>What do you go by?</p>
-            <p className={styles.sub}>TARA-S will use this to greet you.</p>
+            <p className={styles.sub}><span className="display">tara-s</span> will use this to greet you.</p>
           </div>
           <input
             type="text"
@@ -132,7 +130,7 @@ export default function OnboardingPage() {
               {firstName ? `You are ready, ${firstName}.` : 'You are ready.'}
             </p>
             <p className={styles.readySub}>
-              TARA-S will learn alongside you. The more you log, the more she understands.
+              <span className="display">tara-s</span> will learn alongside you. The more you log, the more she understands.
             </p>
             <button
               className={styles.primaryBtn}
@@ -180,7 +178,7 @@ export default function OnboardingPage() {
             Continue
           </button>
           <button className={styles.skipBtn} onClick={handleDateContinue}>
-            I don’t remember
+            I don&apos;t remember
           </button>
         </div>
       </div>
