@@ -1,5 +1,5 @@
-// TARA-S Service Worker v2
-const CACHE = 'tara-s-v2'
+// TARA-S Service Worker v3
+const CACHE = 'tara-s-v3'
 const OFFLINE_URL = '/offline'
 
 self.addEventListener('install', (e) => {
@@ -22,10 +22,18 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return
+
+  // Network-first: always try the network, fall back to cache only when offline
   e.respondWith(
-    caches.match(e.request).then((cached) =>
-      cached ||
-      fetch(e.request).catch(() => caches.match(OFFLINE_URL))
-    )
+    fetch(e.request)
+      .then((response) => {
+        // Cache a fresh copy for offline use
+        const copy = response.clone()
+        caches.open(CACHE).then((cache) => cache.put(e.request, copy))
+        return response
+      })
+      .catch(() =>
+        caches.match(e.request).then((cached) => cached || caches.match(OFFLINE_URL))
+      )
   )
 })
