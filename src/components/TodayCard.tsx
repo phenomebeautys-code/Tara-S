@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useState } from 'react'
 import type { CycleStats, CyclePhase } from '@/lib/hooks/useCycleStats'
 import CycleRing from './CycleRing'
 import styles from './TodayCard.module.css'
@@ -16,12 +17,6 @@ const BOOKING_CTA: Partial<Record<string, string>> = {
   Ovulation:  'Your skin is luminous right now. Make the most of it with a treatment.',
 }
 
-function daysUntil(dateStr: string | null): number | null {
-  if (!dateStr) return null
-  const diff = new Date(dateStr).getTime() - Date.now()
-  return Math.ceil(diff / (1000 * 60 * 60 * 24))
-}
-
 export default function TodayCard({
   stats,
   phase,
@@ -32,10 +27,21 @@ export default function TodayCard({
   const phaseName = phase?.phase_name ?? 'unknown'
   const cycleDay = phase?.cycle_day ?? 0
   const cycleLength = stats?.avg_cycle_length ?? 28
-  const countdown = daysUntil(stats?.predicted_next_start ?? null)
   const description = PHASE_DESCRIPTIONS[phaseName] ?? PHASE_DESCRIPTIONS.unknown
   const skinNote = phase?.phase_skin_note ?? null
   const bookingCta = BOOKING_CTA[phaseName]
+
+  // Countdown must be calculated client-side only to avoid hydration mismatch
+  const [countdown, setCountdown] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (!stats?.predicted_next_start) {
+      setCountdown(null)
+      return
+    }
+    const diff = new Date(stats.predicted_next_start).getTime() - Date.now()
+    setCountdown(Math.ceil(diff / (1000 * 60 * 60 * 24)))
+  }, [stats?.predicted_next_start])
 
   return (
     <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
