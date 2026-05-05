@@ -5,18 +5,42 @@ import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
 import styles from './insights.module.css'
 
+function parseInsight(raw: string, t: ReturnType<typeof useTranslations<'insights'>>): string {
+  if (raw === 'need_more_data') return t('need_more_data')
+  if (raw === 'variability_consistent') return t('variability_consistent')
+  if (raw === 'variability_regular') return t('variability_regular')
+  if (raw.startsWith('avg_cycle:')) {
+    const days = raw.split(':')[1]
+    return t('avg_cycle', { days })
+  }
+  if (raw.startsWith('avg_duration:')) {
+    const days = raw.split(':')[1]
+    return t('avg_duration', { days })
+  }
+  if (raw.startsWith('variability_irregular:')) {
+    const days = raw.split(':')[1]
+    return t('variability_irregular', { days })
+  }
+  return raw
+}
+
 export default function InsightsPage() {
   const t = useTranslations('insights')
   const [insights, setInsights] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
+  const [needMoreData, setNeedMoreData] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       const uid = data.session?.user?.id
       if (uid) {
-        const result = await getPersonalInsights(uid)
-        setInsights(result)
+        const raw = await getPersonalInsights(uid)
+        if (raw.length === 1 && raw[0] === 'need_more_data') {
+          setNeedMoreData(true)
+        } else {
+          setInsights(raw.map((r) => parseInsight(r, t)))
+        }
       }
       setLoading(false)
     })
@@ -32,7 +56,12 @@ export default function InsightsPage() {
 
       {loading ? (
         <div className={styles.skeletonList}>
-          {[1,2,3].map((n) => <div key={n} className={styles.skeletonItem} />)}
+          {[1, 2, 3].map((n) => <div key={n} className={styles.skeletonItem} />)}
+        </div>
+      ) : needMoreData ? (
+        <div className={styles.empty}>
+          <p className={`display ${styles.emptyTitle}`}>{t('need_more_data_title')}</p>
+          <p className={styles.emptyBody}>{t('need_more_data_body')}</p>
         </div>
       ) : insights.length === 0 ? (
         <div className={styles.empty}>

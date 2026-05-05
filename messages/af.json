@@ -57,7 +57,14 @@
     "prefix": "Tara het opgemerk",
     "empty_title": "Jou patrone sal hier verskyn soos jy aanteken.",
     "empty_body": "Begin met jou laaste periode.",
-    "empty_cta": "Teken 'n periode aan"
+    "empty_cta": "Teken 'n periode aan",
+    "need_more_data_title": "Bly aanteken. Jou patrone vorm.",
+    "need_more_data_body": "Teken nog een siklus aan en Tara sal jou ritme begin sien.",
+    "avg_cycle": "Jou gemiddelde siklus is {days} dae.",
+    "avg_duration": "Jou periode duur gewoonlik ongeveer {days} dae.",
+    "variability_consistent": "Jou siklusse was onlangs baie konsekwent.",
+    "variability_regular": "Jou siklusse is redelik gereeld. Klein variasies is heeltemal normaal.",
+    "variability_irregular": "Jou laaste paar siklusse het met sowat {days} dae gevarieer. Stres, reis of siekte kan dit veroorsaak."
   },
   "privacy": {
     "eyebrow": "Privaatheid",

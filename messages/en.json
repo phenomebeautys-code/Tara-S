@@ -57,7 +57,14 @@
     "prefix": "Tara noticed",
     "empty_title": "Your patterns will surface here as you log.",
     "empty_body": "Begin with your last period.",
-    "empty_cta": "Log a period"
+    "empty_cta": "Log a period",
+    "need_more_data_title": "Keep logging. Your patterns are forming.",
+    "need_more_data_body": "Log one more cycle and Tara will begin to see your rhythm.",
+    "avg_cycle": "Your average cycle is {days} days.",
+    "avg_duration": "Your period usually lasts about {days} days.",
+    "variability_consistent": "Your cycles have been very consistent lately.",
+    "variability_regular": "Your cycles are fairly regular. Small variations are completely normal.",
+    "variability_irregular": "Your last few cycles have varied by about {days} days. Stress, travel, or illness can cause this."
   },
   "privacy": {
     "eyebrow": "Privacy",

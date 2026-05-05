@@ -58,7 +58,14 @@
     "prefix": "UTara uqaphele",
     "empty_title": "Iinkqubo zakho ziya kubonakala apha njengoko urekhoda.",
     "empty_body": "Qala ngexesha lakho lokugqibela.",
-    "empty_cta": "Rekhoda ixesha"
+    "empty_cta": "Rekhoda ixesha",
+    "need_more_data_title": "Qhubeka urekhoda. Iinkqubo zakho ziyakhula.",
+    "need_more_data_body": "Rekhoda umjikelo omnye kwakhona kwaye uTara uya kuqala ukubona umjikelo wakho.",
+    "avg_cycle": "Umjikelo wakho waphakathi uziintsuku ezingu-{days}.",
+    "avg_duration": "Ixesha lakho lihlala malunga ne-{days} iintsuku.",
+    "variability_consistent": "Imijikelo yakho ibilungile kakhulu kutsha nje.",
+    "variability_regular": "Imijikelo yakho ilungile ngokwaneleyo. Utshintsho oluncinci lulungile ngokupheleleyo.",
+    "variability_irregular": "Imijikelo yakho yokugqibela yahluka ngama-{days} iintsuku. Ingcindezi, uhambo, okanye ukugula kunokubangela oku."
   },
   "privacy": {
     "eyebrow": "Imfihlo",
