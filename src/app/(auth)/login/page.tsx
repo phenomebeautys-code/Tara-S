@@ -15,7 +15,6 @@ export default function LoginPage() {
   const [checking, setChecking] = useState(true)
   const router = useRouter()
 
-  // If an active session exists, skip the form and go straight to /today
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getSession().then(({ data }) => {

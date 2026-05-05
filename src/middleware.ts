@@ -23,23 +23,27 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
-
-  // Always public — splash, login, auth callbacks, offline
+  // Public routes — no auth check needed
   const publicPaths = ['/', '/login', '/signup', '/offline', '/auth']
   const isPublic = publicPaths.some((p) =>
     p === '/' ? pathname === '/' : pathname.startsWith(p)
   )
 
-  // Unauthenticated user trying to access a protected route
-  if (!user && !isPublic) {
+  if (isPublic) return supabaseResponse
+
+  // For protected routes, verify session via cookie
+  // Since client uses sessionStorage, cookies won't carry the token after tab close.
+  // We rely on the client-side session check; middleware only blocks direct URL access.
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
     const url = request.nextUrl.clone()
     url.pathname = '/'
     return NextResponse.redirect(url)
   }
 
-  // Authenticated user on a protected route — check onboarding
-  if (user && !isPublic && !pathname.startsWith('/onboarding')) {
+  // Onboarding gate
+  if (!pathname.startsWith('/onboarding')) {
     const { data: profile } = await supabase
       .from('users')
       .select('onboarding_complete')
