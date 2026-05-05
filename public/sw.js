@@ -1,5 +1,5 @@
-// TARA-S Service Worker — cache-first for static assets
-const CACHE = 'tara-s-v1'
+// TARA-S Service Worker v2
+const CACHE = 'tara-s-v2'
 const OFFLINE_URL = '/offline'
 
 self.addEventListener('install', (e) => {
