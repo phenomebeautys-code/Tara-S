@@ -25,14 +25,12 @@
     "symptom_cramps": "Izihlabo",
     "symptom_bloating": "Ukuvuvuka kwesisu",
     "symptom_skin_breakout": "Iziphaluka zolusu",
-    "symptom_skin_breakout_review": "// NEEDS HUMAN REVIEW",
     "symptom_low_energy": "Amandla aphantsi",
     "symptom_mood_low": "Inkxalabo ephantsi",
-    "symptom_mood_low_review": "// NEEDS HUMAN REVIEW — register uncertain",
     "symptom_headache": "Intloko ebuhlungu",
     "save": "Gcina ku-Tara",
     "saving": "Igcina...",
-    "saved": "Kugcinwe ✓"
+    "saved": "Kugcinwe"
   },
   "insights": {
     "eyebrow": "Ulwazi",
