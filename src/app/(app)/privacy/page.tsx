@@ -34,13 +34,14 @@ export default function PrivacyPage() {
   async function handleDelete() {
     if (!confirm(t('delete_confirm'))) return
     setDeleting(true)
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      await supabase.from('users').delete().eq('id', user.id)
-      await supabase.auth.signOut()
+
+    const res = await fetch('/api/delete-account', { method: 'DELETE' })
+    if (res.ok) {
+      window.location.href = '/'
+    } else {
+      setDeleting(false)
+      alert('Something went wrong. Please try again.')
     }
-    window.location.href = '/'
   }
 
   async function handleExport() {
@@ -48,10 +49,9 @@ export default function PrivacyPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    const [{ data: periods }, { data: symptoms }, { data: appts }] = await Promise.all([
+    const [{ data: periods }, { data: symptoms }] = await Promise.all([
       supabase.from('period_logs').select('*').eq('user_id', user.id),
       supabase.from('symptom_logs').select('*').eq('user_id', user.id),
-      supabase.from('appointments').select('*').eq('user_id', user.id),
     ])
 
     const csv = [
@@ -64,10 +64,6 @@ export default function PrivacyPage() {
       ...(symptoms ?? []).map((r) =>
         `${r.log_date},${r.cramps},${r.bloating},${r.skin_breakout},${r.low_energy},${r.mood_low},${r.headache}`
       ),
-      '',
-      '=== APPOINTMENTS ===',
-      'date,service_type,risk_level',
-      ...(appts ?? []).map((r) => `${r.appointment_date},${r.service_type ?? ''},${r.risk_level}`),
     ].join('\n')
 
     const blob = new Blob([csv], { type: 'text/csv' })
