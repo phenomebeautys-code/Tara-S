@@ -12,8 +12,8 @@ const PHASE_DESCRIPTIONS: Record<string, string> = {
 }
 
 const BOOKING_CTA: Partial<Record<string, string>> = {
-  Follicular: 'A good week for a wax.',
-  Ovulation:  'Your skin is at its best this week.',
+  Follicular: 'This week your skin is at its clearest. A great time to book a wax or a facial.',
+  Ovulation:  'Your skin is luminous right now. Make the most of it with a treatment.',
 }
 
 function daysUntil(dateStr: string | null): number | null {
@@ -39,15 +39,8 @@ export default function TodayCard({
 
   return (
     <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
-      <div className={styles.top}>
-        <div className={styles.phaseInfo}>
-          <span className={`display ${styles.phaseName}`}>{phaseName}</span>
-          {countdown !== null && countdown >= 0 && (
-            <span className={styles.countdown}>
-              {countdown === 0 ? 'Period due today' : `${countdown} days until next period`}
-            </span>
-          )}
-        </div>
+
+      <div className={styles.ringWrap}>
         <CycleRing
           cycleDay={cycleDay}
           cycleLength={cycleLength}
@@ -55,11 +48,22 @@ export default function TodayCard({
         />
       </div>
 
+      <div className={styles.phaseInfo}>
+        <span className={`display ${styles.phaseName}`}>{phaseName}</span>
+        {countdown !== null && countdown >= 0 && (
+          <span className={styles.countdown}>
+            {countdown === 0
+              ? 'Your period is due today'
+              : `Your next period is in ${countdown} day${countdown === 1 ? '' : 's'}`}
+          </span>
+        )}
+      </div>
+
       <p className={styles.description}>{description}</p>
 
       {skinNote && (
         <div className={styles.skinNote}>
-          <span className={styles.skinLabel}>Skin today</span>
+          <span className={styles.skinLabel}>Skin note</span>
           <p className={`display ${styles.skinText}`}>{skinNote}</p>
         </div>
       )}

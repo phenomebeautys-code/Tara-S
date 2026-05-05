@@ -42,11 +42,11 @@ export default function HomePage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <span className={`display ${styles.logo}`}>TARA-S</span>
-        <div className={styles.headerRight}>
-          <span className={styles.greeting}>{getGreeting(displayName)}</span>
+        <div className={styles.logoBlock}>
+          <span className={`display ${styles.logo}`}>TARA-S</span>
           <Link href="/about" className={styles.aboutLink}>About</Link>
         </div>
+        <span className={styles.greeting}>{getGreeting(displayName)}</span>
       </header>
 
       {showSkeleton ? (
