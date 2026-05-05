@@ -39,26 +39,22 @@ export default function LogPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { setSaving(false); return }
 
-    const ops: Promise<unknown>[] = []
-
     if (periodDate) {
-      ops.push(logPeriodStart(user.id, periodDate, flow || undefined))
+      await logPeriodStart(user.id, periodDate, flow || undefined)
     }
 
     if (activeSymptoms.size > 0) {
       const today = new Date().toISOString().split('T')[0]
       const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
       SYMPTOM_KEYS.forEach((key) => { payload[key] = activeSymptoms.has(key) })
-      ops.push(createClient().from('symptom_logs').upsert(payload))
+      await supabase.from('symptom_logs').upsert(payload)
     }
 
-    await Promise.all(ops)
     setSaved(true)
     setSaving(false)
     setTimeout(() => router.push('/'), 800)
   }
 
-  // Renders immediately — no useEffect, no auth gate on first paint
   return (
     <div className={styles.page}>
       <header className={styles.header}>
