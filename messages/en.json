@@ -11,6 +11,25 @@
     "greeting_afternoon": "Good afternoon",
     "greeting_evening": "Good evening"
   },
+  "today": {
+    "phase_menstrual": "Menstrual",
+    "phase_follicular": "Follicular",
+    "phase_ovulation": "Ovulation",
+    "phase_luteal": "Luteal",
+    "phase_unknown": "Unknown",
+    "desc_menstrual": "Your body is releasing. Rest, warmth, and gentle movement support you best right now.",
+    "desc_follicular": "Energy is rising. Your skin is clearer, your mind sharper. A great time to plan and create.",
+    "desc_ovulation": "You are at your peak. Confidence is high, skin is luminous, and connection comes naturally.",
+    "desc_luteal": "Slowing down is wisdom. Your body is preparing. Honour rest and reduce stimulation.",
+    "desc_unknown": "Log your first period to unlock your personal cycle insights.",
+    "cta_follicular": "This week your skin is at its clearest. A great time to book a wax or a facial.",
+    "cta_ovulation": "Your skin is luminous right now. Make the most of it with a treatment.",
+    "countdown_today": "Your period is due today",
+    "countdown_days": "Your next period is in {count} days",
+    "countdown_day": "Your next period is in {count} day",
+    "skin_label": "Skin note",
+    "book_cta": "Book with Phenomebeauty"
+  },
   "log": {
     "eyebrow": "Log",
     "title": "tara-s",

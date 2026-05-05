@@ -12,6 +12,25 @@
     "greeting_afternoon": "Sawubona emini",
     "greeting_evening": "Sawubona kusihlwa"
   },
+  "today": {
+    "phase_menstrual": "Ukuya esikhathini",
+    "phase_follicular": "Isikhathi sokulungiswa",
+    "phase_ovulation": "Isikhathi sokukhipha iqanda",
+    "phase_luteal": "Isikhathi sokulungiselela",
+    "phase_unknown": "Akwaziwa",
+    "desc_menstrual": "Umzimba wakho uyakhipha. Ukuphumula, ukufudumala, nokunyakaza kancane kukusekela kahle manje.",
+    "desc_follicular": "Amandla ayakhula. Isikhumba sakho sikhanya kakhulu, ingqondo yakho ibukhali. Isikhathi esihle sokuhlela nokudala.",
+    "desc_ovulation": "Usezingeni eliphezulu. Ukuzethemba kuphezulu, isikhumba siyakhanya, nokuxhumana kufika ngokwemvelo.",
+    "desc_luteal": "Ukuhamba kancane ukuhlakanipha. Umzimba wakho ulungiselela. Hlonipha ukuphumula futhi nciphisa ukukhuthazwa.",
+    "desc_unknown": "Rekhoda isikhathi sakho sokuqala ukuze uvule ulwazi lomjikelezo wakho.",
+    "cta_follicular": "Leli sonto isikhumba sakho sikhanyile kakhulu. Isikhathi esihle sokubhuka ukususwa kwuboya noma itreatment yobuso.",
+    "cta_ovulation": "Isikhumba sakho siyakhanya manje. Sebenzisa kahle ngetreatment.",
+    "countdown_today": "Isikhathi sakho silindeleke namuhla",
+    "countdown_days": "Isikhathi sakho esilandelayo ngemizuzwana engu-{count} izinsuku",
+    "countdown_day": "Isikhathi sakho esilandelayo ngemizuzwana engu-{count} usuku",
+    "skin_label": "Isinxephezelo sesikhumba",
+    "book_cta": "Bhuka ku-Phenomebeauty"
+  },
   "log": {
     "eyebrow": "Rekhoda",
     "title": "tara-s",

@@ -1,21 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import type { CycleStats, CyclePhase } from '@/lib/hooks/useCycleStats'
 import CycleRing from './CycleRing'
 import styles from './TodayCard.module.css'
-
-const PHASE_DESCRIPTIONS: Record<string, string> = {
-  Menstrual:  'Your body is releasing. Rest, warmth, and gentle movement support you best right now.',
-  Follicular: 'Energy is rising. Your skin is clearer, your mind sharper. A great time to plan and create.',
-  Ovulation:  'You are at your peak. Confidence is high, skin is luminous, and connection comes naturally.',
-  Luteal:     'Slowing down is wisdom. Your body is preparing. Honour rest and reduce stimulation.',
-  unknown:    'Log your first period to unlock your personal cycle insights.',
-}
-
-const BOOKING_CTA: Partial<Record<string, string>> = {
-  Follicular: 'This week your skin is at its clearest. A great time to book a wax or a facial.',
-  Ovulation:  'Your skin is luminous right now. Make the most of it with a treatment.',
-}
 
 export default function TodayCard({
   stats,
@@ -24,14 +12,24 @@ export default function TodayCard({
   stats: CycleStats | null
   phase: CyclePhase | null
 }) {
+  const t = useTranslations('today')
+
   const phaseName = phase?.phase_name ?? 'unknown'
   const cycleDay = phase?.cycle_day ?? 0
   const cycleLength = stats?.avg_cycle_length ?? 28
-  const description = PHASE_DESCRIPTIONS[phaseName] ?? PHASE_DESCRIPTIONS.unknown
   const skinNote = phase?.phase_skin_note ?? null
-  const bookingCta = BOOKING_CTA[phaseName]
 
-  // Countdown must be calculated client-side only to avoid hydration mismatch
+  const phaseKey = phaseName.toLowerCase() as 'menstrual' | 'follicular' | 'ovulation' | 'luteal' | 'unknown'
+  const displayName = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
+    ? t(`phase_${phaseKey}`)
+    : t('phase_unknown')
+  const description = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
+    ? t(`desc_${phaseKey}`)
+    : t('desc_unknown')
+  const bookingCta = ['follicular', 'ovulation'].includes(phaseKey)
+    ? t(`cta_${phaseKey}`)
+    : null
+
   const [countdown, setCountdown] = useState<number | null>(null)
 
   useEffect(() => {
@@ -44,7 +42,7 @@ export default function TodayCard({
   }, [stats?.predicted_next_start])
 
   return (
-    <div className={`${styles.card} phase-${phaseName.toLowerCase()}`}>
+    <div className={`${styles.card} phase-${phaseKey}`}>
 
       <div className={styles.ringWrap}>
         <CycleRing
@@ -55,12 +53,14 @@ export default function TodayCard({
       </div>
 
       <div className={styles.phaseInfo}>
-        <span className={`display ${styles.phaseName}`}>{phaseName}</span>
+        <span className={`display ${styles.phaseName}`}>{displayName}</span>
         {countdown !== null && countdown >= 0 && (
           <span className={styles.countdown}>
             {countdown === 0
-              ? 'Your period is due today'
-              : `Your next period is in ${countdown} day${countdown === 1 ? '' : 's'}`}
+              ? t('countdown_today')
+              : countdown === 1
+                ? t('countdown_day', { count: countdown })
+                : t('countdown_days', { count: countdown })}
           </span>
         )}
       </div>
@@ -69,7 +69,7 @@ export default function TodayCard({
 
       {skinNote && (
         <div className={styles.skinNote}>
-          <span className={styles.skinLabel}>Skin note</span>
+          <span className={styles.skinLabel}>{t('skin_label')}</span>
           <p className={`display ${styles.skinText}`}>{skinNote}</p>
         </div>
       )}
@@ -83,7 +83,7 @@ export default function TodayCard({
             rel="noopener noreferrer"
             className={styles.bookingLink}
           >
-            Book with Phenomebeauty
+            {t('book_cta')}
           </a>
         </div>
       )}

@@ -12,6 +12,25 @@
     "greeting_afternoon": "Molo emini",
     "greeting_evening": "Molo ngokuhlwa"
   },
+  "today": {
+    "phase_menstrual": "Ixesha lenyanga",
+    "phase_follicular": "Ixesha lokukhula",
+    "phase_ovulation": "Ixesha lokukhulula iqanda",
+    "phase_luteal": "Ixesha lokulungiselela",
+    "phase_unknown": "Akwaziwa",
+    "desc_menstrual": "Umzimba wakho uyakhulula. Ukuphumla, ubushushu, nokunyakaza kancinci kukuxhasa ngoku.",
+    "desc_follicular": "Amandla ayanda. Ulusu lwakho lukhanyile, ingqondo yakho ibukhali. Ixesha elihle lokuceba nokwenza.",
+    "desc_ovulation": "Ukhoyo ekuphakameni kwakho. Ukuzithemba kuphezulu, ulusu luyakhanya, nokunxibelelana kuza ngokwemvelo.",
+    "desc_luteal": "Ukucothisa ngokuhlakanipha. Umzimba wakho ulungiselela. Hlonipha ukuphumla kwaye nciphisa ukukhuthaza.",
+    "desc_unknown": "Rekhoda ixesha lakho lokuqala ukuvula ulwazi lomjikelo wakho.",
+    "cta_follicular": "Kwiveki le ulusu lwakho lukhanyile kakhulu. Ixesha elihle lokubhuka ukususwa koboya okanye itreatment yobuso.",
+    "cta_ovulation": "Ulusu lwakho luyakhanya ngoku. Yisebenzise kakuhle ngetreatment.",
+    "countdown_today": "Ixesha lakho lilindelekile namhlanje",
+    "countdown_days": "Ixesha lakho elilandelayo liza kuthi gaa emva kwe-{count} iintsuku",
+    "countdown_day": "Ixesha lakho elilandelayo liza kuthi gaa emva kwe-{count} usuku",
+    "skin_label": "Inqaku lolusu",
+    "book_cta": "Bhuka ku-Phenomebeauty"
+  },
   "log": {
     "eyebrow": "Rekhoda",
     "title": "tara-s",
