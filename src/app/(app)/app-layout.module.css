@@ -6,10 +6,11 @@
   max-width: 480px;
   margin: 0 auto;
   background: var(--color-bg);
-  position: relative;
+  overflow: hidden;
 }
 
 .content {
   flex: 1;
+  width: 100%;
   padding: var(--space-5) var(--space-5) calc(76px + var(--space-6));
 }

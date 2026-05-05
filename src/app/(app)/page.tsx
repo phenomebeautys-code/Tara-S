@@ -16,6 +16,7 @@ function getGreeting(name?: string | null) {
 export default function HomePage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
+  const [authReady, setAuthReady] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -30,10 +31,13 @@ export default function HomePage() {
           .single()
         setDisplayName(profile?.display_name ?? null)
       }
+      setAuthReady(true)
     })
   }, [])
 
   const { stats, phase, loading } = useCycleStats(userId)
+
+  const showSkeleton = !authReady || loading
 
   return (
     <div className={styles.page}>
@@ -45,7 +49,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      {loading ? (
+      {showSkeleton ? (
         <div className={styles.skeleton} />
       ) : (
         <TodayCard stats={stats} phase={phase} />
