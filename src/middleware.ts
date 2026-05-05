@@ -25,23 +25,20 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
+  // Always public — splash, login, auth callbacks, offline
   const publicPaths = ['/', '/login', '/signup', '/offline', '/auth']
   const isPublic = publicPaths.some((p) =>
     p === '/' ? pathname === '/' : pathname.startsWith(p)
   )
 
+  // Unauthenticated user trying to access a protected route
   if (!user && !isPublic) {
     const url = request.nextUrl.clone()
-    url.pathname = '/login'
+    url.pathname = '/'
     return NextResponse.redirect(url)
   }
 
-  if (user && pathname === '/') {
-    const url = request.nextUrl.clone()
-    url.pathname = '/today'
-    return NextResponse.redirect(url)
-  }
-
+  // Authenticated user on a protected route — check onboarding
   if (user && !isPublic && !pathname.startsWith('/onboarding')) {
     const { data: profile } = await supabase
       .from('users')
