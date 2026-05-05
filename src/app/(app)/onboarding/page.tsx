@@ -7,6 +7,15 @@ import styles from './onboarding.module.css'
 
 type Stage = 'welcome' | 'name' | 'dates' | 'ready'
 
+function getLocaleFromCookie(): string {
+  try {
+    const match = document.cookie.match(/(?:^|;\s*)TARA_LOCALE=([^;]+)/)
+    return match?.[1] ?? 'en'
+  } catch {
+    return 'en'
+  }
+}
+
 export default function OnboardingPage() {
   const t = useTranslations('onboarding')
   const tLog = useTranslations('log')
@@ -43,11 +52,12 @@ export default function OnboardingPage() {
     if (!user) return
 
     const validDates = dates.filter(Boolean).sort() as string[]
+    const locale = getLocaleFromCookie()
 
     await Promise.all([
       name.trim()
-        ? supabase.from('users').update({ display_name: name.trim() }).eq('id', user.id)
-        : Promise.resolve(),
+        ? supabase.from('users').update({ display_name: name.trim(), locale }).eq('id', user.id)
+        : supabase.from('users').update({ locale }).eq('id', user.id),
       ...validDates.map((d) => logPeriodStart(user.id, d)),
     ])
 
