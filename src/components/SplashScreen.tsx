@@ -1,8 +1,9 @@
 'use client'
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { locales, localeNames, type Locale } from '../../i18n'
 import styles from './SplashScreen.module.css'
 
 const QUOTES = [
@@ -68,16 +69,35 @@ const QUOTES = [
   'She logs. She learns. She knows herself a little more today.',
 ]
 
+const LOCALE_ORDER: Locale[] = ['en', 'af', 'zu', 'xh']
+const ITEM_HEIGHT = 48 // px — height of each roller item
+
+function getSavedLocale(): Locale {
+  try {
+    const match = document.cookie.match(/(?:^|;\s*)TARA_LOCALE=([^;]+)/)
+    const val = match?.[1] as Locale | undefined
+    if (val && (LOCALE_ORDER as string[]).includes(val)) return val
+  } catch {}
+  return 'en'
+}
+
+function saveLocale(locale: Locale) {
+  document.cookie = `TARA_LOCALE=${locale}; path=/; samesite=lax; max-age=31536000`
+  document.cookie = `NEXT_LOCALE=${locale}; path=/; samesite=lax; max-age=31536000`
+}
+
 function SplashInner() {
   const router = useRouter()
   const [visible, setVisible] = useState(false)
   const [date, setDate] = useState('')
   const [quote, setQuote] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [dragStartY, setDragStartY] = useState<number | null>(null)
+  const [dragDelta, setDragDelta] = useState(0)
+  const rollerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const supabase = createClient()
-    // Sign out on every splash load — destroys sessionStorage token and cookie.
-    // This is the privacy guarantee: no session survives a tab close or app reopen.
     supabase.auth.signOut().finally(() => {
       const now = new Date()
       setDate(
@@ -91,13 +111,77 @@ function SplashInner() {
         (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000
       )
       setQuote(QUOTES[dayOfYear % QUOTES.length])
+
+      // Pre-select saved locale
+      const saved = getSavedLocale()
+      const idx = LOCALE_ORDER.indexOf(saved)
+      setSelectedIndex(idx >= 0 ? idx : 0)
+
       setTimeout(() => setVisible(true), 60)
     })
   }, [])
 
+  // Wheel scroll
+  useEffect(() => {
+    const el = rollerRef.current
+    if (!el) return
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      setSelectedIndex((prev) =>
+        Math.max(0, Math.min(LOCALE_ORDER.length - 1, prev + (e.deltaY > 0 ? 1 : -1)))
+      )
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [])
+
+  // Keyboard
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') setSelectedIndex((p) => Math.min(LOCALE_ORDER.length - 1, p + 1))
+      if (e.key === 'ArrowUp') setSelectedIndex((p) => Math.max(0, p - 1))
+      if (e.key === 'Enter') handleEnter()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIndex])
+
+  function onPointerDown(e: React.PointerEvent) {
+    setDragStartY(e.clientY)
+    setDragDelta(0)
+  }
+
+  function onPointerMove(e: React.PointerEvent) {
+    if (dragStartY === null) return
+    setDragDelta(e.clientY - dragStartY)
+  }
+
+  function onPointerUp() {
+    if (dragStartY === null) return
+    const steps = -Math.round(dragDelta / ITEM_HEIGHT)
+    if (steps !== 0) {
+      setSelectedIndex((prev) =>
+        Math.max(0, Math.min(LOCALE_ORDER.length - 1, prev + steps))
+      )
+    }
+    setDragStartY(null)
+    setDragDelta(0)
+  }
+
   function handleEnter() {
+    const locale = LOCALE_ORDER[selectedIndex]
+    saveLocale(locale)
     router.push('/login')
   }
+
+  // Translate offset: centre the selected item, factor in live drag
+  const baseOffset = -selectedIndex * ITEM_HEIGHT
+  const clampedDrag = Math.max(
+    -(LOCALE_ORDER.length - 1 - selectedIndex) * ITEM_HEIGHT,
+    Math.min(selectedIndex * ITEM_HEIGHT, dragDelta)
+  )
+  const translateY = baseOffset + (dragStartY !== null ? clampedDrag : 0)
 
   return (
     <div className={`${styles.splash} ${visible ? styles.visible : ''}`}>
@@ -106,7 +190,45 @@ function SplashInner() {
         <h1 className={`display ${styles.logo}`}>TARA-S</h1>
         {quote && <p className={`display ${styles.quote}`}>{quote}</p>}
       </div>
+
       <div className={styles.bottom}>
+        <p className={styles.rollerPrompt}>Speak first. tara-s is listening.</p>
+
+        <div
+          className={styles.rollerWrap}
+          ref={rollerRef}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerLeave={onPointerUp}
+        >
+          {/* fade masks top and bottom */}
+          <div className={styles.rollerFadeTop} />
+          <div className={styles.rollerFadeBottom} />
+          {/* active highlight bar */}
+          <div className={styles.rollerHighlight} />
+
+          <div
+            className={styles.rollerTrack}
+            style={{ transform: `translateY(${translateY}px)` }}
+          >
+            {LOCALE_ORDER.map((loc, i) => (
+              <div
+                key={loc}
+                className={`${styles.rollerItem} ${
+                  i === selectedIndex ? styles.rollerItemActive : ''
+                }`}
+                onClick={() => {
+                  if (i === selectedIndex) handleEnter()
+                  else setSelectedIndex(i)
+                }}
+              >
+                {localeNames[loc]}
+              </div>
+            ))}
+          </div>
+        </div>
+
         <button
           className={`${styles.enterBtn} ${styles.ready}`}
           onClick={handleEnter}

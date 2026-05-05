@@ -55,12 +55,113 @@
   max-width: 30ch;
 }
 
+/* ── Bottom area ──────────────────────────────── */
 .bottom {
   width: 100%;
   max-width: 340px;
   padding-bottom: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
 }
 
+/* Simone's line */
+.rollerPrompt {
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+/* ── Roller ───────────────────────────────────── */
+.rollerWrap {
+  position: relative;
+  width: 100%;
+  height: 144px; /* 3 items visible: 48px each */
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.rollerWrap:active {
+  cursor: grabbing;
+}
+
+.rollerFadeTop,
+.rollerFadeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 48px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.rollerFadeTop {
+  top: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-bg) 0%,
+    transparent 100%
+  );
+}
+
+.rollerFadeBottom {
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    var(--color-bg) 0%,
+    transparent 100%
+  );
+}
+
+/* The centred selection bar */
+.rollerHighlight {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 48px;
+  transform: translateY(-50%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.rollerTrack {
+  position: absolute;
+  top: calc(50% - 24px); /* offset so first item centres at rest */
+  width: 100%;
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.rollerItem {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease, font-weight 0.2s ease, font-size 0.2s ease;
+  cursor: pointer;
+}
+
+.rollerItemActive {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+}
+
+/* ── Enter button ─────────────────────────────── */
 .enterBtn {
   width: 100%;
   padding: var(--space-4) var(--space-6);
