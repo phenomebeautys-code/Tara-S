@@ -26,14 +26,12 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        setError(null)
-        // Auto sign in after signup
         const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
         if (!signInError) {
-          router.push('/')
+          router.push('/today')
           router.refresh()
         } else {
-          setError('Account created! Please sign in.')
+          setError('Account created. Please sign in.')
           setMode('login')
         }
       }
@@ -42,7 +40,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        router.push('/')
+        router.push('/today')
         router.refresh()
       }
     }
@@ -83,7 +81,7 @@ export default function LoginPage() {
           {error && <p className={styles.error}>{error}</p>}
 
           <button type="submit" disabled={loading}>
-            {loading ? 'Please wait…' : mode === 'signup' ? 'Create account' : 'Sign in'}
+            {loading ? 'Please wait...' : mode === 'signup' ? 'Create account' : 'Sign in'}
           </button>
         </form>
 

@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import styles from './BottomNav.module.css'
 
 const NAV = [
-  { href: '/',         label: 'Today'    },
+  { href: '/today',    label: 'Today'    },
   { href: '/log',      label: 'Log'      },
   { href: '/insights', label: 'Insights' },
   { href: '/privacy',  label: 'Privacy'  },

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 import styles from './SplashScreen.module.css'
 
 const QUOTES = [
@@ -81,13 +81,9 @@ function getDailyQuote() {
   return QUOTES[dayOfYear % QUOTES.length]
 }
 
-interface Props {
-  onEnter: () => void
-  preloadDone: boolean
-}
-
-export default function SplashScreen({ onEnter, preloadDone }: Props) {
+export default function SplashScreen() {
   const [visible, setVisible] = useState(false)
+  const router = useRouter()
   const quote = getDailyQuote()
   const date = getFormattedDate()
 
@@ -95,6 +91,10 @@ export default function SplashScreen({ onEnter, preloadDone }: Props) {
     const t = setTimeout(() => setVisible(true), 60)
     return () => clearTimeout(t)
   }, [])
+
+  function handleEnter() {
+    router.push('/login')
+  }
 
   return (
     <div className={`${styles.splash} ${visible ? styles.visible : ''}`}>
@@ -104,12 +104,8 @@ export default function SplashScreen({ onEnter, preloadDone }: Props) {
         <p className={`display ${styles.quote}`}>{quote}</p>
       </div>
       <div className={styles.bottom}>
-        <button
-          className={`${styles.enterBtn} ${preloadDone ? styles.ready : ''}`}
-          onClick={onEnter}
-          disabled={!preloadDone}
-        >
-          {preloadDone ? 'Enter' : 'One moment...'}
+        <button className={`${styles.enterBtn} ${styles.ready}`} onClick={handleEnter}>
+          Enter
         </button>
       </div>
     </div>
