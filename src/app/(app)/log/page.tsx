@@ -37,24 +37,28 @@ export default function LogPage() {
     setSaving(true)
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    if (!user) { setSaving(false); return }
+
+    const ops: Promise<unknown>[] = []
 
     if (periodDate) {
-      await logPeriodStart(user.id, periodDate, flow || undefined)
+      ops.push(logPeriodStart(user.id, periodDate, flow || undefined))
     }
 
     if (activeSymptoms.size > 0) {
       const today = new Date().toISOString().split('T')[0]
       const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
       SYMPTOM_KEYS.forEach((key) => { payload[key] = activeSymptoms.has(key) })
-      await supabase.from('symptom_logs').upsert(payload)
+      ops.push(createClient().from('symptom_logs').upsert(payload))
     }
 
+    await Promise.all(ops)
     setSaved(true)
     setSaving(false)
     setTimeout(() => router.push('/'), 800)
   }
 
+  // Renders immediately — no useEffect, no auth gate on first paint
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -67,13 +71,15 @@ export default function LogPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>When did your period begin?</h2>
         <p className={styles.sectionSub}>Enter the date your last period started.</p>
-        <input
-          type="date"
-          value={periodDate}
-          onChange={(e) => setPeriodDate(e.target.value)}
-          max={new Date().toISOString().split('T')[0]}
-          className={styles.dateInput}
-        />
+        <div className={styles.dateWrap}>
+          <input
+            type="date"
+            value={periodDate}
+            onChange={(e) => setPeriodDate(e.target.value)}
+            max={new Date().toISOString().split('T')[0]}
+            className={styles.dateInput}
+          />
+        </div>
         {periodDate && (
           <div className={styles.flowRow}>
             {(['light', 'medium', 'heavy'] as const).map((f) => (

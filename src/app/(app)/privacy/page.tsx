@@ -56,6 +56,7 @@ export default function PrivacyPage() {
     URL.revokeObjectURL(url)
   }
 
+  // Renders immediately — all content is static, data only fetched on button press
   return (
     <div className={styles.page}>
       <header className={styles.header}>

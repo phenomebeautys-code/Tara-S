@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--space-6);
   width: 100%;
+  min-width: 0;
 }
 
 .header {
@@ -50,6 +51,7 @@
   flex-direction: column;
   gap: var(--space-3);
   width: 100%;
+  min-width: 0;
 }
 
 .sectionTitle {
@@ -66,20 +68,35 @@
   margin-top: calc(-1 * var(--space-2));
 }
 
-.dateInput {
+/* Wrap the native date input so iOS safari cannot overflow */
+.dateWrap {
   width: 100%;
-  box-sizing: border-box;
-  padding: var(--space-3) var(--space-4);
+  min-width: 0;
+  overflow: hidden;
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-full);
-  font-size: 16px;
   background: var(--color-surface);
-  color: var(--color-text);
-  outline: none;
   transition: border-color 0.2s;
 }
 
-.dateInput:focus { border-color: var(--color-primary); }
+.dateWrap:focus-within {
+  border-color: var(--color-primary);
+}
+
+.dateInput {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 16px;
+  background: transparent;
+  color: var(--color-text);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
 
 .flowRow {
   display: flex;
