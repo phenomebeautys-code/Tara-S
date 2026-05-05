@@ -78,40 +78,40 @@ input, textarea, select {
 
 .display { font-family: var(--font-display); }
 
-/* Phase colour utility classes — bolder tint + border + shadow */
+/* Phase colour utility classes — white card, phase colour on border + shadow + text only */
 .phase-menstrual {
   color: var(--phase-menstrual);
-  background: color-mix(in srgb, var(--phase-menstrual) 18%, var(--color-bg));
-  border-color: color-mix(in srgb, var(--phase-menstrual) 30%, transparent) !important;
-  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-menstrual) 14%, transparent);
+  background: var(--color-surface);
+  border-color: color-mix(in srgb, var(--phase-menstrual) 35%, transparent) !important;
+  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-menstrual) 12%, transparent);
 }
 .phase-follicular {
   color: #3D6B3A;
-  background: color-mix(in srgb, var(--phase-follicular) 20%, var(--color-bg));
-  border-color: color-mix(in srgb, var(--phase-follicular) 35%, transparent) !important;
-  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-follicular) 14%, transparent);
+  background: var(--color-surface);
+  border-color: color-mix(in srgb, var(--phase-follicular) 40%, transparent) !important;
+  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-follicular) 12%, transparent);
 }
 .phase-ovulation {
   color: #8B3A52;
-  background: color-mix(in srgb, var(--phase-ovulation) 20%, var(--color-bg));
-  border-color: color-mix(in srgb, var(--phase-ovulation) 35%, transparent) !important;
-  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-ovulation) 14%, transparent);
+  background: var(--color-surface);
+  border-color: color-mix(in srgb, var(--phase-ovulation) 40%, transparent) !important;
+  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-ovulation) 12%, transparent);
 }
 .phase-luteal {
   color: #5C3D52;
-  background: color-mix(in srgb, var(--phase-luteal) 20%, var(--color-bg));
-  border-color: color-mix(in srgb, var(--phase-luteal) 35%, transparent) !important;
-  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-luteal) 14%, transparent);
+  background: var(--color-surface);
+  border-color: color-mix(in srgb, var(--phase-luteal) 40%, transparent) !important;
+  box-shadow: 0 4px 28px color-mix(in srgb, var(--phase-luteal) 12%, transparent);
 }
 .phase-unknown {
   color: var(--color-text-muted);
-  background: color-mix(in srgb, var(--color-border) 25%, var(--color-bg));
+  background: var(--color-surface);
   border-color: var(--color-border) !important;
-  box-shadow: none;
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--color-border) 40%, transparent);
 }
 
 /* Risk colour utility classes */
-.risk-low     { color: var(--risk-low);    background: color-mix(in srgb, var(--risk-low)     10%, var(--color-bg)); }
-.risk-medium  { color: var(--color-accent); background: color-mix(in srgb, var(--risk-medium)  10%, var(--color-bg)); }
-.risk-high    { color: var(--risk-high);   background: color-mix(in srgb, var(--risk-high)    10%, var(--color-bg)); }
-.risk-unknown { color: var(--color-text-muted); background: color-mix(in srgb, var(--risk-unknown) 10%, var(--color-bg)); }
+.risk-low     { color: var(--risk-low);         background: color-mix(in srgb, var(--risk-low)     10%, var(--color-bg)); }
+.risk-medium  { color: var(--color-accent);      background: color-mix(in srgb, var(--risk-medium)  10%, var(--color-bg)); }
+.risk-high    { color: var(--risk-high);         background: color-mix(in srgb, var(--risk-high)    10%, var(--color-bg)); }
+.risk-unknown { color: var(--color-text-muted);  background: color-mix(in srgb, var(--risk-unknown) 10%, var(--color-bg)); }
