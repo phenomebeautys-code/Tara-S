@@ -186,7 +186,9 @@ function SplashInner() {
       </div>
 
       <div className={styles.bottom}>
-        <p className={styles.rollerPrompt}>Speak first. tara-s is listening.</p>
+        <p className={styles.rollerPrompt}>
+          Speak first. <span className="display">tara-s</span> is listening.
+        </p>
 
         <div
           className={styles.rollerWrap}
