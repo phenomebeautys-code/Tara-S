@@ -11,17 +11,14 @@ const DATE_STEPS = [
   {
     question: 'When did your last period begin?',
     sub: 'This helps us find where you are in your cycle today.',
-    required: true,
   },
   {
     question: 'And the one before that?',
-    sub: 'Two dates give us your rhythm.',
-    required: true,
+    sub: 'Two dates help us find your rhythm.',
   },
   {
     question: 'One more, if you remember.',
     sub: 'Three dates and we can begin to see your pattern.',
-    required: false,
   },
 ]
 
@@ -53,27 +50,26 @@ export default function OnboardingPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
-    if (name.trim()) {
-      await supabase
-        .from('users')
-        .update({ display_name: name.trim() })
-        .eq('id', user.id)
-    }
-
     const validDates = dates.filter(Boolean).sort() as string[]
-    for (const d of validDates) {
-      await logPeriodStart(user.id, d)
-    }
 
+    // Run name update and all period logs in parallel
+    await Promise.all([
+      name.trim()
+        ? supabase.from('users').update({ display_name: name.trim() }).eq('id', user.id)
+        : Promise.resolve(),
+      ...validDates.map((d) => logPeriodStart(user.id, d)),
+    ])
+
+    // Only mark complete after all data is written
     await supabase
       .from('users')
       .update({ onboarding_complete: true })
       .eq('id', user.id)
 
     router.push('/')
+    router.refresh()
   }
 
-  // Welcome breath screen
   if (stage === 'welcome') {
     return (
       <div className={styles.container}>
@@ -84,10 +80,7 @@ export default function OnboardingPage() {
             <p className={styles.welcomeBody}>
               Before we begin, a few questions to find your rhythm.
             </p>
-            <button
-              className={styles.primaryBtn}
-              onClick={() => setStage('name')}
-            >
+            <button className={styles.primaryBtn} onClick={() => setStage('name')}>
               I am ready
             </button>
           </div>
@@ -96,7 +89,6 @@ export default function OnboardingPage() {
     )
   }
 
-  // Name screen
   if (stage === 'name') {
     return (
       <div className={styles.container}>
@@ -105,7 +97,6 @@ export default function OnboardingPage() {
             <p className={`display ${styles.question}`}>What do you go by?</p>
             <p className={styles.sub}>TARA-S will use this to greet you.</p>
           </div>
-
           <input
             type="text"
             value={name}
@@ -114,7 +105,6 @@ export default function OnboardingPage() {
             autoComplete="given-name"
             className={styles.textInput}
           />
-
           <div className={styles.actions}>
             <button
               className={styles.primaryBtn}
@@ -123,10 +113,7 @@ export default function OnboardingPage() {
             >
               Continue
             </button>
-            <button
-              className={styles.skipBtn}
-              onClick={() => setStage('dates')}
-            >
+            <button className={styles.skipBtn} onClick={() => setStage('dates')}>
               Continue without a name
             </button>
           </div>
@@ -135,7 +122,6 @@ export default function OnboardingPage() {
     )
   }
 
-  // Ready screen
   if (stage === 'ready') {
     const firstName = name.trim()
     return (
@@ -161,13 +147,11 @@ export default function OnboardingPage() {
     )
   }
 
-  // Date steps
   const current = DATE_STEPS[dateStep]
 
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-
         <div className={styles.dots}>
           {DATE_STEPS.map((_, i) => (
             <span
@@ -176,12 +160,10 @@ export default function OnboardingPage() {
             />
           ))}
         </div>
-
         <div className={styles.questionWrap}>
           <p className={`display ${styles.question}`}>{current.question}</p>
           <p className={styles.sub}>{current.sub}</p>
         </div>
-
         <input
           type="date"
           value={dates[dateStep] ?? ''}
@@ -189,22 +171,18 @@ export default function OnboardingPage() {
           max={new Date().toISOString().split('T')[0]}
           className={styles.dateInput}
         />
-
         <div className={styles.actions}>
           <button
             className={styles.primaryBtn}
             onClick={handleDateContinue}
-            disabled={current.required && !dates[dateStep]}
+            disabled={!dates[dateStep]}
           >
             Continue
           </button>
-          {!current.required && (
-            <button className={styles.skipBtn} onClick={handleDateContinue}>
-              I am not sure, continue anyway
-            </button>
-          )}
+          <button className={styles.skipBtn} onClick={handleDateContinue}>
+            I don’t remember
+          </button>
         </div>
-
       </div>
     </div>
   )

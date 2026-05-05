@@ -1,8 +1,8 @@
 .wrapper {
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  flex-shrink: 0;
+  width: 96px;
+  height: 96px;
 }
 
 .track {
@@ -10,11 +10,12 @@
 }
 
 .dot {
-  filter: drop-shadow(0 0 4px currentColor);
+  filter: drop-shadow(0 0 3px currentColor);
 }
 
 .center {
   position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,17 +24,17 @@
 }
 
 .day {
-  font-size: 3.5rem;
+  font-size: 1.4rem;
   font-weight: 300;
   line-height: 1;
-  letter-spacing: -0.02em;
+  color: currentColor;
 }
 
 .dayLabel {
-  font-size: 0.7rem;
+  font-size: 0.55rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  opacity: 0.5;
-  margin-top: 2px;
+  opacity: 0.55;
+  color: currentColor;
 }

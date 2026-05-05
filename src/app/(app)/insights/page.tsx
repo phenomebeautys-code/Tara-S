@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
-import Link from 'next/link'
 import styles from './insights.module.css'
 
 export default function InsightsPage() {
@@ -34,9 +33,8 @@ export default function InsightsPage() {
         </div>
       ) : insights.length === 0 ? (
         <div className={styles.empty}>
-          <p className={styles.emptyTitle}>Your patterns will surface here as you log.</p>
-          <p className={styles.emptyBody}>Begin with your last period.</p>
-          <Link href="/log" className={styles.emptyLink}>Log a period</Link>
+          <p className={`display ${styles.emptyTitle}`}>Tara is listening.</p>
+          <p className={styles.emptyBody}>She will find your patterns as you go.</p>
         </div>
       ) : (
         <ul className={styles.list}>
