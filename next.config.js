@@ -1,20 +1,3 @@
-// @ts-check
-const createNextIntlPlugin = require('next-intl/plugin')
-const withNextIntl = createNextIntlPlugin('./i18n.ts')
-
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  async headers() {
-    return [
-      {
-        source: '/sw.js',
-        headers: [
-          { key: 'Cache-Control', value: 'no-cache' },
-          { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },
-        ],
-      },
-    ]
-  },
-}
-
-module.exports = withNextIntl(nextConfig)
+// next.config.mjs is the active config.
+// next-intl plugin and SW headers are both configured there.
+// This file is kept as a no-op to avoid confusion.

@@ -1,3 +1,20 @@
-// next.config.js is the active config. This file is kept as a no-op.
-// next-intl plugin and SW headers are both configured in next.config.js.
-export default {}
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./i18n.ts')
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache' },
+          { key: 'Content-Type', value: 'application/javascript; charset=utf-8' },
+        ],
+      },
+    ]
+  },
+}
+
+export default withNextIntl(nextConfig)
