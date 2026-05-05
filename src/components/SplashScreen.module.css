@@ -6,8 +6,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-8) var(--space-5);
-  z-index: 100;
+  padding: var(--space-8) var(--space-5) 0;
+  padding-bottom: calc(76px + env(safe-area-inset-bottom) + var(--space-5));
+  z-index: 200;
   opacity: 0;
   transition: opacity 0.5s ease;
 }
@@ -57,29 +58,37 @@
 .bottom {
   width: 100%;
   max-width: 340px;
-  padding-bottom: var(--space-4);
+  padding-bottom: var(--space-5);
 }
 
 .enterBtn {
   width: 100%;
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-6);
   background: var(--color-border);
   color: var(--color-text-muted);
   border-radius: var(--radius-full);
   font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   font-family: var(--font-body);
-  transition: background 0.3s ease, color 0.3s ease, opacity 0.2s;
+  transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .enterBtn.ready {
   background: var(--color-primary);
   color: white;
   cursor: pointer;
+  box-shadow: 0 4px 24px color-mix(in srgb, var(--color-primary) 35%, transparent);
 }
 
 .enterBtn.ready:hover {
   background: var(--color-accent);
+  box-shadow: 0 6px 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
+}
+
+.enterBtn.ready:active {
+  transform: scale(0.98);
 }
