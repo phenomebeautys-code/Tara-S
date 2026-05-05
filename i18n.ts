@@ -8,11 +8,17 @@ export { localeNames } from './src/lib/locales'
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies()
-  const cookieLocale = cookieStore.get('NEXT_LOCALE')?.value as Locale | undefined
+
+  // TARA_LOCALE is set directly by the splash screen via document.cookie
+  // before any navigation occurs, so it is always present on the incoming
+  // request. NEXT_LOCALE is only set on the middleware response, meaning
+  // it is one request behind and cannot be relied on here.
+  const raw =
+    (cookieStore.get('TARA_LOCALE')?.value as Locale | undefined) ??
+    (cookieStore.get('NEXT_LOCALE')?.value as Locale | undefined)
+
   const locale: Locale =
-    cookieLocale && (locales as readonly string[]).includes(cookieLocale)
-      ? cookieLocale
-      : defaultLocale
+    raw && (locales as readonly string[]).includes(raw) ? raw : defaultLocale
 
   return {
     locale,
