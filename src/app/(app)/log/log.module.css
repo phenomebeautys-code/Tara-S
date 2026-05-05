@@ -101,7 +101,28 @@
 }
 
 .dateInput::-webkit-date-and-time-value {
-  text-align: left;
+  text-align: center;
+}
+
+.dateClear {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: var(--space-1);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.15s;
+  border-radius: 50%;
+}
+
+.dateClear:hover {
+  color: var(--color-text);
 }
 
 .flowRow {

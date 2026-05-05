@@ -33,6 +33,11 @@ export default function LogPage() {
     })
   }
 
+  function clearDate() {
+    setPeriodDate('')
+    setFlow('')
+  }
+
   async function handleSave() {
     setSaving(true)
     const supabase = createClient()
@@ -71,10 +76,20 @@ export default function LogPage() {
           <input
             type="date"
             value={periodDate}
-            onChange={(e) => setPeriodDate(e.target.value)}
+            onChange={(e) => setPeriodDate(e.target.value ?? '')}
             max={new Date().toISOString().split('T')[0]}
             className={styles.dateInput}
           />
+          {periodDate && (
+            <button
+              type="button"
+              className={styles.dateClear}
+              onClick={clearDate}
+              aria-label="Clear date"
+            >
+              &#x2715;
+            </button>
+          )}
         </div>
         {periodDate && (
           <div className={styles.flowRow}>
