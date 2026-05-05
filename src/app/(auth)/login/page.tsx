@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import styles from './login.module.css'
@@ -12,19 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [checking, setChecking] = useState(true)
   const router = useRouter()
-
-  useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        router.replace('/today')
-      } else {
-        setChecking(false)
-      }
-    })
-  }, [router])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -59,8 +47,6 @@ export default function LoginPage() {
 
     setLoading(false)
   }
-
-  if (checking) return null
 
   return (
     <main className={styles.container}>

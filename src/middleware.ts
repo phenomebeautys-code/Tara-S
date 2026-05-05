@@ -23,17 +23,19 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Public routes — no auth check needed
-  const publicPaths = ['/', '/login', '/signup', '/offline', '/auth']
-  const isPublic = publicPaths.some((p) =>
-    p === '/' ? pathname === '/' : pathname.startsWith(p)
-  )
+  // When the user hits the splash root, force sign out server-side.
+  // This clears the auth cookie so Safari PWA cannot restore a cached session.
+  if (pathname === '/') {
+    await supabase.auth.signOut()
+    return supabaseResponse
+  }
+
+  const publicPaths = ['/login', '/signup', '/offline', '/auth']
+  const isPublic = publicPaths.some((p) => pathname.startsWith(p))
 
   if (isPublic) return supabaseResponse
 
-  // For protected routes, verify session via cookie
-  // Since client uses sessionStorage, cookies won't carry the token after tab close.
-  // We rely on the client-side session check; middleware only blocks direct URL access.
+  // Protected route — check session
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
