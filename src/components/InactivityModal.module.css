@@ -1,15 +1,37 @@
-.page {
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(8px);
   display: flex;
-  flex-direction: column;
-  gap: var(--space-6);
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-4);
+  animation: fadeIn 0.25s ease;
 }
 
-.header {
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal {
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-5);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(32px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
 }
 
 .eyebrow {
@@ -21,29 +43,29 @@
 }
 
 .title {
-  font-size: 2.6rem;
+  font-size: 2rem;
   font-weight: 300;
   font-style: italic;
-  line-height: 1.2;
   color: var(--color-primary);
-  letter-spacing: 0.02em;
+  line-height: 1.2;
 }
 
-.subtitle {
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
+.body {
+  font-size: 0.95rem;
+  line-height: 1.7;
   color: var(--color-text-muted);
-  letter-spacing: 0.01em;
 }
 
-.section {
+.timeoutSection {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
 }
 
-.sectionTitle {
+.timeoutLabel {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -51,20 +73,13 @@
   color: var(--color-text-muted);
 }
 
-.section p {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--color-text);
-}
-
-.timeoutOptions {
+.options {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-2);
-  margin-top: var(--space-2);
 }
 
-.timeoutBtn {
+.optionBtn {
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-full);
   border: 1.5px solid var(--color-border);
@@ -75,12 +90,12 @@
   transition: all 0.15s;
 }
 
-.timeoutBtn:hover {
+.optionBtn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.timeoutActive {
+.optionActive {
   border-color: var(--color-primary) !important;
   color: var(--color-primary) !important;
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
@@ -90,23 +105,21 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
 }
 
-.exportBtn {
+.stayBtn {
   width: 100%;
   padding: var(--space-4);
-  background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
+  background: var(--color-primary);
+  border: none;
   border-radius: var(--radius-full);
   font-size: 1rem;
   font-weight: 500;
-  color: var(--color-text);
-  transition: border-color 0.2s;
+  color: var(--color-bg);
+  transition: opacity 0.2s;
 }
 
-.exportBtn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.stayBtn:hover { opacity: 0.85; }
 
 .signOutBtn {
   width: 100%;
@@ -124,19 +137,3 @@
   border-color: var(--color-text);
   color: var(--color-text);
 }
-
-.deleteBtn {
-  width: 100%;
-  padding: var(--space-4);
-  background: transparent;
-  border: 1.5px solid color-mix(in srgb, var(--risk-high) 40%, transparent);
-  border-radius: var(--radius-full);
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--risk-high);
-  opacity: 0.7;
-  transition: opacity 0.2s, border-color 0.2s;
-}
-
-.deleteBtn:hover { opacity: 1; border-color: var(--risk-high); }
-.deleteBtn:disabled { opacity: 0.3; }

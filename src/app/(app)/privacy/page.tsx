@@ -1,12 +1,34 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import {
+  getSavedTimeout,
+  saveTimeout,
+  TIMEOUT_OPTIONS,
+  type TimeoutValue,
+} from '@/lib/hooks/useInactivityTimeout'
 import styles from './privacy.module.css'
 
 export default function PrivacyPage() {
   const [deleting, setDeleting] = useState(false)
+  const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
   const router = useRouter()
+
+  useEffect(() => {
+    setTimeoutMs(getSavedTimeout())
+  }, [])
+
+  function handleTimeoutChange(value: TimeoutValue) {
+    saveTimeout(value)
+    setTimeoutMs(value)
+  }
+
+  async function handleSignOut() {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.replace('/')
+  }
 
   async function handleDelete() {
     if (!confirm('This will permanently delete everything. It cannot be undone. Are you sure?')) return
@@ -17,7 +39,7 @@ export default function PrivacyPage() {
       await supabase.from('users').delete().eq('id', user.id)
       await supabase.auth.signOut()
     }
-    router.push('/login')
+    router.push('/')
   }
 
   async function handleExport() {
@@ -56,7 +78,6 @@ export default function PrivacyPage() {
     URL.revokeObjectURL(url)
   }
 
-  // Renders immediately — all content is static, data only fetched on button press
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -80,9 +101,30 @@ export default function PrivacyPage() {
         <p>Take it all with you, or let it go completely. One tap to download everything. One tap to delete it all, forever.</p>
       </div>
 
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Auto sign-out</h2>
+        <p>Automatically sign you out after a period of inactivity to protect your privacy.</p>
+        <div className={styles.timeoutOptions}>
+          {TIMEOUT_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              className={`${styles.timeoutBtn} ${
+                timeoutMs === opt.value ? styles.timeoutActive : ''
+              }`}
+              onClick={() => handleTimeoutChange(opt.value)}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className={styles.actions}>
         <button className={styles.exportBtn} onClick={handleExport}>
           Download my data
+        </button>
+        <button className={styles.signOutBtn} onClick={handleSignOut}>
+          Sign out
         </button>
         <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
           {deleting ? 'Deleting...' : 'Delete everything'}
