@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import styles from './login.module.css'
 
 type Mode = 'login' | 'signup'
@@ -14,7 +13,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -30,8 +28,7 @@ export default function LoginPage() {
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
         if (!signInError) {
-          router.push('/today')
-          router.refresh()
+          window.location.href = '/today'
         } else {
           setError(t('account_created'))
           setMode('login')
@@ -42,8 +39,7 @@ export default function LoginPage() {
       if (error) {
         setError(error.message)
       } else {
-        router.push('/today')
-        router.refresh()
+        window.location.href = '/today'
       }
     }
 

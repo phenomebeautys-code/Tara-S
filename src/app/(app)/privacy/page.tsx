@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import {
   getSavedTimeout,
   saveTimeout,
@@ -13,9 +12,9 @@ import styles from './privacy.module.css'
 
 export default function PrivacyPage() {
   const t = useTranslations('privacy')
+  const tInactivity = useTranslations('inactivity')
   const [deleting, setDeleting] = useState(false)
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
-  const router = useRouter()
 
   useEffect(() => {
     setTimeoutMs(getSavedTimeout())
@@ -29,7 +28,7 @@ export default function PrivacyPage() {
   async function handleSignOut() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.replace('/')
+    window.location.href = '/'
   }
 
   async function handleDelete() {
@@ -41,7 +40,7 @@ export default function PrivacyPage() {
       await supabase.from('users').delete().eq('id', user.id)
       await supabase.auth.signOut()
     }
-    router.push('/')
+    window.location.href = '/'
   }
 
   async function handleExport() {
@@ -104,8 +103,7 @@ export default function PrivacyPage() {
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Auto sign-out</h2>
-        <p>Automatically sign you out after a period of inactivity to protect your privacy.</p>
+        <h2 className={styles.sectionTitle}>{tInactivity('change_timeout')}</h2>
         <div className={styles.timeoutOptions}>
           {TIMEOUT_OPTIONS.map((opt) => (
             <button
@@ -126,7 +124,7 @@ export default function PrivacyPage() {
           {t('export_btn')}
         </button>
         <button className={styles.signOutBtn} onClick={handleSignOut}>
-          Sign out
+          {tInactivity('sign_out')}
         </button>
         <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
           {deleting ? t('deleting') : t('delete_btn')}

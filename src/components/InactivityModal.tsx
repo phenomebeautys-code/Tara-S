@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -15,7 +14,6 @@ import styles from './InactivityModal.module.css'
 const GRACE_SECONDS = 45
 
 export default function InactivityModal() {
-  const router = useRouter()
   const t = useTranslations('inactivity')
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
   const [showModal, setShowModal] = useState(false)
@@ -37,7 +35,7 @@ export default function InactivityModal() {
     clearGrace()
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.replace('/')
+    window.location.href = '/'
   }
 
   const handleExpire = useCallback(() => {

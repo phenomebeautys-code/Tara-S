@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { useCycleStats } from '@/lib/hooks/useCycleStats'
@@ -10,7 +9,6 @@ import PwaPrompt from '@/components/PwaPrompt'
 import styles from '../home.module.css'
 
 export default function TodayPage() {
-  const router = useRouter()
   const t = useTranslations('home')
   const tCommon = useTranslations('common')
   const tNav = useTranslations('nav')
@@ -27,7 +25,7 @@ export default function TodayPage() {
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) {
-        router.replace('/')
+        window.location.href = '/'
         return
       }
       const uid = data.session.user.id
@@ -44,7 +42,7 @@ export default function TodayPage() {
       setGreeting(name ? `${time}, ${name}` : time)
       setAuthChecked(true)
     })
-  }, [router, t])
+  }, [t])
 
   const { stats, phase, loading } = useCycleStats(userId)
 

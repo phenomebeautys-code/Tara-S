@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
-import { useRouter } from 'next/navigation'
 import styles from './onboarding.module.css'
 
 type Stage = 'welcome' | 'name' | 'dates' | 'ready'
@@ -16,7 +15,6 @@ export default function OnboardingPage() {
   const [dateStep, setDateStep] = useState(0)
   const [dates, setDates] = useState<(string | null)[]>([null, null, null])
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const DATE_STEPS = [
     { question: t('date_q1'), sub: t('date_q1_sub') },
@@ -55,8 +53,7 @@ export default function OnboardingPage() {
 
     await supabase.from('users').update({ onboarding_complete: true }).eq('id', user.id)
 
-    router.push('/')
-    router.refresh()
+    window.location.href = '/today'
   }
 
   if (stage === 'welcome') {

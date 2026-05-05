@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
-import { useRouter } from 'next/navigation'
 import styles from './log.module.css'
 
 const SYMPTOM_KEYS = ['cramps', 'bloating', 'skin_breakout', 'low_energy', 'mood_low', 'headache'] as const
@@ -16,7 +15,6 @@ export default function LogPage() {
   const [activeSymptoms, setActiveSymptoms] = useState<Set<SymptomKey>>(new Set())
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
-  const router = useRouter()
 
   function toggleSymptom(key: SymptomKey) {
     setActiveSymptoms((prev) => {
@@ -50,7 +48,7 @@ export default function LogPage() {
 
     setSaved(true)
     setSaving(false)
-    setTimeout(() => router.push('/'), 800)
+    setTimeout(() => { window.location.href = '/today' }, 800)
   }
 
   return (
