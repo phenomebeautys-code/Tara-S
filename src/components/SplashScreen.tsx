@@ -1,7 +1,6 @@
 'use client'
 import dynamic from 'next/dynamic'
 import { useEffect, useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { locales, localeNames, type Locale } from '@/lib/locales'
 import styles from './SplashScreen.module.css'
@@ -87,7 +86,6 @@ function saveLocale(locale: Locale) {
 }
 
 function SplashInner() {
-  const router = useRouter()
   const [visible, setVisible] = useState(false)
   const [date, setDate] = useState('')
   const [quote, setQuote] = useState('')
@@ -167,7 +165,9 @@ function SplashInner() {
   function handleEnter() {
     const locale = LOCALE_ORDER[selectedIndex]
     saveLocale(locale)
-    router.push('/login')
+    // Hard navigation forces a full server round-trip so the root layout
+    // re-reads NEXT_LOCALE from the cookie and loads the correct messages.
+    window.location.href = '/login'
   }
 
   const baseOffset = -selectedIndex * ITEM_HEIGHT
