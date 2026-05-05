@@ -1,23 +1,10 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import createIntlMiddleware from 'next-intl/middleware'
-import { locales, defaultLocale } from '../i18n'
-
-const intlMiddleware = createIntlMiddleware({
-  locales,
-  defaultLocale,
-  localePrefix: 'as-needed', // English URLs stay clean: /log, /insights etc
-})
 
 export async function middleware(request: NextRequest) {
-  // Run locale detection first
-  const intlResponse = intlMiddleware(request)
-
-  // Strip locale prefix for auth logic
   const { pathname } = request.nextUrl
-  const pathnameWithoutLocale = pathname.replace(/^\/(af|zu|xh)/, '') || '/'
 
-  let supabaseResponse = intlResponse ?? NextResponse.next({ request })
+  let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -39,7 +26,7 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
 
   const publicPaths = ['/login', '/signup', '/offline', '/auth']
-  const isPublic = publicPaths.some((p) => pathnameWithoutLocale.startsWith(p))
+  const isPublic = publicPaths.some((p) => pathname.startsWith(p))
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone()
@@ -47,7 +34,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (user && !isPublic && !pathnameWithoutLocale.startsWith('/onboarding')) {
+  if (user && !isPublic && !pathname.startsWith('/onboarding')) {
     const { data: profile } = await supabase
       .from('users')
       .select('onboarding_complete')
