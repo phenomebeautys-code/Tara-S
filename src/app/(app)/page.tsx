@@ -8,6 +8,8 @@ import PwaPrompt from '@/components/PwaPrompt'
 import SplashScreen from '@/components/SplashScreen'
 import styles from './home.module.css'
 
+const SPLASH_KEY = 'tara-splash-shown'
+
 function getGreeting(name?: string | null) {
   const h = new Date().getHours()
   const time = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'
@@ -18,8 +20,13 @@ export default function HomePage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
   const [authReady, setAuthReady] = useState(false)
-  const [showSplash, setShowSplash] = useState(true)
   const [preloadDone, setPreloadDone] = useState(false)
+
+  // Splash shows only on first visit per session
+  const [showSplash, setShowSplash] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return sessionStorage.getItem(SPLASH_KEY) !== '1'
+  })
 
   useEffect(() => {
     const supabase = createClient()
@@ -40,7 +47,6 @@ export default function HomePage() {
 
   const { stats, phase, loading } = useCycleStats(userId)
 
-  // Preload is complete when auth is ready and cycle data has resolved
   useEffect(() => {
     if (authReady && !loading) {
       setPreloadDone(true)
@@ -48,6 +54,7 @@ export default function HomePage() {
   }, [authReady, loading])
 
   const handleEnter = useCallback(() => {
+    sessionStorage.setItem(SPLASH_KEY, '1')
     setShowSplash(false)
   }, [])
 
