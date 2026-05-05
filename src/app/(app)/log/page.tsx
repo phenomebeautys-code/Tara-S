@@ -126,7 +126,7 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? 'Saved' : saving ? 'Saving...' : <><span className="display">tara-s</span> — save</>}
+        {saved ? 'Saved' : saving ? 'Saving...' : 'Save'}
       </button>
     </div>
   )
