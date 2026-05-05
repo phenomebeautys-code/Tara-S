@@ -5,7 +5,7 @@ import styles from './app-layout.module.css'
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.shell}>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.content}>{children}</main>
       <BottomNav />
       <InactivityModal />
     </div>
