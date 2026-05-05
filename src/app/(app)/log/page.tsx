@@ -65,7 +65,8 @@ export default function LogPage() {
       </header>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>When did it begin?</h2>
+        <h2 className={styles.sectionTitle}>When did your period begin?</h2>
+        <p className={styles.sectionSub}>Enter the date your last period started.</p>
         <input
           type="date"
           value={periodDate}
@@ -108,7 +109,7 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? 'Saved ✓' : saving ? 'Saving...' : 'Save to Tara'}
+        {saved ? 'Saved' : saving ? 'Saving...' : 'Save to Tara'}
       </button>
     </div>
   )
