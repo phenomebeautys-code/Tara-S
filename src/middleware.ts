@@ -1,12 +1,10 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { locales, defaultLocale } from '../i18n'
+import { locales, defaultLocale } from '../src/lib/locales'
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // --- Locale detection ---
-  // Priority: TARA_LOCALE cookie (set from user profile) > Accept-Language header > default 'en'
   const cookieLocale = request.cookies.get('TARA_LOCALE')?.value
   const headerLang = request.headers.get('accept-language')?.split(',')[0].split('-')[0]
   const detectedLocale =
@@ -15,8 +13,6 @@ export async function middleware(request: NextRequest) {
     defaultLocale
 
   let supabaseResponse = NextResponse.next({ request })
-
-  // Set locale cookie so next-intl getRequestConfig picks it up server-side
   supabaseResponse.cookies.set('NEXT_LOCALE', detectedLocale, { path: '/', sameSite: 'lax' })
 
   const supabase = createServerClient(
@@ -28,7 +24,6 @@ export async function middleware(request: NextRequest) {
         setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
           cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({ request })
-          // Re-apply locale cookie after supabaseResponse is re-created
           supabaseResponse.cookies.set('NEXT_LOCALE', detectedLocale, { path: '/', sameSite: 'lax' })
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options as Parameters<typeof supabaseResponse.cookies.set>[2])
@@ -38,7 +33,6 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // When the user hits the splash root, force sign out server-side.
   if (pathname === '/') {
     await supabase.auth.signOut()
     return supabaseResponse
@@ -46,10 +40,8 @@ export async function middleware(request: NextRequest) {
 
   const publicPaths = ['/login', '/signup', '/offline', '/auth']
   const isPublic = publicPaths.some((p) => pathname.startsWith(p))
-
   if (isPublic) return supabaseResponse
 
-  // Protected route — check session
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
@@ -58,7 +50,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // Onboarding gate + locale sync from user profile
   if (!pathname.startsWith('/onboarding')) {
     const { data: profile } = await supabase
       .from('users')
@@ -66,7 +57,6 @@ export async function middleware(request: NextRequest) {
       .eq('id', user.id)
       .single()
 
-    // If user has a saved locale preference, override the detected locale
     if (profile?.locale && (locales as readonly string[]).includes(profile.locale)) {
       supabaseResponse.cookies.set('TARA_LOCALE', profile.locale, { path: '/', sameSite: 'lax' })
       supabaseResponse.cookies.set('NEXT_LOCALE', profile.locale, { path: '/', sameSite: 'lax' })

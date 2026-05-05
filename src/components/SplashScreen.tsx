@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { locales, localeNames, type Locale } from '../../i18n'
+import { locales, localeNames, type Locale } from '@/lib/locales'
 import styles from './SplashScreen.module.css'
 
 const QUOTES = [
@@ -69,8 +69,8 @@ const QUOTES = [
   'She logs. She learns. She knows herself a little more today.',
 ]
 
-const LOCALE_ORDER: Locale[] = ['en', 'af', 'zu', 'xh']
-const ITEM_HEIGHT = 48 // px — height of each roller item
+const LOCALE_ORDER = locales as unknown as Locale[]
+const ITEM_HEIGHT = 48
 
 function getSavedLocale(): Locale {
   try {
@@ -111,17 +111,13 @@ function SplashInner() {
         (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000
       )
       setQuote(QUOTES[dayOfYear % QUOTES.length])
-
-      // Pre-select saved locale
       const saved = getSavedLocale()
       const idx = LOCALE_ORDER.indexOf(saved)
       setSelectedIndex(idx >= 0 ? idx : 0)
-
       setTimeout(() => setVisible(true), 60)
     })
   }, [])
 
-  // Wheel scroll
   useEffect(() => {
     const el = rollerRef.current
     if (!el) return
@@ -135,7 +131,6 @@ function SplashInner() {
     return () => el.removeEventListener('wheel', onWheel)
   }, [])
 
-  // Keyboard
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') setSelectedIndex((p) => Math.min(LOCALE_ORDER.length - 1, p + 1))
@@ -175,7 +170,6 @@ function SplashInner() {
     router.push('/login')
   }
 
-  // Translate offset: centre the selected item, factor in live drag
   const baseOffset = -selectedIndex * ITEM_HEIGHT
   const clampedDrag = Math.max(
     -(LOCALE_ORDER.length - 1 - selectedIndex) * ITEM_HEIGHT,
@@ -202,12 +196,9 @@ function SplashInner() {
           onPointerUp={onPointerUp}
           onPointerLeave={onPointerUp}
         >
-          {/* fade masks top and bottom */}
           <div className={styles.rollerFadeTop} />
           <div className={styles.rollerFadeBottom} />
-          {/* active highlight bar */}
           <div className={styles.rollerHighlight} />
-
           <div
             className={styles.rollerTrack}
             style={{ transform: `translateY(${translateY}px)` }}

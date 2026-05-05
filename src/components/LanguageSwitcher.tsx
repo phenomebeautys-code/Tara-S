@@ -2,7 +2,7 @@
 
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { locales, localeNames, type Locale } from '../../i18n'
+import { locales, localeNames, type Locale } from '@/lib/locales'
 import { createBrowserClient } from '@supabase/ssr'
 
 interface Props {
@@ -16,11 +16,8 @@ export default function LanguageSwitcher({ currentLocale, userId }: Props) {
 
   async function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const newLocale = e.target.value as Locale
-
-    // Set the TARA_LOCALE cookie client-side so middleware picks it up on next request
     document.cookie = `TARA_LOCALE=${newLocale}; path=/; samesite=lax`
 
-    // If user is authenticated, persist to Supabase users.locale
     if (userId) {
       const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
