@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import {
   useInactivityTimeout,
@@ -15,6 +16,7 @@ const GRACE_SECONDS = 45
 
 export default function InactivityModal() {
   const router = useRouter()
+  const t = useTranslations('inactivity')
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
   const [showModal, setShowModal] = useState(false)
   const [countdown, setCountdown] = useState(GRACE_SECONDS)
@@ -45,7 +47,6 @@ export default function InactivityModal() {
 
   const resetTimer = useInactivityTimeout(handleExpire, timeoutMs)
 
-  // Start grace countdown when modal opens
   useEffect(() => {
     if (!showModal) return
     clearGrace()
@@ -84,12 +85,12 @@ export default function InactivityModal() {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <p className={styles.eyebrow}>Privacy</p>
-        <h2 className={`display ${styles.title}`}>Are you still there?</h2>
+        <p className={styles.eyebrow}>{t('eyebrow')}</p>
+        <h2 className={`display ${styles.title}`}>{t('title')}</h2>
         <p className={styles.body}>
-          We take your privacy seriously. You will be signed out in{' '}
+          {t('body_before')}{' '}
           <span className={styles.countdown}>{countdown}</span>{' '}
-          second{countdown !== 1 ? 's' : ''}.
+          {countdown !== 1 ? t('seconds') : t('second')}.
         </p>
 
         <div className={styles.progressWrap}>
@@ -100,7 +101,7 @@ export default function InactivityModal() {
         </div>
 
         <div className={styles.timeoutSection}>
-          <p className={styles.timeoutLabel}>Change timeout</p>
+          <p className={styles.timeoutLabel}>{t('change_timeout')}</p>
           <div className={styles.options}>
             {TIMEOUT_OPTIONS.map((opt) => (
               <button
@@ -118,10 +119,10 @@ export default function InactivityModal() {
 
         <div className={styles.actions}>
           <button className={styles.stayBtn} onClick={handleStillHere}>
-            I am still here
+            {t('stay')}
           </button>
           <button className={styles.signOutBtn} onClick={signOutAndRedirect}>
-            Sign out
+            {t('sign_out')}
           </button>
         </div>
       </div>

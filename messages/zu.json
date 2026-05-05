@@ -36,7 +36,7 @@
     "eyebrow": "Ulwazi",
     "title": "Lokho umzimba wakho okushoyo.",
     "subtitle": "Izikhombisi ezivela kulokho orekhodile.",
-    "prefix": "UTara uqaphele —",
+    "prefix": "UTara uqaphele",
     "empty_title": "Izinhlobo zakho zizovela lapha njengoba urekhoda.",
     "empty_body": "Qala ngesikhathi sakho sokugcina.",
     "empty_cta": "Rekhoda isikhathi"
@@ -55,6 +55,52 @@
     "delete_btn": "Sula konke",
     "delete_confirm": "Lokhu kuzosula konke ngokuphelele. Akukwazi ukubuyiselwa. Uqinisekile?",
     "deleting": "Iyasula..."
+  },
+  "onboarding": {
+    "welcome_body": "Ngaphambi kokuba siqale, imibuzo embalwa ukuze sithole umjikelezo wakho.",
+    "welcome_cta": "Ngikulungele",
+    "name_question": "Ubizwa ngani?",
+    "name_sub": "tara-s uzosebenzisa lokhu ukukukhulisa.",
+    "name_placeholder": "Igama lakho",
+    "continue": "Qhubeka",
+    "continue_no_name": "Qhubeka ngaphandle kwegama",
+    "dont_remember": "Angikhumbuli",
+    "date_q1": "Ukuya esikhathini kwakho kwaqala nini?",
+    "date_q1_sub": "Lokhu kusisiza ukuthola ukuthi ukuphi emjikelezo wakho namuhla.",
+    "date_q2": "Futhi eyangaphambi kwalowo?",
+    "date_q2_sub": "Izinsuku ezimbili zisisiza ukuthola umjikelezo wakho.",
+    "date_q3": "Enye futhi, uma uyakhumbula.",
+    "date_q3_sub": "Izinsuku ezintathu futhi singaqala ukubona iphethini yakho.",
+    "ready": "Ulungile.",
+    "ready_named": "Ulungile, {name}.",
+    "ready_sub": "tara-s uzofunda kuhambisana nawe. Okurekhodayo okuningi, okuqondayo okuningi.",
+    "enter": "Ngena",
+    "entering": "Isikhashana..."
+  },
+  "login": {
+    "tagline": "Umngane womjikelezo wakho",
+    "email_label": "Ikheli le-imeyili",
+    "email_placeholder": "wena@isibonelo.com",
+    "password_label": "Iphasiwedi",
+    "password_create": "Dala iphasiwedi",
+    "password_existing": "Iphasiwedi yakho",
+    "sign_in": "Ngena",
+    "sign_up": "Bhalisa",
+    "create_account": "Dala i-akhawunti",
+    "wait": "Sicela ulinde...",
+    "no_account": "Awunayo i-akhawunti?",
+    "have_account": "Sewunayo i-akhawunti?",
+    "account_created": "I-akhawunti idalwe. Sicela ungene."
+  },
+  "inactivity": {
+    "eyebrow": "Imfihlo",
+    "title": "Usekhona?",
+    "body_before": "Sithatha imfihlo yakho ngobuqotho. Uzophuma ngemizuzwana",
+    "seconds": "imizuzwana",
+    "second": "umzuzwana",
+    "change_timeout": "Shintsha isikhathi",
+    "stay": "Ngikhona",
+    "sign_out": "Phuma"
   },
   "about": {
     "eyebrow": "Mayelana"

@@ -35,7 +35,7 @@
     "eyebrow": "Insigte",
     "title": "Wat jou liggaam vir jou se.",
     "subtitle": "Patrone uit wat jy aangeteken het.",
-    "prefix": "Tara het opgemerk —",
+    "prefix": "Tara het opgemerk",
     "empty_title": "Jou patrone sal hier verskyn soos jy aanteken.",
     "empty_body": "Begin met jou laaste periode.",
     "empty_cta": "Teken 'n periode aan"
@@ -54,6 +54,52 @@
     "delete_btn": "Vee alles uit",
     "delete_confirm": "Dit sal alles permanent uitvee. Dit kan nie ongedaan gemaak word nie. Is jy seker?",
     "deleting": "Besig om uit te vee..."
+  },
+  "onboarding": {
+    "welcome_body": "Voor ons begin, 'n paar vrae om jou ritme te vind.",
+    "welcome_cta": "Ek is gereed",
+    "name_question": "Waarmee word jy genoem?",
+    "name_sub": "tara-s sal dit gebruik om jou te groet.",
+    "name_placeholder": "Jou naam",
+    "continue": "Gaan voort",
+    "continue_no_name": "Gaan voort sonder 'n naam",
+    "dont_remember": "Ek onthou nie",
+    "date_q1": "Wanneer het jou laaste maandstonde begin?",
+    "date_q1_sub": "Dit help ons uitvind waar jy vandag in jou siklus is.",
+    "date_q2": "En die een daarvoor?",
+    "date_q2_sub": "Twee datums help ons jou ritme vind.",
+    "date_q3": "Nog een, as jy dit onthou.",
+    "date_q3_sub": "Drie datums en ons kan begin om jou patroon te sien.",
+    "ready": "Jy is gereed.",
+    "ready_named": "Jy is gereed, {name}.",
+    "ready_sub": "tara-s sal saam met jou leer. Hoe meer jy aanteken, hoe meer verstaan sy.",
+    "enter": "Betree",
+    "entering": "Een oomblik..."
+  },
+  "login": {
+    "tagline": "Jou siklusgesel",
+    "email_label": "E-posadres",
+    "email_placeholder": "jy@voorbeeld.com",
+    "password_label": "Wagwoord",
+    "password_create": "Skep 'n wagwoord",
+    "password_existing": "Jou wagwoord",
+    "sign_in": "Teken in",
+    "sign_up": "Registreer",
+    "create_account": "Skep rekening",
+    "wait": "Wag asseblief...",
+    "no_account": "Het jy nie 'n rekening nie?",
+    "have_account": "Het jy reeds 'n rekening?",
+    "account_created": "Rekening geskep. Teken asseblief in."
+  },
+  "inactivity": {
+    "eyebrow": "Privaatheid",
+    "title": "Is jy nog hier?",
+    "body_before": "Ons neem jou privaatheid ernstig. Jy word oor",
+    "seconds": "sekondes uitgeteken",
+    "second": "sekonde uitgeteken",
+    "change_timeout": "Verander uitteken-tyd",
+    "stay": "Ek is nog hier",
+    "sign_out": "Teken uit"
   },
   "about": {
     "eyebrow": "Omtrent"

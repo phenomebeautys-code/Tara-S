@@ -35,7 +35,7 @@
     "eyebrow": "Insights",
     "title": "What your body is telling you.",
     "subtitle": "Patterns drawn from what you have logged.",
-    "prefix": "Tara noticed —",
+    "prefix": "Tara noticed",
     "empty_title": "Your patterns will surface here as you log.",
     "empty_body": "Begin with your last period.",
     "empty_cta": "Log a period"
@@ -54,6 +54,52 @@
     "delete_btn": "Delete everything",
     "delete_confirm": "This will permanently delete everything. It cannot be undone. Are you sure?",
     "deleting": "Deleting..."
+  },
+  "onboarding": {
+    "welcome_body": "Before we begin, a few questions to find your rhythm.",
+    "welcome_cta": "I am ready",
+    "name_question": "What do you go by?",
+    "name_sub": "tara-s will use this to greet you.",
+    "name_placeholder": "Your name",
+    "continue": "Continue",
+    "continue_no_name": "Continue without a name",
+    "dont_remember": "I don't remember",
+    "date_q1": "When did your last period begin?",
+    "date_q1_sub": "This helps us find where you are in your cycle today.",
+    "date_q2": "And the one before that?",
+    "date_q2_sub": "Two dates help us find your rhythm.",
+    "date_q3": "One more, if you remember.",
+    "date_q3_sub": "Three dates and we can begin to see your pattern.",
+    "ready": "You are ready.",
+    "ready_named": "You are ready, {name}.",
+    "ready_sub": "tara-s will learn alongside you. The more you log, the more she understands.",
+    "enter": "Enter",
+    "entering": "One moment..."
+  },
+  "login": {
+    "tagline": "Your cycle companion",
+    "email_label": "Email address",
+    "email_placeholder": "you@example.com",
+    "password_label": "Password",
+    "password_create": "Create a password",
+    "password_existing": "Your password",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
+    "create_account": "Create account",
+    "wait": "Please wait...",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "account_created": "Account created. Please sign in."
+  },
+  "inactivity": {
+    "eyebrow": "Privacy",
+    "title": "Are you still there?",
+    "body_before": "We take your privacy seriously. You will be signed out in",
+    "seconds": "seconds",
+    "second": "second",
+    "change_timeout": "Change timeout",
+    "stay": "I am still here",
+    "sign_out": "Sign out"
   },
   "about": {
     "eyebrow": "About"

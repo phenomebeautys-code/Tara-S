@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import {
@@ -11,6 +12,7 @@ import {
 import styles from './privacy.module.css'
 
 export default function PrivacyPage() {
+  const t = useTranslations('privacy')
   const [deleting, setDeleting] = useState(false)
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
   const router = useRouter()
@@ -31,7 +33,7 @@ export default function PrivacyPage() {
   }
 
   async function handleDelete() {
-    if (!confirm('This will permanently delete everything. It cannot be undone. Are you sure?')) return
+    if (!confirm(t('delete_confirm'))) return
     setDeleting(true)
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
@@ -81,24 +83,24 @@ export default function PrivacyPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Privacy</p>
-        <h1 className={`display ${styles.title}`}>What we hold, and why.</h1>
-        <p className={styles.subtitle}>This is yours. All of it.</p>
+        <p className={styles.eyebrow}>{t('eyebrow')}</p>
+        <h1 className={`display ${styles.title}`}>{t('title')}</h1>
+        <p className={styles.subtitle}>{t('subtitle')}</p>
       </header>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>What we collect</h2>
-        <p>Your dates. Your symptoms. Nothing else. We do not need your location, your contacts, or your habits outside this app.</p>
+        <h2 className={styles.sectionTitle}>{t('section_collect_title')}</h2>
+        <p>{t('section_collect_body')}</p>
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Where it lives</h2>
-        <p>Securely held on servers in the EU. Never shared. Never sold. Not to anyone, for any reason.</p>
+        <h2 className={styles.sectionTitle}>{t('section_storage_title')}</h2>
+        <p>{t('section_storage_body')}</p>
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>What you can do</h2>
-        <p>Take it all with you, or let it go completely. One tap to download everything. One tap to delete it all, forever.</p>
+        <h2 className={styles.sectionTitle}>{t('section_control_title')}</h2>
+        <p>{t('section_control_body')}</p>
       </div>
 
       <div className={styles.section}>
@@ -121,13 +123,13 @@ export default function PrivacyPage() {
 
       <div className={styles.actions}>
         <button className={styles.exportBtn} onClick={handleExport}>
-          Download my data
+          {t('export_btn')}
         </button>
         <button className={styles.signOutBtn} onClick={handleSignOut}>
           Sign out
         </button>
         <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
-          {deleting ? 'Deleting...' : 'Delete everything'}
+          {deleting ? t('deleting') : t('delete_btn')}
         </button>
       </div>
     </div>

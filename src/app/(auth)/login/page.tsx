@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import styles from './login.module.css'
@@ -7,6 +8,7 @@ import styles from './login.module.css'
 type Mode = 'login' | 'signup'
 
 export default function LoginPage() {
+  const t = useTranslations('login')
   const [mode, setMode] = useState<Mode>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,7 +33,7 @@ export default function LoginPage() {
           router.push('/today')
           router.refresh()
         } else {
-          setError('Account created. Please sign in.')
+          setError(t('account_created'))
           setMode('login')
         }
       }
@@ -52,27 +54,27 @@ export default function LoginPage() {
     <main className={styles.container}>
       <div className={styles.card}>
         <h1 className={`${styles.logo} display`}>TARA-S</h1>
-        <p className={styles.tagline}>Your cycle companion</p>
+        <p className={styles.tagline}>{t('tagline')}</p>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <label htmlFor="email">Email address</label>
+          <label htmlFor="email">{t('email_label')}</label>
           <input
             id="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@example.com"
+            placeholder={t('email_placeholder')}
             required
             autoComplete="email"
           />
 
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t('password_label')}</label>
           <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder={mode === 'signup' ? 'Create a password' : 'Your password'}
+            placeholder={mode === 'signup' ? t('password_create') : t('password_existing')}
             required
             minLength={6}
             autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
@@ -81,21 +83,21 @@ export default function LoginPage() {
           {error && <p className={styles.error}>{error}</p>}
 
           <button type="submit" disabled={loading}>
-            {loading ? 'Please wait...' : mode === 'signup' ? 'Create account' : 'Sign in'}
+            {loading ? t('wait') : mode === 'signup' ? t('create_account') : t('sign_in')}
           </button>
         </form>
 
         <p className={styles.toggle}>
           {mode === 'login' ? (
-            <>Don&apos;t have an account?{' '}
+            <>{t('no_account')}{' '}
               <button type="button" onClick={() => { setMode('signup'); setError(null) }}>
-                Sign up
+                {t('sign_up')}
               </button>
             </>
           ) : (
-            <>Already have an account?{' '}
+            <>{t('have_account')}{' '}
               <button type="button" onClick={() => { setMode('login'); setError(null) }}>
-                Sign in
+                {t('sign_in')}
               </button>
             </>
           )}

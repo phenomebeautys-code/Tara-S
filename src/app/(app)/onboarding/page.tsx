@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
 import { useRouter } from 'next/navigation'
@@ -7,28 +8,21 @@ import styles from './onboarding.module.css'
 
 type Stage = 'welcome' | 'name' | 'dates' | 'ready'
 
-const DATE_STEPS = [
-  {
-    question: 'When did your last period begin?',
-    sub: 'This helps us find where you are in your cycle today.',
-  },
-  {
-    question: 'And the one before that?',
-    sub: 'Two dates help us find your rhythm.',
-  },
-  {
-    question: 'One more, if you remember.',
-    sub: 'Three dates and we can begin to see your pattern.',
-  },
-]
-
 export default function OnboardingPage() {
+  const t = useTranslations('onboarding')
+  const tLog = useTranslations('log')
   const [stage, setStage] = useState<Stage>('welcome')
   const [name, setName] = useState('')
   const [dateStep, setDateStep] = useState(0)
   const [dates, setDates] = useState<(string | null)[]>([null, null, null])
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+
+  const DATE_STEPS = [
+    { question: t('date_q1'), sub: t('date_q1_sub') },
+    { question: t('date_q2'), sub: t('date_q2_sub') },
+    { question: t('date_q3'), sub: t('date_q3_sub') },
+  ]
 
   function setDate(val: string) {
     const next = [...dates]
@@ -59,10 +53,7 @@ export default function OnboardingPage() {
       ...validDates.map((d) => logPeriodStart(user.id, d)),
     ])
 
-    await supabase
-      .from('users')
-      .update({ onboarding_complete: true })
-      .eq('id', user.id)
+    await supabase.from('users').update({ onboarding_complete: true }).eq('id', user.id)
 
     router.push('/')
     router.refresh()
@@ -73,13 +64,11 @@ export default function OnboardingPage() {
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.welcomeWrap}>
-            <p className={`display ${styles.welcomeTitle}`}>tara-s</p>
-            <p className={styles.welcomeMeaning}>The woman, in Khoekhoegowab.</p>
-            <p className={styles.welcomeBody}>
-              Before we begin, a few questions to find your rhythm.
-            </p>
+            <p className={`display ${styles.welcomeTitle}`}>{tLog('title')}</p>
+            <p className={styles.welcomeMeaning}>{tLog('meaning')}</p>
+            <p className={styles.welcomeBody}>{t('welcome_body')}</p>
             <button className={styles.primaryBtn} onClick={() => setStage('name')}>
-              I am ready
+              {t('welcome_cta')}
             </button>
           </div>
         </div>
@@ -92,14 +81,14 @@ export default function OnboardingPage() {
       <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.questionWrap}>
-            <p className={`display ${styles.question}`}>What do you go by?</p>
-            <p className={styles.sub}><span className="display">tara-s</span> will use this to greet you.</p>
+            <p className={`display ${styles.question}`}>{t('name_question')}</p>
+            <p className={styles.sub}>{t('name_sub')}</p>
           </div>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            placeholder={t('name_placeholder')}
             autoComplete="given-name"
             className={styles.textInput}
           />
@@ -109,10 +98,10 @@ export default function OnboardingPage() {
               onClick={() => setStage('dates')}
               disabled={!name.trim()}
             >
-              Continue
+              {t('continue')}
             </button>
             <button className={styles.skipBtn} onClick={() => setStage('dates')}>
-              Continue without a name
+              {t('continue_no_name')}
             </button>
           </div>
         </div>
@@ -127,17 +116,15 @@ export default function OnboardingPage() {
         <div className={styles.inner}>
           <div className={styles.readyWrap}>
             <p className={`display ${styles.readyTitle}`}>
-              {firstName ? `You are ready, ${firstName}.` : 'You are ready.'}
+              {firstName ? t('ready_named', { name: firstName }) : t('ready')}
             </p>
-            <p className={styles.readySub}>
-              <span className="display">tara-s</span> will learn alongside you. The more you log, the more she understands.
-            </p>
+            <p className={styles.readySub}>{t('ready_sub')}</p>
             <button
               className={styles.primaryBtn}
               onClick={handleEnter}
               disabled={loading}
             >
-              {loading ? 'One moment...' : 'Enter'}
+              {loading ? t('entering') : t('enter')}
             </button>
           </div>
         </div>
@@ -175,10 +162,10 @@ export default function OnboardingPage() {
             onClick={handleDateContinue}
             disabled={!dates[dateStep]}
           >
-            Continue
+            {t('continue')}
           </button>
           <button className={styles.skipBtn} onClick={handleDateContinue}>
-            I don&apos;t remember
+            {t('dont_remember')}
           </button>
         </div>
       </div>

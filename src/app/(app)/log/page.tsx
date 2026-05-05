@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
 import { useRouter } from 'next/navigation'
@@ -8,16 +9,8 @@ import styles from './log.module.css'
 const SYMPTOM_KEYS = ['cramps', 'bloating', 'skin_breakout', 'low_energy', 'mood_low', 'headache'] as const
 type SymptomKey = typeof SYMPTOM_KEYS[number]
 
-const SYMPTOM_LABELS: Record<SymptomKey, string> = {
-  cramps: 'Cramps',
-  bloating: 'Bloating',
-  skin_breakout: 'Skin breakout',
-  low_energy: 'Low energy',
-  mood_low: 'Mood low',
-  headache: 'Headache',
-}
-
 export default function LogPage() {
+  const t = useTranslations('log')
   const [periodDate, setPeriodDate] = useState('')
   const [flow, setFlow] = useState<'light' | 'medium' | 'heavy' | ''>('')
   const [activeSymptoms, setActiveSymptoms] = useState<Set<SymptomKey>>(new Set())
@@ -63,15 +56,14 @@ export default function LogPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Log</p>
-        <h1 className={`display ${styles.title}`}>tara-s</h1>
-        <p className={styles.meaning}>The woman, in Khoekhoegowab.</p>
-        <p className={styles.body}>She has always known her body. This space is yours to remember.</p>
+        <p className={styles.eyebrow}>{t('eyebrow')}</p>
+        <h1 className={`display ${styles.title}`}>{t('title')}</h1>
+        <p className={styles.meaning}>{t('meaning')}</p>
+        <p className={styles.body}>{t('body')}</p>
       </header>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>When did your period begin?</h2>
-        <p className={styles.sectionSub}>Enter the date your last period started.</p>
+        <h2 className={styles.sectionTitle}>{t('section_period')}</h2>
         <div className={styles.dateWrap}>
           <input
             type="date"
@@ -99,7 +91,7 @@ export default function LogPage() {
                 className={`${styles.flowBtn} ${flow === f ? styles.flowActive : ''}`}
                 onClick={() => setFlow(f)}
               >
-                {f}
+                {t(`flow_${f}`)}
               </button>
             ))}
           </div>
@@ -107,7 +99,7 @@ export default function LogPage() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>How are you feeling today?</h2>
+        <h2 className={styles.sectionTitle}>{t('section_symptoms')}</h2>
         <div className={styles.symptomGrid}>
           {SYMPTOM_KEYS.map((key) => (
             <button
@@ -115,7 +107,7 @@ export default function LogPage() {
               className={`${styles.symptomBtn} ${activeSymptoms.has(key) ? styles.symptomActive : ''}`}
               onClick={() => toggleSymptom(key)}
             >
-              {SYMPTOM_LABELS[key]}
+              {t(`symptom_${key}`)}
             </button>
           ))}
         </div>
@@ -126,7 +118,7 @@ export default function LogPage() {
         onClick={handleSave}
         disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
       >
-        {saved ? 'Saved' : saving ? 'Saving...' : 'Save'}
+        {saved ? t('saved') : saving ? t('saving') : t('save')}
       </button>
     </div>
   )

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { useCycleStats } from '@/lib/hooks/useCycleStats'
 import TodayCard from '@/components/TodayCard'
@@ -10,20 +11,22 @@ import styles from '../home.module.css'
 
 export default function TodayPage() {
   const router = useRouter()
+  const t = useTranslations('home')
+  const tCommon = useTranslations('common')
+  const tNav = useTranslations('nav')
   const [userId, setUserId] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
   const [greeting, setGreeting] = useState('')
   const [authChecked, setAuthChecked] = useState(false)
 
   useEffect(() => {
-    // All browser-only logic here — no hydration mismatch possible
     const h = new Date().getHours()
-    const time = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'
+    const time =
+      h < 12 ? t('greeting_morning') : h < 17 ? t('greeting_afternoon') : t('greeting_evening')
 
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       if (!data.session) {
-        // No session — send back to splash regardless of how they got here
         router.replace('/')
         return
       }
@@ -41,19 +44,18 @@ export default function TodayPage() {
       setGreeting(name ? `${time}, ${name}` : time)
       setAuthChecked(true)
     })
-  }, [router])
+  }, [router, t])
 
   const { stats, phase, loading } = useCycleStats(userId)
 
-  // Render nothing until auth is confirmed — prevents flash of data
   if (!authChecked) return null
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
         <div className={styles.logoBlock}>
-          <span className={`display ${styles.logo}`}>TARA-S</span>
-          <Link href="/about" className={styles.aboutLink}>About</Link>
+          <span className={`display ${styles.logo}`}>{tCommon('app_name')}</span>
+          <Link href="/about" className={styles.aboutLink}>{tNav('about')}</Link>
         </div>
         <span className={styles.greeting}>{greeting}</span>
       </header>
