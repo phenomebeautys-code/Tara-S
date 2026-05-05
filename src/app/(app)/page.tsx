@@ -1,10 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useCycleStats } from '@/lib/hooks/useCycleStats'
 import TodayCard from '@/components/TodayCard'
 import PwaPrompt from '@/components/PwaPrompt'
+import SplashScreen from '@/components/SplashScreen'
 import styles from './home.module.css'
 
 function getGreeting(name?: string | null) {
@@ -17,6 +18,8 @@ export default function HomePage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
   const [authReady, setAuthReady] = useState(false)
+  const [showSplash, setShowSplash] = useState(true)
+  const [preloadDone, setPreloadDone] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -37,25 +40,35 @@ export default function HomePage() {
 
   const { stats, phase, loading } = useCycleStats(userId)
 
-  const showSkeleton = !authReady || loading
+  // Preload is complete when auth is ready and cycle data has resolved
+  useEffect(() => {
+    if (authReady && !loading) {
+      setPreloadDone(true)
+    }
+  }, [authReady, loading])
+
+  const handleEnter = useCallback(() => {
+    setShowSplash(false)
+  }, [])
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.logoBlock}>
-          <span className={`display ${styles.logo}`}>TARA-S</span>
-          <Link href="/about" className={styles.aboutLink}>About</Link>
-        </div>
-        <span className={styles.greeting}>{getGreeting(displayName)}</span>
-      </header>
-
-      {showSkeleton ? (
-        <div className={styles.skeleton} />
-      ) : (
-        <TodayCard stats={stats} phase={phase} />
+    <>
+      {showSplash && (
+        <SplashScreen onEnter={handleEnter} preloadDone={preloadDone} />
       )}
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.logoBlock}>
+            <span className={`display ${styles.logo}`}>TARA-S</span>
+            <Link href="/about" className={styles.aboutLink}>About</Link>
+          </div>
+          <span className={styles.greeting}>{getGreeting(displayName)}</span>
+        </header>
 
-      <PwaPrompt />
-    </div>
+        <TodayCard stats={stats} phase={phase} />
+
+        <PwaPrompt />
+      </div>
+    </>
   )
 }
