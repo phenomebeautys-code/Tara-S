@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import styles from './SplashScreen.module.css'
 
 const QUOTES = [
@@ -74,21 +75,24 @@ function SplashInner() {
   const [quote, setQuote] = useState('')
 
   useEffect(() => {
-    // All date/quote logic runs client-only — no hydration mismatch
-    const now = new Date()
-    setDate(
-      now.toLocaleDateString('en-ZA', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-      })
-    )
-    const dayOfYear = Math.floor(
-      (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000
-    )
-    setQuote(QUOTES[dayOfYear % QUOTES.length])
-    const t = setTimeout(() => setVisible(true), 60)
-    return () => clearTimeout(t)
+    const supabase = createClient()
+    // Sign out on every splash load — destroys sessionStorage token and cookie.
+    // This is the privacy guarantee: no session survives a tab close or app reopen.
+    supabase.auth.signOut().finally(() => {
+      const now = new Date()
+      setDate(
+        now.toLocaleDateString('en-ZA', {
+          weekday: 'long',
+          day: 'numeric',
+          month: 'long',
+        })
+      )
+      const dayOfYear = Math.floor(
+        (now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000
+      )
+      setQuote(QUOTES[dayOfYear % QUOTES.length])
+      setTimeout(() => setVisible(true), 60)
+    })
   }, [])
 
   function handleEnter() {
@@ -114,5 +118,4 @@ function SplashInner() {
   )
 }
 
-// Disable SSR entirely — this component must never render on the server
 export default dynamic(() => Promise.resolve(SplashInner), { ssr: false })
