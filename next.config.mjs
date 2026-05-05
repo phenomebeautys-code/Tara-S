@@ -1,11 +1,6 @@
 import createNextIntlPlugin from 'next-intl/plugin'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-const withNextIntl = createNextIntlPlugin(join(__dirname, 'i18n.ts'))
+const withNextIntl = createNextIntlPlugin('./i18n.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
