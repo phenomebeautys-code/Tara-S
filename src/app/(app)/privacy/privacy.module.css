@@ -392,3 +392,9 @@
   color: var(--color-text-muted);
   font-style: italic;
 }
+
+.installStepIconPlaceholder {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
