@@ -105,7 +105,7 @@ function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
                 ? <span className={styles.installStepIcon}>{step.icon}</span>
                 : <span className={styles.installStepIconPlaceholder} aria-hidden="true" />
               }
-              <span className={step.icon ? styles.installStepLabel : styles.installStepLabelMuted}>
+              <span className={styles.installStepLabel}>
                 {step.label}
               </span>
             </li>
