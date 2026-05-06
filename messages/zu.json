@@ -55,7 +55,8 @@
     "symptom_headache": "Ikhanda elibuhlungu",
     "save": "Gcina ku-TARA-S",
     "saving": "Iyagcina...",
-    "saved": "Kugcinwe"
+    "saved": "Kugcinwe",
+    "save_hint": "Rekhoda okuningi ofuna ukukurekhoda. Thepha Londoloza uma ulungile."
   },
   "insights": {
     "eyebrow": "Izimvo",
