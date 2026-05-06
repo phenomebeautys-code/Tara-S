@@ -63,10 +63,18 @@
     "need_more_data_title": "Qhubeka urekhoda. Izinhlobo zakho ziyakhula.",
     "need_more_data_body": "Rekhoda umjikelezo owodwa futhi TARA-S izoqala ukubona umjikelezo wakho.",
     "avg_cycle": "Umjikelezo wakho waphakathi uziinsuku ezingu-{days}.",
-    "avg_duration": "Isikhathi sakho sihlala isikhashana ezingu-{days} izinsuku.",
+    "avg_duration": "Isikhathi sakho sihlala isikhathi esingaba ngu-{days} izinsuku.",
     "variability_consistent": "Imijikelezo yakho ibe ngefanayo kakhulu muva nje.",
     "variability_regular": "Imijikelezo yakho ilandelana kahle. Izinguquko ezincane kufanele ngokuphelele.",
     "variability_irregular": "Imijikelezo yakho yokugcina ihlukile ngezinsuku ezingu-{days}. Ingcindezi, uhambo, noma ukugula kungabangela lokhu."
+  },
+  "calendar": {
+    "eyebrow": "Umzimba wakho, ngokuhamba kwesikhathi.",
+    "phase_menstrual": "Isikhathi",
+    "phase_follicular": "Ukukhula",
+    "phase_ovulation": "Ukukhipha iqanda",
+    "phase_luteal": "Ukulungiselela",
+    "no_data": "Alukho ulwazi"
   },
   "information": {
     "disclaimer_title": "Isixwayiso",

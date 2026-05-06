@@ -1,9 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense, lazy } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
 import styles from './insights.module.css'
+
+const CycleCalendar = lazy(() => import('@/components/CycleCalendar'))
 
 function parseInsight(raw: string, t: ReturnType<typeof useTranslations<'insights'>>): string {
   if (raw === 'need_more_data') return t('need_more_data')
@@ -29,12 +31,14 @@ export default function InsightsPage() {
   const [insights, setInsights] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [needMoreData, setNeedMoreData] = useState(false)
+  const [userId, setUserId] = useState<string | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       const uid = data.session?.user?.id
       if (uid) {
+        setUserId(uid)
         const raw = await getPersonalInsights(uid)
         if (raw.length === 1 && raw[0] === 'need_more_data') {
           setNeedMoreData(true)
@@ -79,6 +83,12 @@ export default function InsightsPage() {
             </li>
           ))}
         </ul>
+      )}
+
+      {userId && (
+        <Suspense fallback={<div style={{ height: 280 }} />}>
+          <CycleCalendar userId={userId} />
+        </Suspense>
       )}
     </div>
   )
