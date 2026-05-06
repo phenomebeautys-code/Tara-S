@@ -9,10 +9,11 @@ export default function BottomNav() {
   const t = useTranslations('nav')
 
   const NAV = [
-    { href: '/today',    label: t('home')     },
-    { href: '/log',      label: t('log')      },
-    { href: '/insights', label: t('insights') },
-    { href: '/privacy',  label: t('privacy')  },
+    { href: '/today',       label: t('home')        },
+    { href: '/log',         label: t('log')         },
+    { href: '/insights',    label: t('insights')    },
+    { href: '/information', label: t('information') },
+    { href: '/privacy',     label: t('privacy')     },
   ]
 
   return (
