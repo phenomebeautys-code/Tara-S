@@ -82,6 +82,7 @@
     "section_storage_body": "Igcinwe ngokhuselo kwiiseva ze-EU. Ayabelwani. Ayathengiswa. Nakubani, nangaluphi na uzathu.",
     "section_control_title": "Unokwenza ntoni",
     "section_control_body": "Thabatha konke nawe, okanye yiyeke ngokupheleleyo. Cofa kanye ukuze ulayishe konke. Cofa kanye ukucima konke, ngonaphakade.",
+    "preferences_title": "Izikhethelo",
     "export_btn": "Layisha idatha yam",
     "delete_btn": "Cima konke",
     "delete_confirm": "Oku kuya kucima konke ngonaphakade. Akuphindwa. Uqinisekile?",
@@ -129,7 +130,7 @@
     "body_before": "Sithatha ubumfihlo bakho ngokukhulu ukuzinikela. Uya kuphuma emva kwemizuzwana",
     "seconds": "imizuzwana",
     "second": "umzuzwana",
-    "change_timeout": "Tshintsha ixesha",
+    "change_timeout": "Ukuphuma ngokuzenzekela",
     "stay": "Ndikhona",
     "sign_out": "Phuma"
   },

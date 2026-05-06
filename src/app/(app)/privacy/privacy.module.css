@@ -57,15 +57,48 @@
   color: var(--color-text);
 }
 
-.timeoutOptions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-2);
-  margin-top: var(--space-2);
+/* Preferences block */
+.preferencesBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
 }
 
-.timeoutBtn {
-  padding: var(--space-2) var(--space-3);
+.preferencesEyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.preferenceRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.preferenceLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* Shared pill styles for timeout and locale buttons */
+.timeoutOptions,
+.localeOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.timeoutBtn,
+.localeBtn {
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
   border: 1.5px solid var(--color-border);
   background: transparent;
@@ -73,19 +106,22 @@
   font-weight: 500;
   color: var(--color-text-muted);
   transition: all 0.15s;
+  white-space: nowrap;
 }
 
-.timeoutBtn:hover {
+.timeoutBtn:hover,
+.localeBtn:hover {
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
 
-.timeoutActive {
+.optionActive {
   border-color: var(--color-primary) !important;
   color: var(--color-primary) !important;
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
 
+/* Actions */
 .actions {
   display: flex;
   flex-direction: column;

@@ -81,6 +81,7 @@
     "section_storage_body": "Securely held on servers in the EU. Never shared. Never sold. Not to anyone, for any reason.",
     "section_control_title": "What you can do",
     "section_control_body": "Take it all with you, or let it go completely. One tap to download everything. One tap to delete it all, forever.",
+    "preferences_title": "Preferences",
     "export_btn": "Download my data",
     "delete_btn": "Delete everything",
     "delete_confirm": "This will permanently delete everything. It cannot be undone. Are you sure?",
@@ -128,7 +129,7 @@
     "body_before": "We take your privacy seriously. You will be signed out in",
     "seconds": "seconds",
     "second": "second",
-    "change_timeout": "Change timeout",
+    "change_timeout": "Auto sign-out",
     "stay": "I am still here",
     "sign_out": "Sign out"
   },

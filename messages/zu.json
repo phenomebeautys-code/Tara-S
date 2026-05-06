@@ -82,6 +82,7 @@
     "section_storage_body": "Kulondekile emakhompyutheni e-EU. Akwabelwani. Akathengiswa. Kubani, nganoma yisiphi isizathu.",
     "section_control_title": "Lokho ongakwenza",
     "section_control_body": "Thatha konke nawe, noma kulahle ngokuphelele. Ukuchofoza okukodwa ukuze ulande konke. Ukuchofoza okukodwa ukuze usule konke, phakade.",
+    "preferences_title": "Izintandokazi",
     "export_btn": "Landa idatha yami",
     "delete_btn": "Sula konke",
     "delete_confirm": "Lokhu kuzosula konke ngokuphelele. Akukwazi ukubuyiselwa. Uqinisekile?",
@@ -129,7 +130,7 @@
     "body_before": "Sithatha imfihlo yakho ngobuqotho. Uzophuma ngemizuzwana",
     "seconds": "imizuzwana",
     "second": "umzuzwana",
-    "change_timeout": "Shintsha isikhathi",
+    "change_timeout": "Ukuphuma ngokwenzeka",
     "stay": "Ngikhona",
     "sign_out": "Phuma"
   },

@@ -81,6 +81,7 @@
     "section_storage_body": "Veilig gestoor op bedieners in die EU. Nooit gedeel nie. Nooit verkoop nie. Aan niemand, om enige rede nie.",
     "section_control_title": "Wat jy kan doen",
     "section_control_body": "Neem alles saam, of laat dit heeltemal los. Een tik om alles af te laai. Een tik om alles vir altyd uit te vee.",
+    "preferences_title": "Voorkeure",
     "export_btn": "Laai my data af",
     "delete_btn": "Vee alles uit",
     "delete_confirm": "Dit sal alles permanent uitvee. Dit kan nie ongedaan gemaak word nie. Is jy seker?",
@@ -128,7 +129,7 @@
     "body_before": "Ons neem jou privaatheid ernstig. Jy word oor",
     "seconds": "sekondes uitgeteken",
     "second": "sekonde uitgeteken",
-    "change_timeout": "Verander uitteken-tyd",
+    "change_timeout": "Outo afteken",
     "stay": "Ek is nog hier",
     "sign_out": "Teken uit"
   },
