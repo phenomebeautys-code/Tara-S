@@ -82,6 +82,11 @@
   gap: var(--space-2);
 }
 
+.preferenceRow + .preferenceRow {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-5);
+}
+
 .preferenceLabel {
   font-size: 0.85rem;
   font-weight: 500;
