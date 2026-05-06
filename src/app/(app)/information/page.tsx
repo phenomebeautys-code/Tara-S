@@ -77,10 +77,7 @@ const SOURCES = [
 export default function InformationPage() {
   return (
     <div className={styles.page}>
-      <DisclaimerBanner
-        title="Disclaimer"
-        body="TARA-S is built on thorough research, and we hold that research to a high standard. But every woman&#39;s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
-      />
+      <DisclaimerBanner />
 
       {SOURCES.map((tier) => (
         <section key={tier.tier} className={styles.tier}>
