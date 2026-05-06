@@ -1,7 +1,7 @@
 .banner {
   width: 100%;
-  background-color: var(--color-surface-offset);
-  border: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-primary) 6%, var(--color-bg));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
   border-radius: var(--radius-md);
   padding: var(--space-4) var(--space-5);
   display: flex;
@@ -10,16 +10,18 @@
 }
 
 .label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
 }
 
 .body {
+  font-family: var(--font-body);
   font-size: 0.875rem;
-  line-height: 1.7;
-  color: var(--color-text-muted);
+  line-height: 1.75;
+  color: var(--color-text);
   max-width: 60ch;
 }
