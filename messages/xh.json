@@ -55,7 +55,8 @@
     "symptom_headache": "Intloko ebuhlungu",
     "save": "Gcina ku-TARA-S",
     "saving": "Iyagcina...",
-    "saved": "Kugcinwe"
+    "saved": "Kugcinwe",
+    "save_hint": "Bhalisa okuninzi ofuna ukubhalisa. Cofa Gcina xa ukulungele."
   },
   "insights": {
     "eyebrow": "Iingcinga",
