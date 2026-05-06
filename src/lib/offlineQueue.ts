@@ -38,7 +38,7 @@ function openDB(): Promise<IDBDatabase> {
   })
 }
 
-export async function enqueue(entry: Omit<QueueEntry, 'id'>): Promise<void> {
+export async function enqueue(entry: QueuedPeriodLog | QueuedSymptomLog): Promise<void> {
   const db = await openDB()
   return new Promise((resolve, reject) => {
     const tx    = db.transaction(STORE, 'readwrite')
