@@ -19,6 +19,40 @@ function getIOSBrowser(): 'safari' | 'chrome' | 'other' {
   return 'other'
 }
 
+// SVG icons for each step type
+const IconDots = () => (
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <rect x="1.5" y="1.5" width="17" height="17" rx="4.5" stroke="currentColor" strokeWidth="1.5"/>
+    <circle cx="6" cy="10" r="1.2" fill="currentColor"/>
+    <circle cx="10" cy="10" r="1.2" fill="currentColor"/>
+    <circle cx="14" cy="10" r="1.2" fill="currentColor"/>
+  </svg>
+)
+
+const IconShare = () => (
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M10 2v7M7.5 6.5 10 4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+const IconPlus = () => (
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <rect x="2.5" y="2.5" width="15" height="15" rx="3.5" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M10 7v6M7 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+  </svg>
+)
+
+const IconDotsV = () => (
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <circle cx="10" cy="4.5" r="1.5" fill="currentColor"/>
+    <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+    <circle cx="10" cy="15.5" r="1.5" fill="currentColor"/>
+  </svg>
+)
+
+type Step = { icon: React.ReactNode | null; label: string }
+
 function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
   const [browser, setBrowser] = useState<'safari' | 'chrome' | 'other'>('other')
   const [open, setOpen] = useState(false)
@@ -29,69 +63,20 @@ function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
 
   if (browser === 'other') return null
 
-  const isSafari = browser === 'safari'
+  const safariSteps: Step[] = [
+    { icon: <IconDots />,  label: t('install_step1_safari') },
+    { icon: <IconShare />, label: t('install_step2_safari') },
+    { icon: <IconPlus />,  label: t('install_step3') },
+    { icon: null,          label: t('install_step4') },
+  ]
 
-  const steps = isSafari
-    ? [
-        {
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <rect x="1.5" y="1.5" width="17" height="17" rx="4.5" stroke="currentColor" strokeWidth="1.5"/>
-              <circle cx="6" cy="10" r="1.25" fill="currentColor"/>
-              <circle cx="10" cy="10" r="1.25" fill="currentColor"/>
-              <circle cx="14" cy="10" r="1.25" fill="currentColor"/>
-            </svg>
-          ),
-          label: t('install_step1_safari'),
-        },
-        {
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <rect x="3" y="4" width="14" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M10 2v7M7.5 6.5 10 4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          ),
-          label: t('install_step2_safari'),
-        },
-        {
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M10 7v6M7 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          ),
-          label: t('install_step3'),
-        },
-        {
-          icon: null,
-          label: t('install_step4'),
-        },
-      ]
-    : [
-        {
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="10" cy="5" r="1.5" fill="currentColor"/>
-              <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
-              <circle cx="10" cy="15" r="1.5" fill="currentColor"/>
-            </svg>
-          ),
-          label: t('install_step1_chrome'),
-        },
-        {
-          icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-              <path d="M10 7v6M7 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-          ),
-          label: t('install_step2_chrome'),
-        },
-        {
-          icon: null,
-          label: t('install_step3_chrome'),
-        },
-      ]
+  const chromeSteps: Step[] = [
+    { icon: <IconDotsV />, label: t('install_step1_chrome') },
+    { icon: <IconPlus />,  label: t('install_step2_chrome') },
+    { icon: null,          label: t('install_step3_chrome') },
+  ]
+
+  const steps = browser === 'safari' ? safariSteps : chromeSteps
 
   return (
     <div className={styles.installBlock}>
@@ -99,6 +84,7 @@ function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
         className={styles.installToggle}
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
+        aria-controls="install-steps"
       >
         <span className={styles.installToggleText}>{t('install_cta')}</span>
         <svg
@@ -110,14 +96,17 @@ function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
       </button>
 
       {open && (
-        <ol className={styles.installSteps}>
+        <ol id="install-steps" className={styles.installSteps}>
           {steps.map((step, i) => (
             <li key={i} className={styles.installStep}>
               <span className={styles.installStepNumber}>{i + 1}</span>
-              {step.icon && (
-                <span className={styles.installStepIcon}>{step.icon}</span>
-              )}
-              <span className={styles.installStepLabel}>{step.label}</span>
+              {step.icon
+                ? <span className={styles.installStepIcon}>{step.icon}</span>
+                : <span className={styles.installStepIconPlaceholder} aria-hidden="true" />
+              }
+              <span className={step.icon ? styles.installStepLabel : styles.installStepLabelMuted}>
+                {step.label}
+              </span>
             </li>
           ))}
         </ol>
@@ -149,9 +138,7 @@ export default function PrivacyPage() {
   async function handleLocaleChange(locale: Locale) {
     if (locale === currentLocale || localeChanging) return
     setLocaleChanging(true)
-
     document.cookie = `TARA_LOCALE=${locale};path=/;samesite=lax`
-
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
@@ -179,7 +166,6 @@ export default function PrivacyPage() {
   async function handleDeleteConfirmed() {
     setShowDeleteModal(false)
     setDeleting(true)
-
     const res = await fetch('/api/delete-account', { method: 'DELETE' })
     if (res.ok) {
       window.location.href = '/'
@@ -255,7 +241,6 @@ export default function PrivacyPage() {
 
       <InstallGuide t={t} />
 
-      {/* Preferences */}
       <div className={styles.preferencesBlock}>
         <p className={styles.preferencesEyebrow}>{t('preferences_title')}</p>
 
@@ -265,9 +250,7 @@ export default function PrivacyPage() {
             {TIMEOUT_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
-                className={`${styles.timeoutBtn} ${
-                  timeoutMs === opt.value ? styles.optionActive : ''
-                }`}
+                className={`${styles.timeoutBtn} ${timeoutMs === opt.value ? styles.optionActive : ''}`}
                 onClick={() => handleTimeoutChange(opt.value)}
               >
                 {opt.label}
@@ -278,15 +261,11 @@ export default function PrivacyPage() {
 
         <div className={styles.preferenceRow}>
           <p className={styles.preferenceLabel}>{tCommon('language_label')}</p>
-          <div
-            className={`${styles.localeOptions} ${localeChanging ? styles.localeChanging : ''}`}
-          >
+          <div className={`${styles.localeOptions} ${localeChanging ? styles.localeChanging : ''}`}>
             {locales.map((locale) => (
               <button
                 key={locale}
-                className={`${styles.localeBtn} ${
-                  currentLocale === locale ? styles.optionActive : ''
-                }`}
+                className={`${styles.localeBtn} ${currentLocale === locale ? styles.optionActive : ''}`}
                 onClick={() => handleLocaleChange(locale)}
                 disabled={localeChanging}
               >
@@ -301,9 +280,7 @@ export default function PrivacyPage() {
         <button className={styles.exportBtn} onClick={handleExport}>
           {t('export_btn')}
         </button>
-        {exportError && (
-          <p className={styles.exportError}>{t('export_error')}</p>
-        )}
+        {exportError && <p className={styles.exportError}>{t('export_error')}</p>}
         <button className={styles.signOutBtn} onClick={handleSignOut}>
           {tInactivity('sign_out')}
         </button>
@@ -326,16 +303,10 @@ export default function PrivacyPage() {
             <h2 className={`display ${styles.modalTitle}`}>{t('delete_modal_title')}</h2>
             <p className={styles.modalBody}>{t('delete_modal_body')}</p>
             <div className={styles.modalActions}>
-              <button
-                className={styles.modalCancelBtn}
-                onClick={() => setShowDeleteModal(false)}
-              >
+              <button className={styles.modalCancelBtn} onClick={() => setShowDeleteModal(false)}>
                 {t('delete_modal_cancel')}
               </button>
-              <button
-                className={styles.modalConfirmBtn}
-                onClick={handleDeleteConfirmed}
-              >
+              <button className={styles.modalConfirmBtn} onClick={handleDeleteConfirmed}>
                 {t('delete_modal_confirm')}
               </button>
             </div>
