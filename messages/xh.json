@@ -30,16 +30,12 @@
     "countdown_days": "Inyanga yakho elandelayo isele iintsuku ezingama-{count}",
     "countdown_day": "Inyanga yakho elandelayo isele usuku olunye",
     "skin_label": "Igcisa lesikhumba",
-    "book_cta": "Bhukisha e-Phenomebeauty",
-    "skin_note_menstrual": "Isikhumba sakho sinokuba nzima ngoku. Gcina imikhwa yakho ibe ntle — hlamba, faka amanzi, kwaye ugweme izinto ezisebenzayo njenge-retinol okanye ii-acid ezinamandla.",
-    "skin_note_follicular": "Isikhumba sakho siyacacisa siphinde sikhane. Eli lixesha elihle lokwazisa izinto ezisebenzayo njenge-Vitamin C okanye i-exfoliation encinane.",
-    "skin_note_ovulation": "Isikhumba sikhanya ngokugqithisileyo. Iimpumu zinokubonakalisa ukuvuleka — ukuhlamba nzulu okanye unyango lwebuzo kusebenza kakuhle ngoku.",
-    "skin_note_luteal": "Uveliso lwamanzi etafule luyanda kwaye iindyikitya ziyenzeka kakhulu. Sebenzisa isicoci esinobulali kwaye ugweme ama-cream alukhuni."
+    "book_cta": "Bhukisha e-Phenomebeauty"
   },
   "log": {
     "eyebrow": "Rekhoda",
     "title": "tara-s",
-    "meaning": "Umfazi, ngesiNguni Khoekhoe.",
+    "meaning": "Umfazi, ngesiKhoekhoegowab.",
     "body": "Ubehlala azi umzimba wakhe. Le ndawo ingeyakho ukukhumbula.",
     "section_period": "Yaqala nini?",
     "section_period_sub": "Usuku lokuqala lwenyanga yakho yokugqibela.",
