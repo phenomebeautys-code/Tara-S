@@ -1,10 +1,16 @@
 import Link from 'next/link'
 import styles from './about.module.css'
+import DisclaimerBanner from '@/components/DisclaimerBanner'
 
 export default function AboutPage() {
   return (
     <div className={styles.page}>
       <Link href="/" className={styles.back}>Back</Link>
+
+      <DisclaimerBanner
+        title="Disclaimer"
+        body="Tara is built on thorough research, and we hold that research to a high standard. But every woman&#39;s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
+      />
 
       <header className={styles.header}>
         <p className={styles.eyebrow}>The name</p>
