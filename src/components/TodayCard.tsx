@@ -17,18 +17,14 @@ export default function TodayCard({
   const phaseName = phase?.phase_name ?? 'unknown'
   const cycleDay = phase?.cycle_day ?? 0
   const cycleLength = stats?.avg_cycle_length ?? 28
-  const skinNote = phase?.phase_skin_note ?? null
 
   const phaseKey = phaseName.toLowerCase() as 'menstrual' | 'follicular' | 'ovulation' | 'luteal' | 'unknown'
-  const displayName = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
-    ? t(`phase_${phaseKey}`)
-    : t('phase_unknown')
-  const description = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
-    ? t(`desc_${phaseKey}`)
-    : t('desc_unknown')
-  const bookingCta = ['follicular', 'ovulation'].includes(phaseKey)
-    ? t(`cta_${phaseKey}`)
-    : null
+  const validPhase = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
+
+  const displayName = validPhase ? t(`phase_${phaseKey}`) : t('phase_unknown')
+  const description = validPhase ? t(`desc_${phaseKey}`) : t('desc_unknown')
+  const skinNote    = validPhase ? t(`skin_note_${phaseKey}`) : null
+  const bookingCta  = ['follicular', 'ovulation'].includes(phaseKey) ? t(`cta_${phaseKey}`) : null
 
   const [countdown, setCountdown] = useState<number | null>(null)
 
