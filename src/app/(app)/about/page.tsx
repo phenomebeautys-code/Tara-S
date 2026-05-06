@@ -1,10 +1,8 @@
-import Link from 'next/link'
 import styles from './about.module.css'
 
 export default function AboutPage() {
   return (
     <div className={styles.page}>
-      <Link href="/today" className={styles.back}>Back</Link>
 
       <header className={styles.header}>
         <p className={styles.eyebrow}>The name</p>
