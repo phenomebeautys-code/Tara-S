@@ -66,7 +66,7 @@
     "avg_duration": "Your period typically lasts {days} days.",
     "variability_consistent": "Your cycles have been very consistent lately.",
     "variability_regular": "Your cycles follow a good rhythm. Small variations are completely normal.",
-    "variability_irregular": "Your last cycles have varied by {days} days. Stress, travel, or illness can cause this."
+    "variability_irregular": "Your cycle length has varied by around {days} days. Your body is responding to your world. Paying attention to patterns over time will tell you more than any single month."
   },
   "calendar": {
     "eyebrow": "Your body, over time.",
@@ -78,7 +78,7 @@
   },
   "information": {
     "disclaimer_title": "Disclaimer",
-    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman's body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
+    "disclaimer_body": "Tara is built on thorough research, and we hold that research to a high standard. But every woman\u2019s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
   },
   "privacy": {
     "eyebrow": "Privacy",
