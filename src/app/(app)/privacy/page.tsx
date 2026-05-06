@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import {
   getSavedTimeout,
@@ -17,7 +16,6 @@ export default function PrivacyPage() {
   const tInactivity = useTranslations('inactivity')
   const tCommon = useTranslations('common')
   const currentLocale = useLocale() as Locale
-  const router = useRouter()
   const [deleting, setDeleting] = useState(false)
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
 
@@ -30,18 +28,21 @@ export default function PrivacyPage() {
     setTimeoutMs(value)
   }
 
-  function handleLocaleChange(locale: Locale) {
+  async function handleLocaleChange(locale: Locale) {
     if (locale === currentLocale) return
-    const path = window.location.pathname
-    const segments = path.split('/')
-    // Replace or insert locale segment
-    const isLocaleSegment = locales.includes(segments[1] as Locale)
-    if (isLocaleSegment) {
-      segments[1] = locale
-      router.push(segments.join('/'))
-    } else {
-      router.push(`/${locale}${path}`)
+
+    // Write cookie so the server picks it up on next request
+    document.cookie = `TARA_LOCALE=${locale};path=/;samesite=lax`
+
+    // Persist to Supabase so the middleware stays in sync
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      await supabase.from('users').update({ locale }).eq('id', user.id)
     }
+
+    // Reload so the server re-renders in the new language
+    window.location.reload()
   }
 
   async function handleSignOut() {
