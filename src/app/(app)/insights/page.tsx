@@ -3,35 +3,41 @@ import { useEffect, useState, Suspense, lazy } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { getPersonalInsights } from '@/lib/hooks/useCycleStats'
+import IrregularCycleDrawer from '@/components/IrregularCycleDrawer'
+import { IRREGULAR_THRESHOLD_DAYS } from '@/lib/irregularCycleContent'
 import styles from './insights.module.css'
 
 const CycleCalendar = lazy(() => import('@/components/CycleCalendar'))
 
-function parseInsight(raw: string, t: ReturnType<typeof useTranslations<'insights'>>): string {
-  if (raw === 'need_more_data') return t('need_more_data')
-  if (raw === 'variability_consistent') return t('variability_consistent')
-  if (raw === 'variability_regular') return t('variability_regular')
+function parseInsight(raw: string, t: ReturnType<typeof useTranslations<'insights'>>): { text: string; isIrregular: boolean } {
+  if (raw === 'need_more_data') return { text: t('need_more_data'), isIrregular: false }
+  if (raw === 'variability_consistent') return { text: t('variability_consistent'), isIrregular: false }
+  if (raw === 'variability_regular') return { text: t('variability_regular'), isIrregular: false }
   if (raw.startsWith('avg_cycle:')) {
     const days = raw.split(':')[1]
-    return t('avg_cycle', { days })
+    return { text: t('avg_cycle', { days }), isIrregular: false }
   }
   if (raw.startsWith('avg_duration:')) {
     const days = raw.split(':')[1]
-    return t('avg_duration', { days })
+    return { text: t('avg_duration', { days }), isIrregular: false }
   }
   if (raw.startsWith('variability_irregular:')) {
-    const days = raw.split(':')[1]
-    return t('variability_irregular', { days })
+    const days = parseInt(raw.split(':')[1], 10)
+    return {
+      text: t('variability_irregular', { days }),
+      isIrregular: days >= IRREGULAR_THRESHOLD_DAYS,
+    }
   }
-  return raw
+  return { text: raw, isIrregular: false }
 }
 
 export default function InsightsPage() {
   const t = useTranslations('insights')
-  const [insights, setInsights] = useState<string[]>([])
+  const [insights, setInsights] = useState<{ text: string; isIrregular: boolean }[]>([])
   const [loading, setLoading] = useState(true)
   const [needMoreData, setNeedMoreData] = useState(false)
   const [userId, setUserId] = useState<string | null>(null)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -79,7 +85,16 @@ export default function InsightsPage() {
               <span className={styles.itemPrefix}>
                 <span className={styles.itemPrefixWord}>{t('prefix')}</span>
               </span>
-              <span className={styles.itemText}>{insight}</span>
+              <span className={styles.itemText}>{insight.text}</span>
+              {insight.isIrregular && (
+                <button
+                  className={styles.irregularFlag}
+                  onClick={() => setDrawerOpen(true)}
+                  aria-label="Learn more about irregular cycles"
+                >
+                  Why might this happen?
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -90,6 +105,11 @@ export default function InsightsPage() {
           <CycleCalendar userId={userId} />
         </Suspense>
       )}
+
+      <IrregularCycleDrawer
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
     </div>
   )
 }

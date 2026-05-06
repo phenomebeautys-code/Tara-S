@@ -1,37 +1,75 @@
 .page {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-6);
   padding-bottom: var(--space-12);
 }
 
-.tier {
+/* ── Category pill nav ───────────────────────────────────── */
+
+.categoryNav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-bg);
+  padding: var(--space-3) 0;
+  margin: 0 calc(-1 * var(--space-4));
+  padding-inline: var(--space-4);
+}
+
+.categoryTrack {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-1);
 }
 
-.tierHeader {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-border);
+.categoryTrack::-webkit-scrollbar {
+  display: none;
 }
 
-.tierLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--color-primary);
-}
-
-.tierSub {
-  font-size: 0.8rem;
-  line-height: 1.6;
+.categoryPill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-offset);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
   color: var(--color-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--transition-interactive),
+    color var(--transition-interactive),
+    border-color var(--transition-interactive);
 }
+
+.categoryPill:hover {
+  background: var(--color-surface-dynamic);
+  color: var(--color-text);
+}
+
+.categoryPillActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: oklch(0.98 0.02 192);
+  font-weight: 600;
+}
+
+.categoryPillActive:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  color: oklch(0.98 0.02 192);
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
 
 .cards {
   display: flex;
@@ -43,7 +81,7 @@
   background: var(--color-surface);
   border: 1px solid oklch(from var(--color-text) l c h / 0.08);
   border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-5);
+  padding: var(--space-5);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -71,7 +109,7 @@
 }
 
 .year::before {
-  content: '·';
+  content: '\00B7';
   margin-right: var(--space-2);
 }
 
