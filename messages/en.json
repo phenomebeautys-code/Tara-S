@@ -30,16 +30,12 @@
     "countdown_days": "Your next period is in {count} days",
     "countdown_day": "Your next period is in {count} day",
     "skin_label": "Skin note",
-    "book_cta": "Book at Phenomebeauty",
-    "skin_note_menstrual": "Skin can be more sensitive and reactive right now. Keep your routine gentle — cleanse, hydrate, and avoid active ingredients like retinol or strong acids.",
-    "skin_note_follicular": "Your skin is clearing and brightening. This is a good time to introduce actives like Vitamin C or light exfoliation.",
-    "skin_note_ovulation": "Skin is at its most radiant. Pores may appear more open — a deep cleanse or facial treatment works beautifully now.",
-    "skin_note_luteal": "Oil production rises and breakouts are more likely. Use a gentle clarifying cleanser and avoid heavy creams."
+    "book_cta": "Book at Phenomebeauty"
   },
   "log": {
     "eyebrow": "Log",
     "title": "tara-s",
-    "meaning": "The woman, in Nguni Khoekhoe.",
+    "meaning": "The woman, in Khoekhoegowab.",
     "body": "She has always known her body. This space is yours to remember.",
     "section_period": "When did it start?",
     "section_period_sub": "The first day of your last period.",
