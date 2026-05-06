@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
@@ -16,6 +16,21 @@ export default function LogPage() {
   const [activeSymptoms, setActiveSymptoms] = useState<Set<SymptomKey>>(new Set())
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [syncStatus, setSyncStatus] = useState<null | 'pending' | 'synced'>(null)
+
+  useEffect(() => {
+    function onSynced() {
+      setSyncStatus((prev) => {
+        if (prev === 'pending') {
+          setTimeout(() => setSyncStatus(null), 2000)
+          return 'synced'
+        }
+        return prev
+      })
+    }
+    window.addEventListener('tara-synced', onSynced)
+    return () => window.removeEventListener('tara-synced', onSynced)
+  }, [])
 
   function toggleSymptom(key: SymptomKey) {
     setActiveSymptoms((prev) => {
@@ -69,6 +84,7 @@ export default function LogPage() {
           mood_low:     activeSymptoms.has('mood_low'),
           headache:     activeSymptoms.has('headache'),
         })
+        setSyncStatus('pending')
       }
     }
 
@@ -80,7 +96,14 @@ export default function LogPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>{t('eyebrow')}</p>
+        <div className={styles.headerRow}>
+          <p className={styles.eyebrow}>{t('eyebrow')}</p>
+          {syncStatus && (
+            <span className={styles.syncStatus} data-status={syncStatus}>
+              {syncStatus === 'pending' ? 'Saved. Syncing soon.' : 'Synced.'}
+            </span>
+          )}
+        </div>
         <h1 className={`display ${styles.title}`}>{t('title')}</h1>
         <p className={styles.meaning}>{t('meaning')}</p>
         <p className={styles.body}>{t('body')}</p>
