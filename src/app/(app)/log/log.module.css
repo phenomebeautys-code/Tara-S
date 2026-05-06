@@ -220,3 +220,11 @@
   from { opacity: 0; transform: translateY(2px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+.saveHint {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  line-height: 1.6;
+  padding-bottom: var(--space-2);
+}
