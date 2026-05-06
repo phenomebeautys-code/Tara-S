@@ -107,7 +107,15 @@
     "delete_modal_body": "Sodra dit gedoen is, kan dit nie ongedaan gemaak word nie. Elke datum, elke simptoom, alles wat jy hier gedeel het, sal verdwyn. Is jy seker dat jy dit alles wil laat gaan?",
     "delete_modal_cancel": "Hou my data",
     "delete_modal_confirm": "Ja, vee alles uit",
-    "deleting": "Besig om uit te vee..."
+    "deleting": "Besig om uit te vee...",
+    "install_cta": "Voeg TARA-S by jou tuisskerm",
+    "install_step1_safari": "Tik die drie kolletjies (•••) langs die adresbalk",
+    "install_step2_safari": "Tik die Deel-ikoon in die kieslys wat oopgaan",
+    "install_step3": "Blaai af en tik “Voeg by tuisskerm”",
+    "install_step4": "Tik “Voeg by” regs bo",
+    "install_step1_chrome": "Tik die drie kolletjies (•••) regs bo",
+    "install_step2_chrome": "Tik “Voeg by tuisskerm”",
+    "install_step3_chrome": "Tik “Voeg by” om te bevestig"
   },
   "onboarding": {
     "welcome_body": "Voor ons begin, 'n paar vrae om jou siklus te vind.",
