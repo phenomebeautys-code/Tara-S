@@ -1,14 +1,18 @@
-'use client'
-import { useTranslations } from 'next-intl'
 import styles from './DisclaimerBanner.module.css'
 
 export default function DisclaimerBanner() {
-  const t = useTranslations('information')
-
   return (
-    <aside className={styles.banner} role="note" aria-label={t('disclaimer_title')}>
-      <p className={styles.label}>{t('disclaimer_title')}</p>
-      <p className={styles.body}>{t('disclaimer_body')}</p>
+    <aside
+      className={styles.banner}
+      role="note"
+      aria-label="Disclaimer"
+    >
+      <p className={styles.label}>Disclaimer</p>
+      <p className={styles.body}>
+        Tara is built on thorough research, and we hold that research to a high standard.
+        But every woman&rsquo;s body is beautifully unique. Our aim is simply to offer the best
+        possible experience and to walk alongside you through the natural phases of your cycle.
+      </p>
     </aside>
   )
 }
