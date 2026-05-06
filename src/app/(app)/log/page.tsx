@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { logPeriodStart } from '@/lib/hooks/usePeriodLogs'
+import { enqueue } from '@/lib/offlineQueue'
 import styles from './log.module.css'
 
 const SYMPTOM_KEYS = ['cramps', 'bloating', 'skin_breakout', 'low_energy', 'mood_low', 'headache'] as const
@@ -35,15 +36,40 @@ export default function LogPage() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { setSaving(false); return }
 
+    const online = navigator.onLine
+
     if (periodDate) {
-      await logPeriodStart(user.id, periodDate, flow || undefined)
+      if (online) {
+        await logPeriodStart(user.id, periodDate, flow || undefined)
+      } else {
+        await enqueue({
+          type: 'period_log',
+          user_id: user.id,
+          start_date: periodDate,
+          flow_intensity: flow || null,
+        })
+      }
     }
 
     if (activeSymptoms.size > 0) {
       const today = new Date().toISOString().split('T')[0]
-      const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
-      SYMPTOM_KEYS.forEach((key) => { payload[key] = activeSymptoms.has(key) })
-      await supabase.from('symptom_logs').upsert(payload)
+      if (online) {
+        const payload: Record<string, unknown> = { user_id: user.id, log_date: today }
+        SYMPTOM_KEYS.forEach((key) => { payload[key] = activeSymptoms.has(key) })
+        await supabase.from('symptom_logs').upsert(payload)
+      } else {
+        await enqueue({
+          type: 'symptom_log',
+          user_id: user.id,
+          log_date: today,
+          cramps:       activeSymptoms.has('cramps'),
+          bloating:     activeSymptoms.has('bloating'),
+          skin_breakout: activeSymptoms.has('skin_breakout'),
+          low_energy:   activeSymptoms.has('low_energy'),
+          mood_low:     activeSymptoms.has('mood_low'),
+          headache:     activeSymptoms.has('headache'),
+        })
+      }
     }
 
     setSaved(true)
