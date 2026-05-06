@@ -11,6 +11,121 @@ import {
 import { locales, localeNames, type Locale } from '@/lib/locales'
 import styles from './privacy.module.css'
 
+function getIOSBrowser(): 'safari' | 'chrome' | 'other' {
+  if (typeof navigator === 'undefined') return 'other'
+  const ua = navigator.userAgent
+  if (/CriOS/.test(ua)) return 'chrome'
+  if (/Safari/.test(ua) && /Apple/.test(ua)) return 'safari'
+  return 'other'
+}
+
+function InstallGuide({ t }: { t: ReturnType<typeof useTranslations> }) {
+  const [browser, setBrowser] = useState<'safari' | 'chrome' | 'other'>('other')
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    setBrowser(getIOSBrowser())
+  }, [])
+
+  if (browser === 'other') return null
+
+  const isSafari = browser === 'safari'
+
+  const steps = isSafari
+    ? [
+        {
+          icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="1.5" y="1.5" width="17" height="17" rx="4.5" stroke="currentColor" strokeWidth="1.5"/>
+              <circle cx="6" cy="10" r="1.25" fill="currentColor"/>
+              <circle cx="10" cy="10" r="1.25" fill="currentColor"/>
+              <circle cx="14" cy="10" r="1.25" fill="currentColor"/>
+            </svg>
+          ),
+          label: t('install_step1_safari'),
+        },
+        {
+          icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="3" y="4" width="14" height="11" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M10 2v7M7.5 6.5 10 4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          ),
+          label: t('install_step2_safari'),
+        },
+        {
+          icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M10 7v6M7 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ),
+          label: t('install_step3'),
+        },
+        {
+          icon: null,
+          label: t('install_step4'),
+        },
+      ]
+    : [
+        {
+          icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <circle cx="10" cy="5" r="1.5" fill="currentColor"/>
+              <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+              <circle cx="10" cy="15" r="1.5" fill="currentColor"/>
+            </svg>
+          ),
+          label: t('install_step1_chrome'),
+        },
+        {
+          icon: (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M10 7v6M7 10h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ),
+          label: t('install_step2_chrome'),
+        },
+        {
+          icon: null,
+          label: t('install_step3_chrome'),
+        },
+      ]
+
+  return (
+    <div className={styles.installBlock}>
+      <button
+        className={styles.installToggle}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span className={styles.installToggleText}>{t('install_cta')}</span>
+        <svg
+          className={`${styles.installChevron} ${open ? styles.installChevronOpen : ''}`}
+          width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"
+        >
+          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </button>
+
+      {open && (
+        <ol className={styles.installSteps}>
+          {steps.map((step, i) => (
+            <li key={i} className={styles.installStep}>
+              <span className={styles.installStepNumber}>{i + 1}</span>
+              {step.icon && (
+                <span className={styles.installStepIcon}>{step.icon}</span>
+              )}
+              <span className={styles.installStepLabel}>{step.label}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  )
+}
+
 export default function PrivacyPage() {
   const t = useTranslations('privacy')
   const tInactivity = useTranslations('inactivity')
@@ -35,23 +150,19 @@ export default function PrivacyPage() {
     if (locale === currentLocale || localeChanging) return
     setLocaleChanging(true)
 
-    // Write cookie so the server picks it up on next request
     document.cookie = `TARA_LOCALE=${locale};path=/;samesite=lax`
 
-    // Persist to Supabase so the middleware stays in sync
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         const { error } = await supabase.from('users').update({ locale }).eq('id', user.id)
         if (error) {
-          // Revert cookie if DB write failed so they stay in sync
           document.cookie = `TARA_LOCALE=${currentLocale};path=/;samesite=lax`
           setLocaleChanging(false)
           return
         }
       }
-      // Reload so the server re-renders in the new language
       window.location.reload()
     } catch {
       document.cookie = `TARA_LOCALE=${currentLocale};path=/;samesite=lax`
@@ -142,6 +253,8 @@ export default function PrivacyPage() {
         <p>{t('section_control_body')}</p>
       </div>
 
+      <InstallGuide t={t} />
+
       {/* Preferences */}
       <div className={styles.preferencesBlock}>
         <p className={styles.preferencesEyebrow}>{t('preferences_title')}</p>
@@ -206,7 +319,6 @@ export default function PrivacyPage() {
         </button>
       </div>
 
-      {/* Delete confirmation modal */}
       {showDeleteModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalCard}>
