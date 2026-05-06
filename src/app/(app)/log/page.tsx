@@ -90,7 +90,12 @@ export default function LogPage() {
 
     setSaved(true)
     setSaving(false)
-    setTimeout(() => { window.location.href = '/today' }, 800)
+    setTimeout(() => {
+      setSaved(false)
+      setPeriodDate('')
+      setFlow('')
+      setActiveSymptoms(new Set())
+    }, 1200)
   }
 
   return (
@@ -168,6 +173,7 @@ export default function LogPage() {
       >
         {saved ? t('saved') : saving ? t('saving') : t('save')}
       </button>
+      <p className={styles.saveHint}>{t('save_hint')}</p>
     </div>
   )
 }
