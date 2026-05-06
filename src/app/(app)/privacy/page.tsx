@@ -17,7 +17,10 @@ export default function PrivacyPage() {
   const tCommon = useTranslations('common')
   const currentLocale = useLocale() as Locale
   const [deleting, setDeleting] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [timeoutMs, setTimeoutMs] = useState<TimeoutValue>(180000)
+  const [localeChanging, setLocaleChanging] = useState(false)
+  const [exportError, setExportError] = useState(false)
 
   useEffect(() => {
     setTimeoutMs(getSavedTimeout())
@@ -29,20 +32,31 @@ export default function PrivacyPage() {
   }
 
   async function handleLocaleChange(locale: Locale) {
-    if (locale === currentLocale) return
+    if (locale === currentLocale || localeChanging) return
+    setLocaleChanging(true)
 
     // Write cookie so the server picks it up on next request
     document.cookie = `TARA_LOCALE=${locale};path=/;samesite=lax`
 
     // Persist to Supabase so the middleware stays in sync
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      await supabase.from('users').update({ locale }).eq('id', user.id)
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const { error } = await supabase.from('users').update({ locale }).eq('id', user.id)
+        if (error) {
+          // Revert cookie if DB write failed so they stay in sync
+          document.cookie = `TARA_LOCALE=${currentLocale};path=/;samesite=lax`
+          setLocaleChanging(false)
+          return
+        }
+      }
+      // Reload so the server re-renders in the new language
+      window.location.reload()
+    } catch {
+      document.cookie = `TARA_LOCALE=${currentLocale};path=/;samesite=lax`
+      setLocaleChanging(false)
     }
-
-    // Reload so the server re-renders in the new language
-    window.location.reload()
   }
 
   async function handleSignOut() {
@@ -51,8 +65,8 @@ export default function PrivacyPage() {
     window.location.href = '/'
   }
 
-  async function handleDelete() {
-    if (!confirm(t('delete_confirm'))) return
+  async function handleDeleteConfirmed() {
+    setShowDeleteModal(false)
     setDeleting(true)
 
     const res = await fetch('/api/delete-account', { method: 'DELETE' })
@@ -60,39 +74,49 @@ export default function PrivacyPage() {
       window.location.href = '/'
     } else {
       setDeleting(false)
-      alert('Something went wrong. Please try again.')
     }
   }
 
   async function handleExport() {
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    setExportError(false)
+    try {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
 
-    const [{ data: periods }, { data: symptoms }] = await Promise.all([
-      supabase.from('period_logs').select('*').eq('user_id', user.id),
-      supabase.from('symptom_logs').select('*').eq('user_id', user.id),
-    ])
+      const [{ data: periods, error: periodsError }, { data: symptoms, error: symptomsError }] =
+        await Promise.all([
+          supabase.from('period_logs').select('*').eq('user_id', user.id),
+          supabase.from('symptom_logs').select('*').eq('user_id', user.id),
+        ])
 
-    const csv = [
-      '=== PERIOD LOGS ===',
-      'start_date,end_date,flow_intensity',
-      ...(periods ?? []).map((r) => `${r.start_date},${r.end_date ?? ''},${r.flow_intensity ?? ''}`),
-      '',
-      '=== SYMPTOM LOGS ===',
-      'date,cramps,bloating,skin_breakout,low_energy,mood_low,headache',
-      ...(symptoms ?? []).map((r) =>
-        `${r.log_date},${r.cramps},${r.bloating},${r.skin_breakout},${r.low_energy},${r.mood_low},${r.headache}`
-      ),
-    ].join('\n')
+      if (periodsError || symptomsError) {
+        setExportError(true)
+        return
+      }
 
-    const blob = new Blob([csv], { type: 'text/csv' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'tara-s-my-data.csv'
-    a.click()
-    URL.revokeObjectURL(url)
+      const csv = [
+        '=== PERIOD LOGS ===',
+        'start_date,end_date,flow_intensity',
+        ...(periods ?? []).map((r) => `${r.start_date},${r.end_date ?? ''},${r.flow_intensity ?? ''}`),
+        '',
+        '=== SYMPTOM LOGS ===',
+        'date,cramps,bloating,skin_breakout,low_energy,mood_low,headache',
+        ...(symptoms ?? []).map((r) =>
+          `${r.log_date},${r.cramps},${r.bloating},${r.skin_breakout},${r.low_energy},${r.mood_low},${r.headache}`
+        ),
+      ].join('\n')
+
+      const blob = new Blob([csv], { type: 'text/csv' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'tara-s-my-data.csv'
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      setExportError(true)
+    }
   }
 
   return (
@@ -141,7 +165,9 @@ export default function PrivacyPage() {
 
         <div className={styles.preferenceRow}>
           <p className={styles.preferenceLabel}>{tCommon('language_label')}</p>
-          <div className={styles.localeOptions}>
+          <div
+            className={`${styles.localeOptions} ${localeChanging ? styles.localeChanging : ''}`}
+          >
             {locales.map((locale) => (
               <button
                 key={locale}
@@ -149,6 +175,7 @@ export default function PrivacyPage() {
                   currentLocale === locale ? styles.optionActive : ''
                 }`}
                 onClick={() => handleLocaleChange(locale)}
+                disabled={localeChanging}
               >
                 {localeNames[locale]}
               </button>
@@ -161,13 +188,48 @@ export default function PrivacyPage() {
         <button className={styles.exportBtn} onClick={handleExport}>
           {t('export_btn')}
         </button>
+        {exportError && (
+          <p className={styles.exportError}>{t('export_error')}</p>
+        )}
         <button className={styles.signOutBtn} onClick={handleSignOut}>
           {tInactivity('sign_out')}
         </button>
-        <button className={styles.deleteBtn} onClick={handleDelete} disabled={deleting}>
+      </div>
+
+      <div className={styles.deleteZone}>
+        <button
+          className={styles.deleteBtn}
+          onClick={() => setShowDeleteModal(true)}
+          disabled={deleting}
+        >
           {deleting ? t('deleting') : t('delete_btn')}
         </button>
       </div>
+
+      {/* Delete confirmation modal */}
+      {showDeleteModal && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalCard}>
+            <p className={styles.modalEyebrow}>{t('delete_modal_eyebrow')}</p>
+            <h2 className={`display ${styles.modalTitle}`}>{t('delete_modal_title')}</h2>
+            <p className={styles.modalBody}>{t('delete_modal_body')}</p>
+            <div className={styles.modalActions}>
+              <button
+                className={styles.modalCancelBtn}
+                onClick={() => setShowDeleteModal(false)}
+              >
+                {t('delete_modal_cancel')}
+              </button>
+              <button
+                className={styles.modalConfirmBtn}
+                onClick={handleDeleteConfirmed}
+              >
+                {t('delete_modal_confirm')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
