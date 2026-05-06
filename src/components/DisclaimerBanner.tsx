@@ -9,7 +9,7 @@ export default function DisclaimerBanner() {
     >
       <p className={styles.label}>Disclaimer</p>
       <p className={styles.body}>
-        <span className={styles.brandWord}>Tara</span> is built on thorough research, and we hold
+        <span className={styles.brandWord}>Tara-S</span> is built on thorough research, and we hold
         that research to a high standard. But every woman&rsquo;s body is beautifully unique. Our
         aim is simply to offer the best possible experience and to walk alongside you through the
         natural phases of your cycle.
