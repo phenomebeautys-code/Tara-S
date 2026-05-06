@@ -107,7 +107,15 @@
     "delete_modal_body": "Once done, it cannot be undone. Every date, every symptom, everything you have shared here will be gone. Are you certain you want to let it all go?",
     "delete_modal_cancel": "Keep my data",
     "delete_modal_confirm": "Yes, delete everything",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "install_cta": "Add TARA-S to your home screen",
+    "install_step1_safari": "Tap the three dots (•••) next to the address bar",
+    "install_step2_safari": "Tap the Share icon in the menu that opens",
+    "install_step3": "Scroll down and tap “Add to Home Screen”",
+    "install_step4": "Tap “Add” in the top right",
+    "install_step1_chrome": "Tap the three dots (•••) in the top right",
+    "install_step2_chrome": "Tap “Add to Home Screen”",
+    "install_step3_chrome": "Tap “Add” to confirm"
   },
   "onboarding": {
     "welcome_body": "Before we begin, a few questions to find your cycle.",
