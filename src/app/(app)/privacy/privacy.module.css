@@ -101,6 +101,13 @@
   gap: var(--space-2);
 }
 
+/* Loading state for locale options during async switch */
+.localeChanging {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
 .timeoutBtn,
 .localeBtn {
   padding: var(--space-2) var(--space-4);
@@ -126,13 +133,19 @@
   background: color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
 
-/* Actions */
+/* Actions — export and sign out */
 .actions {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
+}
+
+.exportError {
+  font-size: 0.85rem;
+  color: var(--color-error);
+  text-align: center;
 }
 
 .exportBtn {
@@ -166,18 +179,113 @@
   color: var(--color-text);
 }
 
+/* Delete zone — visually separated from sign out */
+.deleteZone {
+  padding-top: var(--space-6);
+  margin-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
 .deleteBtn {
   width: 100%;
   padding: var(--space-4);
   background: transparent;
-  border: 1.5px solid color-mix(in srgb, var(--risk-high) 40%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--risk-high, #c0392b) 40%, transparent);
   border-radius: var(--radius-full);
   font-size: 1rem;
   font-weight: 500;
-  color: var(--risk-high);
+  color: var(--risk-high, #c0392b);
   opacity: 0.7;
   transition: opacity 0.2s, border-color 0.2s;
 }
 
-.deleteBtn:hover { opacity: 1; border-color: var(--risk-high); }
+.deleteBtn:hover { opacity: 1; border-color: var(--risk-high, #c0392b); }
 .deleteBtn:disabled { opacity: 0.3; }
+
+/* Delete confirmation modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: oklch(0 0 0 / 0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+  padding: var(--space-4);
+  padding-bottom: env(safe-area-inset-bottom, var(--space-4));
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modalEyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.modalTitle {
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+.modalBody {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.modalCancelBtn {
+  width: 100%;
+  padding: var(--space-4);
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: all 0.15s;
+}
+
+.modalCancelBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.modalConfirmBtn {
+  width: 100%;
+  padding: var(--space-4);
+  background: transparent;
+  border: 1.5px solid color-mix(in srgb, var(--risk-high, #c0392b) 60%, transparent);
+  border-radius: var(--radius-full);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--risk-high, #c0392b);
+  transition: all 0.15s;
+}
+
+.modalConfirmBtn:hover {
+  border-color: var(--risk-high, #c0392b);
+  background: color-mix(in srgb, var(--risk-high, #c0392b) 8%, transparent);
+}
