@@ -1,12 +1,19 @@
-// TARA-S Service Worker v3
-const CACHE = 'tara-s-v3'
+// TARA-S Service Worker v4
+const CACHE = 'tara-s-v4'
 const OFFLINE_URL = '/offline'
+
+const PRECACHE = [
+  '/',
+  '/offline',
+  '/manifest.json',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/apple-touch-icon.png',
+]
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open(CACHE).then((cache) =>
-      cache.addAll(['/', '/offline', '/manifest.json'])
-    )
+    caches.open(CACHE).then((cache) => cache.addAll(PRECACHE))
   )
   self.skipWaiting()
 })
@@ -27,7 +34,6 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request)
       .then((response) => {
-        // Cache a fresh copy for offline use
         const copy = response.clone()
         caches.open(CACHE).then((cache) => cache.put(e.request, copy))
         return response
