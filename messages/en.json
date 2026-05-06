@@ -46,7 +46,7 @@
     "symptom_low_energy": "Low energy",
     "symptom_mood_low": "Mood low",
     "symptom_headache": "Headache",
-    "save": "Save to Tara",
+    "save": "Save to TARA-S",
     "saving": "Saving...",
     "saved": "Saved"
   },
@@ -54,12 +54,12 @@
     "eyebrow": "Insights",
     "title": "What your body is telling you.",
     "subtitle": "Patterns drawn from what you have logged.",
-    "prefix": "Tara noticed",
+    "prefix": "TARA-S noticed",
     "empty_title": "Your patterns will surface here as you log.",
     "empty_body": "Begin with your last period.",
     "empty_cta": "Log a period",
     "need_more_data_title": "Keep logging. Your patterns are forming.",
-    "need_more_data_body": "Log one more cycle and Tara will begin to see your rhythm.",
+    "need_more_data_body": "Log one more cycle and TARA-S will begin to see your rhythm.",
     "avg_cycle": "Your average cycle is {days} days.",
     "avg_duration": "Your period usually lasts about {days} days.",
     "variability_consistent": "Your cycles have been very consistent lately.",
@@ -68,7 +68,7 @@
   },
   "information": {
     "disclaimer_title": "Disclaimer",
-    "disclaimer_body": "Tara is built on thorough research, and we hold that research to a high standard. But every woman's body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
+    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman's body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
   },
   "privacy": {
     "eyebrow": "Privacy",
@@ -89,7 +89,7 @@
     "welcome_body": "Before we begin, a few questions to find your rhythm.",
     "welcome_cta": "I am ready",
     "name_question": "What do you go by?",
-    "name_sub": "tara-s will use this to greet you.",
+    "name_sub": "TARA-S will use this to greet you.",
     "name_placeholder": "Your name",
     "continue": "Continue",
     "continue_no_name": "Continue without a name",
@@ -102,7 +102,7 @@
     "date_q3_sub": "Three dates and we can begin to see your pattern.",
     "ready": "You are ready.",
     "ready_named": "You are ready, {name}.",
-    "ready_sub": "tara-s will learn alongside you. The more you log, the more she understands.",
+    "ready_sub": "TARA-S will learn alongside you. The more you log, the more she understands.",
     "enter": "Enter",
     "entering": "One moment..."
   },

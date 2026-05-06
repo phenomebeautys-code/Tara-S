@@ -46,7 +46,7 @@
     "symptom_low_energy": "Lae energie",
     "symptom_mood_low": "Lae stemming",
     "symptom_headache": "Hoofpyn",
-    "save": "Stoor na Tara",
+    "save": "Stoor na TARA-S",
     "saving": "Besig om te stoor...",
     "saved": "Gestoor"
   },
@@ -54,12 +54,12 @@
     "eyebrow": "Insigte",
     "title": "Wat jou liggaam vir jou se.",
     "subtitle": "Patrone uit wat jy aangeteken het.",
-    "prefix": "Tara het opgemerk",
+    "prefix": "TARA-S het opgemerk",
     "empty_title": "Jou patrone sal hier verskyn soos jy aanteken.",
     "empty_body": "Begin met jou laaste periode.",
     "empty_cta": "Teken 'n periode aan",
     "need_more_data_title": "Bly aanteken. Jou patrone vorm.",
-    "need_more_data_body": "Teken nog een siklus aan en Tara sal jou ritme begin sien.",
+    "need_more_data_body": "Teken nog een siklus aan en TARA-S sal jou ritme begin sien.",
     "avg_cycle": "Jou gemiddelde siklus is {days} dae.",
     "avg_duration": "Jou periode duur gewoonlik ongeveer {days} dae.",
     "variability_consistent": "Jou siklusse was onlangs baie konsekwent.",
@@ -68,7 +68,7 @@
   },
   "information": {
     "disclaimer_title": "Vrywaring",
-    "disclaimer_body": "Tara is gebou op deeglike navorsing, en ons hou daardie navorsing op 'n hoe standaard. Maar elke vrou se liggaam is pragtig uniek. Ons doel is bloot om die beste moontlike ervaring te bied en saam met jou te loop deur die natuurlike fases van jou siklus."
+    "disclaimer_body": "TARA-S is gebou op deeglike navorsing, en ons hou daardie navorsing op 'n hoe standaard. Maar elke vrou se liggaam is pragtig uniek. Ons doel is bloot om die beste moontlike ervaring te bied en saam met jou te loop deur die natuurlike fases van jou siklus."
   },
   "privacy": {
     "eyebrow": "Privaatheid",
@@ -89,7 +89,7 @@
     "welcome_body": "Voor ons begin, 'n paar vrae om jou ritme te vind.",
     "welcome_cta": "Ek is gereed",
     "name_question": "Waarmee word jy genoem?",
-    "name_sub": "tara-s sal dit gebruik om jou te groet.",
+    "name_sub": "TARA-S sal dit gebruik om jou te groet.",
     "name_placeholder": "Jou naam",
     "continue": "Gaan voort",
     "continue_no_name": "Gaan voort sonder 'n naam",
@@ -102,7 +102,7 @@
     "date_q3_sub": "Drie datums en ons kan begin om jou patroon te sien.",
     "ready": "Jy is gereed.",
     "ready_named": "Jy is gereed, {name}.",
-    "ready_sub": "tara-s sal saam met jou leer. Hoe meer jy aanteken, hoe meer verstaan sy.",
+    "ready_sub": "TARA-S sal saam met jou leer. Hoe meer jy aanteken, hoe meer verstaan sy.",
     "enter": "Betree",
     "entering": "Een oomblik..."
   },

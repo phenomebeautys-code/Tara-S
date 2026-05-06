@@ -47,7 +47,7 @@
     "symptom_low_energy": "Amandla aphantsi",
     "symptom_mood_low": "Isimo sengqondo esiphantsi",
     "symptom_headache": "Intloko ebuhlungu",
-    "save": "Gcina ku-Tara",
+    "save": "Gcina ku-TARA-S",
     "saving": "Igcina...",
     "saved": "Kugcinwe"
   },
@@ -55,12 +55,12 @@
     "eyebrow": "Ulwazi",
     "title": "Oko umzimba wakho ukuxelela.",
     "subtitle": "Iinkqubo ezivela kwinto oyirekhodileyo.",
-    "prefix": "UTara uqaphele",
+    "prefix": "TARA-S iqaphele",
     "empty_title": "Iinkqubo zakho ziya kubonakala apha njengoko urekhoda.",
     "empty_body": "Qala ngexesha lakho lokugqibela.",
     "empty_cta": "Rekhoda ixesha",
     "need_more_data_title": "Qhubeka urekhoda. Iinkqubo zakho ziyakhula.",
-    "need_more_data_body": "Rekhoda umjikelo omnye kwakhona kwaye uTara uya kuqala ukubona umjikelo wakho.",
+    "need_more_data_body": "Rekhoda umjikelo omnye kwakhona kwaye TARA-S iya kuqala ukubona umjikelo wakho.",
     "avg_cycle": "Umjikelo wakho waphakathi uziintsuku ezingu-{days}.",
     "avg_duration": "Ixesha lakho lihlala malunga ne-{days} iintsuku.",
     "variability_consistent": "Imijikelo yakho ibilungile kakhulu kutsha nje.",
@@ -69,7 +69,7 @@
   },
   "information": {
     "disclaimer_title": "Isixwayiso",
-    "disclaimer_body": "UTara wakhiwe phezu kophando olupheleleyo, kwaye sibambe olo phando kwizinga eliphezulu. Kodwa umzimba womfazi ngamnye muhle ngendlela yakhe. Injongo yethu kukuphela nje kukunika ulwalo olungcono nokuhambe nawe kwiimeko zemvelo zomjikelo wakho."
+    "disclaimer_body": "TARA-S yakhiwe phezu kophando olupheleleyo, kwaye sibambe olo phando kwizinga eliphezulu. Kodwa umzimba womfazi ngamnye muhle ngendlela yakhe. Injongo yethu kukuphela nje kukunika ulwalo olungcono nokuhambe nawe kwiimeko zemvelo zomjikelo wakho."
   },
   "privacy": {
     "eyebrow": "Imfihlo",
@@ -90,7 +90,7 @@
     "welcome_body": "Ngaphambi kokuba siqale, imibuzo embalwa ukufumana umjikelo wakho.",
     "welcome_cta": "Ndikulungele",
     "name_question": "Ubizwa ngantoni?",
-    "name_sub": "tara-s iya kusebenzisa oku ukukubulisa.",
+    "name_sub": "TARA-S iya kusebenzisa oku ukukubulisa.",
     "name_placeholder": "Igama lakho",
     "continue": "Qhubeka",
     "continue_no_name": "Qhubeka ngaphandle kwegama",
@@ -103,7 +103,7 @@
     "date_q3_sub": "Iintsuku ezintathu size siqale ukubona ipateni yakho.",
     "ready": "Ulungile.",
     "ready_named": "Ulungile, {name}.",
-    "ready_sub": "tara-s iya kufunda kunye nawe. Okurekhodayo okuninzi, okuqondayo okuninzi.",
+    "ready_sub": "TARA-S iya kufunda kunye nawe. Okurekhodayo okuninzi, okuqondayo okuninzi.",
     "enter": "Ngena",
     "entering": "Umzuzwana..."
   },
