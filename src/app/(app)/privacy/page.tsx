@@ -30,9 +30,10 @@ const IconDots = () => (
 )
 
 const IconShare = () => (
-  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-    <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-    <path d="M10 2v7M7.5 6.5 10 4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+    <path d="M5 8.5V13.5C5 14.05 5.45 14.5 6 14.5H12C12.55 14.5 13 14.05 13 13.5V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <line x1="9" y1="3" x2="9" y2="11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M6.5 5.5L9 3L11.5 5.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 )
 
