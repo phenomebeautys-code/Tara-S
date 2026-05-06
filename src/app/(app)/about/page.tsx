@@ -14,7 +14,7 @@ export default function AboutPage() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>The language</h2>
-        <p>Khoekhoegowab is the language of the Khoi-San people, the oldest continuous culture on earth. Born in the land that is now Southern Africa, it is one of the few languages that uses click consonants as core sounds. Linguists trace its roots back over 100,000 years, making it one of humanity&apos;s earliest voices.</p>
+        <p>Khoekhoegowab is the language of the Khoekhoe people, the oldest continuous culture on earth. Born in the land that is now Southern Africa, it is one of the few languages that uses click consonants as core sounds. Linguists trace its roots back over 100,000 years, making it one of humanity&apos;s earliest voices.</p>
         <p>In Khoekhoegowab, <em>tara-s</em> means the woman. Not a woman. The woman. Whole. Specific. Herself.</p>
       </section>
 
