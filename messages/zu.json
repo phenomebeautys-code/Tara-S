@@ -107,7 +107,15 @@
     "delete_modal_body": "Uma sekwenziwe, ngeke kubuyiselwe. Yonke imininingwane, yonke impawu, konke okwabelene nayo lapha kuzoshabalala. Uqinisekile ukuthi ufuna ukukuyeka konke?",
     "delete_modal_cancel": "Gcina idatha yami",
     "delete_modal_confirm": "Yebo, cima konke",
-    "deleting": "Iyacima..."
+    "deleting": "Iyacima...",
+    "install_cta": "Engeza i-TARA-S esikrini sakho sasekhaya",
+    "install_step1_safari": "Thepha amadothi amathathu (•••) eceleni kwebha yekheli",
+    "install_step2_safari": "Thepha isithonjana sokwabelana kumenyu ovulekayo",
+    "install_step3": "Skrola phansi uthepha “Ngeza Esikrini Sasekhaya”",
+    "install_step4": "Thepha “Ngeza” ngakwesokudla phezulu",
+    "install_step1_chrome": "Thepha amadothi amathathu (•••) phezulu ngakwesokudla",
+    "install_step2_chrome": "Thepha “Ngeza Esikrini Sasekhaya”",
+    "install_step3_chrome": "Thepha “Ngeza” ukuqinisekisa"
   },
   "onboarding": {
     "welcome_body": "Ngaphambi kokuqala, imibuzo embalwa ukuthola isiklasi sakho.",
