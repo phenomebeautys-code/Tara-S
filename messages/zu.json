@@ -30,7 +30,11 @@
     "countdown_days": "Inyanga yakho elandelayo isele izinsuku ezingama-{count}",
     "countdown_day": "Inyanga yakho elandelayo isele usuku olulodwa",
     "skin_label": "Inothi lesikhumba",
-    "book_cta": "Bhukisha e-Phenomebeauty"
+    "book_cta": "Bhukisha e-Phenomebeauty",
+    "skin_note_menstrual": "Isikhumba sakho singaba sensitifu ngalesi sikhathi. Gcina imikhuba yakho ibe nhle — hlanza, faka amanzi, ugweme izinto ezisebenzayo njengeretinol noma ama-acid anamandla.",
+    "skin_note_follicular": "Isikhumba sakho siyacwebezela. Lesi isikhathi esihle sokwethula izinto ezisebenzayo njengeVitamin C noma ukususa amaseli ashayo.",
+    "skin_note_ovulation": "Isikhumba sikhanya kakhulu. Amavula angabonakala evulekile — ukuhlanza nzulu noma unyango lobuso kusebenza kahle manje.",
+    "skin_note_luteal": "Ukukhiqizwa kwamafutha kuyanda futhi amabala avela kalula. Sebenzisa isicoci esinobumnene futhi ugweme amakhilimu asindayo."
   },
   "log": {
     "eyebrow": "Rekhoda",
