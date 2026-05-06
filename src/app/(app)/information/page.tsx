@@ -1,11 +1,13 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import DisclaimerBanner from '@/components/DisclaimerBanner'
 import { RESEARCH_CATEGORIES } from '@/lib/informationContent'
 import styles from './information.module.css'
 
 export default function InformationPage() {
+  const t = useTranslations('information')
   const searchParams = useSearchParams()
   const initialCategory = searchParams.get('category') ?? RESEARCH_CATEGORIES[0].key
   const [activeCategory, setActiveCategory] = useState(initialCategory)
@@ -19,6 +21,12 @@ export default function InformationPage() {
 
   return (
     <div className={styles.page}>
+      <header className={styles.header}>
+        <p className={styles.eyebrow}>Information</p>
+        <h1 className={`display ${styles.title}`}>{t('title')}</h1>
+        <p className={styles.subtitle}>{t('subtitle')}</p>
+      </header>
+
       <DisclaimerBanner />
 
       <nav className={styles.categoryNav} aria-label="Research categories">
