@@ -55,7 +55,8 @@
     "symptom_headache": "Hoofpyn",
     "save": "Stoor na TARA-S",
     "saving": "Besig om te stoor...",
-    "saved": "Gestoor"
+    "saved": "Gestoor",
+    "save_hint": "Teken soveel as wat jy wil aan. Tik Stoor wanneer jy gereed is."
   },
   "insights": {
     "eyebrow": "Insigte",
