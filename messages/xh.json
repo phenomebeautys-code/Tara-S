@@ -67,6 +67,10 @@
     "variability_regular": "Imijikelo yakho ilungile ngokwaneleyo. Utshintsho oluncinci lulungile ngokupheleleyo.",
     "variability_irregular": "Imijikelo yakho yokugqibela yahluka ngama-{days} iintsuku. Ingcindezi, uhambo, okanye ukugula kunokubangela oku."
   },
+  "information": {
+    "disclaimer_title": "Isixwayiso",
+    "disclaimer_body": "UTara wakhiwe phezu kophando olupheleleyo, kwaye sibambe olo phando kwizinga eliphezulu. Kodwa umzimba womfazi ngamnye muhle ngendlela yakhe. Injongo yethu kukuphela nje kukunika ulwalo olungcono nokuhambe nawe kwiimeko zemvelo zomjikelo wakho."
+  },
   "privacy": {
     "eyebrow": "Imfihlo",
     "title": "Esibambele yona, kunye nesizathu.",

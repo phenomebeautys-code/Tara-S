@@ -67,6 +67,10 @@
     "variability_regular": "Imijikelezo yakho ilandelana kahle. Izinguquko ezincane kufanele ngokuphelele.",
     "variability_irregular": "Imijikelezo yakho yokugcina ihlukile ngezinsuku ezingu-{days}. Ingcindezi, uhambo, noma ukugula kungabangela lokhu."
   },
+  "information": {
+    "disclaimer_title": "Isixwayiso",
+    "disclaimer_body": "UTara wakhiwe phezu kocwaningo oluphelele, futhi sibambe lolo cwaningo ezingeni eliphezulu. Kodwa umzimba womuntu wesifazane ngamunye muhle ngendlela yakhe. Inhloso yethu ukuphela kwayo ukuhlinzeka ngolwazi oluhle kakhulu nokuhamba nawe ezigabeni zemvelo zomjikelezo wakho."
+  },
   "privacy": {
     "eyebrow": "Imfihlo",
     "title": "Lokho esikuphethe, nangesizathu.",

@@ -66,6 +66,10 @@
     "variability_regular": "Jou siklusse is redelik gereeld. Klein variasies is heeltemal normaal.",
     "variability_irregular": "Jou laaste paar siklusse het met sowat {days} dae gevarieer. Stres, reis of siekte kan dit veroorsaak."
   },
+  "information": {
+    "disclaimer_title": "Vrywaring",
+    "disclaimer_body": "Tara is gebou op deeglike navorsing, en ons hou daardie navorsing op 'n hoe standaard. Maar elke vrou se liggaam is pragtig uniek. Ons doel is bloot om die beste moontlike ervaring te bied en saam met jou te loop deur die natuurlike fases van jou siklus."
+  },
   "privacy": {
     "eyebrow": "Privaatheid",
     "title": "Wat ons bewaar, en hoekom.",
