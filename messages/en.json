@@ -55,7 +55,8 @@
     "symptom_headache": "Headache",
     "save": "Save to TARA-S",
     "saving": "Saving...",
-    "saved": "Saved"
+    "saved": "Saved",
+    "save_hint": "Log as many as you like. Tap Save when you're ready."
   },
   "insights": {
     "eyebrow": "Insights",
