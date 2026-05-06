@@ -62,6 +62,7 @@ export default function LogPage() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>{t('section_period')}</h2>
+        <p className={styles.sectionSub}>{t('section_period_sub')}</p>
         <div className={styles.dateWrap}>
           <input
             type="date"
