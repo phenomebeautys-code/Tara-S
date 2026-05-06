@@ -78,8 +78,10 @@
     "no_data": "No data"
   },
   "information": {
+    "title": "What we know.",
+    "subtitle": "Research that informs every insight.",
     "disclaimer_title": "Disclaimer",
-    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman\u2019s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
+    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman’s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
   },
   "privacy": {
     "eyebrow": "Privacy",
