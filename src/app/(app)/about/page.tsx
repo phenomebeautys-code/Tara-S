@@ -4,7 +4,7 @@ import styles from './about.module.css'
 export default function AboutPage() {
   return (
     <div className={styles.page}>
-      <Link href="/" className={styles.back}>Back</Link>
+      <Link href="/today" className={styles.back}>Back</Link>
 
       <header className={styles.header}>
         <p className={styles.eyebrow}>The name</p>
