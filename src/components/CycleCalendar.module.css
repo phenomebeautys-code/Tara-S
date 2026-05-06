@@ -82,7 +82,7 @@
   font-size: var(--text-lg);
   font-weight: 500;
   font-style: italic;
-  color: var(--color-text);
+  color: var(--color-primary);
   line-height: 1;
 }
 
@@ -91,7 +91,8 @@
   font-size: var(--text-xs);
   font-weight: 400;
   letter-spacing: 0.06em;
-  color: var(--color-text-faint);
+  color: var(--color-primary);
+  opacity: 0.72;
   text-transform: uppercase;
 }
 
