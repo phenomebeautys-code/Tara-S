@@ -17,9 +17,16 @@
 }
 
 .body {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   line-height: 1.7;
   color: var(--color-text-muted);
   font-style: italic;
   max-width: 62ch;
+}
+
+.brandWord {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-primary);
 }
