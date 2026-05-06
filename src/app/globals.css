@@ -1,38 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-primary:     #C4614A;
-  --color-secondary:   #E8A598;
-  --color-accent:      #A0522D;
-  --color-bg:          #FAF3EC;
-  --color-surface:     #FFFFFF;
-  --color-border:      #E8D5C0;
-  --color-text:        #3D3530;
-  --color-text-muted:  #9B7E8E;
+  --color-primary:          #C4614A;
+  --color-primary-hover:    #A0522D;
+  --color-secondary:        #E8A598;
+  --color-accent:           #A0522D;
+  --color-bg:               #FAF3EC;
+  --color-surface:          #FFFFFF;
+  --color-surface-2:        #FDF8F3;
+  --color-surface-offset:   #F5EBE0;
+  --color-surface-dynamic:  #EDE0D4;
+  --color-border:           #E8D5C0;
+  --color-divider:          #E0CEBA;
+  --color-text:             #3D3530;
+  --color-text-muted:       #9B7E8E;
+  --color-text-faint:       #C4AEB8;
+  --color-error:            #8B2635;
 
-  --phase-menstrual:   #C4614A;
-  --phase-follicular:  #8FAF8A;
-  --phase-ovulation:   #D4899A;
-  --phase-luteal:      #9B7E8E;
+  --phase-menstrual:        #C4614A;
+  --phase-follicular:       #8FAF8A;
+  --phase-ovulation:        #D4899A;
+  --phase-luteal:           #9B7E8E;
 
-  --risk-low:          #2D5A3D;
-  --risk-medium:       #C4614A;
-  --risk-high:         #8B2635;
-  --risk-unknown:      #9B7E8E;
+  --risk-low:               #2D5A3D;
+  --risk-medium:            #C4614A;
+  --risk-high:              #8B2635;
+  --risk-unknown:           #9B7E8E;
 
-  --font-display:      'Cormorant Garamond', Georgia, serif;
-  --font-body:         'Inter', system-ui, sans-serif;
+  --font-display:           'Cormorant Garamond', Georgia, serif;
+  --font-body:              'Inter', system-ui, sans-serif;
 
-  --space-1: 4px;   --space-2: 8px;
-  --space-3: 12px;  --space-4: 16px;
-  --space-5: 24px;  --space-6: 32px;
-  --space-8: 48px;  --space-10: 64px;
+  /* Spacing — full 4px scale */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-8:  48px;
+  --space-10: 64px;
+  --space-12: 80px;
+
+  /* Fluid type scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px oklch(0.2 0.02 30 / 0.06);
+  --shadow-md: 0 4px 12px oklch(0.2 0.02 30 / 0.08);
+  --shadow-lg: 0 12px 32px oklch(0.2 0.02 30 / 0.12);
 
   --radius-sm:   8px;
   --radius-md:   16px;
   --radius-lg:   24px;
   --radius-xl:   32px;
   --radius-full: 9999px;
+
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
