@@ -13,6 +13,12 @@ export type QueuedPeriodLog = {
   flow_intensity: 'light' | 'medium' | 'heavy' | null
 }
 
+export type QueuedPeriodEnd = {
+  type: 'period_end'
+  user_id: string
+  end_date: string
+}
+
 export type QueuedSymptomLog = {
   type: 'symptom_log'
   user_id: string
@@ -25,7 +31,7 @@ export type QueuedSymptomLog = {
   headache: boolean
 }
 
-export type QueueEntry = (QueuedPeriodLog | QueuedSymptomLog) & { id?: number }
+export type QueueEntry = (QueuedPeriodLog | QueuedPeriodEnd | QueuedSymptomLog) & { id?: number }
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -38,7 +44,7 @@ function openDB(): Promise<IDBDatabase> {
   })
 }
 
-export async function enqueue(entry: QueuedPeriodLog | QueuedSymptomLog): Promise<void> {
+export async function enqueue(entry: QueuedPeriodLog | QueuedPeriodEnd | QueuedSymptomLog): Promise<void> {
   const db = await openDB()
   return new Promise((resolve, reject) => {
     const tx    = db.transaction(STORE, 'readwrite')
@@ -82,6 +88,25 @@ export async function flushQueue(supabase: ReturnType<typeof import('@/lib/supab
           flow_intensity: entry.flow_intensity,
         })
         if (error) throw error
+      }
+
+      if (entry.type === 'period_end') {
+        // Find the most recent period_log for this user and write the end_date
+        const { data: recent, error: fetchError } = await supabase
+          .from('period_logs')
+          .select('id')
+          .eq('user_id', entry.user_id)
+          .order('start_date', { ascending: false })
+          .limit(1)
+          .single()
+        if (fetchError) throw fetchError
+        if (recent?.id) {
+          const { error } = await supabase
+            .from('period_logs')
+            .update({ end_date: entry.end_date })
+            .eq('id', recent.id)
+          if (error) throw error
+        }
       }
 
       if (entry.type === 'symptom_log') {
