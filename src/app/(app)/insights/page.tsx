@@ -108,43 +108,7 @@ export default function InsightsPage() {
         <p className={styles.subtitle}>{t('subtitle')}</p>
       </header>
 
-      {loading ? (
-        <div className={styles.skeletonList}>
-          {[1, 2, 3].map((n) => <div key={n} className={styles.skeletonItem} />)}
-        </div>
-      ) : needMoreData ? (
-        <div className={styles.empty}>
-          <p className={`display ${styles.emptyTitle}`}>{t('need_more_data_title')}</p>
-          <p className={styles.emptyBody}>{t('need_more_data_body')}</p>
-        </div>
-      ) : insights.length === 0 ? (
-        <div className={styles.empty}>
-          <p className={`display ${styles.emptyTitle}`}>{t('empty_title')}</p>
-          <p className={styles.emptyBody}>{t('empty_body')}</p>
-        </div>
-      ) : (
-        <ul className={styles.list}>
-          {insights.map((insight, i) => (
-            <li key={i} className={styles.item}>
-              <span className={styles.itemPrefix}>
-                <span className={styles.itemPrefixWord}>{t('prefix')}</span>
-              </span>
-              <span className={styles.itemText}>{insight.text}</span>
-              {insight.isIrregular && (
-                <button
-                  className={styles.irregularFlag}
-                  onClick={() => setDrawerOpen(true)}
-                  aria-label="Learn more about irregular cycles"
-                >
-                  Why might this happen?
-                </button>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-
-      {/* Your rhythm settings block */}
+      {/* Your rhythm settings block — always shown at top */}
       <div className={styles.rhythmBlock}>
         <p className={styles.rhythmEyebrow}>Your rhythm</p>
         <p className={styles.rhythmBody}>
@@ -210,6 +174,42 @@ export default function InsightsPage() {
               : 'Save my rhythm'}
         </button>
       </div>
+
+      {loading ? (
+        <div className={styles.skeletonList}>
+          {[1, 2, 3].map((n) => <div key={n} className={styles.skeletonItem} />)}
+        </div>
+      ) : needMoreData ? (
+        <div className={styles.empty}>
+          <p className={`display ${styles.emptyTitle}`}>{t('need_more_data_title')}</p>
+          <p className={styles.emptyBody}>{t('need_more_data_body')}</p>
+        </div>
+      ) : insights.length === 0 ? (
+        <div className={styles.empty}>
+          <p className={`display ${styles.emptyTitle}`}>{t('empty_title')}</p>
+          <p className={styles.emptyBody}>{t('empty_body')}</p>
+        </div>
+      ) : (
+        <ul className={styles.list}>
+          {insights.map((insight, i) => (
+            <li key={i} className={styles.item}>
+              <span className={styles.itemPrefix}>
+                <span className={styles.itemPrefixWord}>{t('prefix')}</span>
+              </span>
+              <span className={styles.itemText}>{insight.text}</span>
+              {insight.isIrregular && (
+                <button
+                  className={styles.irregularFlag}
+                  onClick={() => setDrawerOpen(true)}
+                  aria-label="Learn more about irregular cycles"
+                >
+                  Why might this happen?
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {userId && (
         <Suspense fallback={<div style={{ height: 280 }} />}>
