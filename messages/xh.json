@@ -4,7 +4,7 @@
     "home": "Ekhaya",
     "log": "Rekhoda",
     "insights": "Iingcinga",
-    "information": "Ulwazi",
+    "information": "INFO",
     "about": "Malunga",
     "privacy": "Imfihlo"
   },
@@ -112,11 +112,11 @@
     "install_cta": "Yongeza i-TARA-S kwisikrini sakho sasekhaya",
     "install_step1_safari": "Thepha iindothi ezintathu (•••) ecaleni kwebar yedilesi",
     "install_step2_safari": "Thepha ikhona yokuabelana kwidaka elivulekileyo",
-    "install_step3": "Skrolela ezantsi uthepha “Yongeza kwisikrini sasekhaya”",
-    "install_step4": "Thepha “Yongeza” phezulu ekunene",
+    "install_step3": "Skrolela ezantsi uthepha \"Yongeza kwisikrini sasekhaya\"",
+    "install_step4": "Thepha \"Yongeza\" phezulu ekunene",
     "install_step1_chrome": "Thepha iindothi ezintathu (•••) phezulu ekunene",
-    "install_step2_chrome": "Thepha “Yongeza kwisikrini sasekhaya”",
-    "install_step3_chrome": "Thepha “Yongeza” ukuqinisekisa"
+    "install_step2_chrome": "Thepha \"Yongeza kwisikrini sasekhaya\"",
+    "install_step3_chrome": "Thepha \"Yongeza\" ukuqinisekisa"
   },
   "onboarding": {
     "welcome_body": "Ngaphambi kokuba siqale, imibuzo embalwa ukufumana isiklasi sakho.",

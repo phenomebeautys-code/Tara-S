@@ -4,7 +4,7 @@
     "home": "Ekhaya",
     "log": "Rekhoda",
     "insights": "Izimvo",
-    "information": "Ulwazi",
+    "information": "INFO",
     "about": "Mayelana",
     "privacy": "Ubumfihlo"
   },
@@ -112,11 +112,11 @@
     "install_cta": "Engeza i-TARA-S esikrini sakho sasekhaya",
     "install_step1_safari": "Thepha amadothi amathathu (•••) eceleni kwebha yekheli",
     "install_step2_safari": "Thepha isithonjana sokwabelana kumenyu ovulekayo",
-    "install_step3": "Skrola phansi uthepha “Ngeza Esikrini Sasekhaya”",
-    "install_step4": "Thepha “Ngeza” ngakwesokudla phezulu",
+    "install_step3": "Skrola phansi uthepha \"Ngeza Esikrini Sasekhaya\"",
+    "install_step4": "Thepha \"Ngeza\" ngakwesokudla phezulu",
     "install_step1_chrome": "Thepha amadothi amathathu (•••) phezulu ngakwesokudla",
-    "install_step2_chrome": "Thepha “Ngeza Esikrini Sasekhaya”",
-    "install_step3_chrome": "Thepha “Ngeza” ukuqinisekisa"
+    "install_step2_chrome": "Thepha \"Ngeza Esikrini Sasekhaya\"",
+    "install_step3_chrome": "Thepha \"Ngeza\" ukuqinisekisa"
   },
   "onboarding": {
     "welcome_body": "Ngaphambi kokuqala, imibuzo embalwa ukuthola isiklasi sakho.",
