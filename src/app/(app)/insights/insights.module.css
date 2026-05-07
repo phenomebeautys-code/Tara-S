@@ -187,9 +187,10 @@
 }
 
 .rhythmBrandName {
-  color: var(--color-primary);
+  font-family: var(--font-display);
   font-style: italic;
   font-weight: inherit;
+  color: var(--color-primary);
 }
 
 .rhythmRow {
