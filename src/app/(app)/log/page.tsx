@@ -246,7 +246,11 @@ export default function LogPage() {
       {/* Period end */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Your data</h2>
-        <p className={styles.sectionSub}>Did your flow end? Log your last day so TARA-S can learn your pattern.</p>
+        <p className={styles.sectionSub}>
+          Did your flow end? Log your last day so{' '}
+          <span className={styles.brandName}>tara-s</span>
+          {' '}can learn your pattern.
+        </p>
         <div className={styles.dateWrap}>
           <input
             type="date"
