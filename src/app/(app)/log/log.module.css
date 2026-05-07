@@ -192,6 +192,7 @@
   background: var(--color-primary);
   color: white;
   border-radius: var(--radius-full);
+  font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
