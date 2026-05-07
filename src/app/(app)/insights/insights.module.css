@@ -38,7 +38,7 @@
   letter-spacing: 0.01em;
 }
 
-/* ── Skeleton ─────────────────────────────────────────────── */
+/* ── Skeleton ─────────────────────────────────────────── */
 
 .skeletonList {
   display: flex;
@@ -64,7 +64,7 @@
   100% { background-position:  200% 0; }
 }
 
-/* ── Empty state ──────────────────────────────────────────── */
+/* ── Empty state ──────────────────────────────────────── */
 
 .empty {
   display: flex;
@@ -87,7 +87,7 @@
   max-width: 36ch;
 }
 
-/* ── Insight list ─────────────────────────────────────────── */
+/* ── Insight list ─────────────────────────────────────── */
 
 .list {
   display: flex;
@@ -127,7 +127,7 @@
   color: var(--color-text-muted);
 }
 
-/* ── Irregular flag CTA ───────────────────────────────────── */
+/* ── Irregular flag CTA ───────────────────────────────── */
 
 .irregularFlag {
   display: inline-flex;
@@ -161,7 +161,7 @@
   .skeletonItem { animation: none; }
 }
 
-/* ── Your rhythm block ────────────────────────────────────── */
+/* ── Your rhythm block ────────────────────────────────── */
 
 .rhythmBlock {
   display: flex;
@@ -184,6 +184,12 @@
   font-size: 0.9rem;
   line-height: 1.7;
   color: var(--color-text-muted);
+}
+
+.rhythmBrandName {
+  color: var(--color-primary);
+  font-style: normal;
+  font-weight: inherit;
 }
 
 .rhythmRow {
