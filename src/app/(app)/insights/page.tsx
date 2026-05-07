@@ -147,9 +147,9 @@ export default function InsightsPage() {
       {/* Your rhythm settings block */}
       <div className={styles.rhythmBlock}>
         <p className={styles.rhythmEyebrow}>Your rhythm</p>
-        <p className={styles.rhythmHeading}>Your cycle, your way.</p>
         <p className={styles.rhythmBody}>
-          Every body moves to its own timing. If your cycle is longer, shorter, or simply not 28 days, tell TARA-S. Everything will adjust to fit you.
+          Every body moves to its own timing. If your cycle is longer, shorter, or simply not 28 days, tell{' '}
+          <span className="display">TARA-S</span>. Everything will adjust to fit you.
         </p>
 
         <div className={styles.rhythmRow}>
