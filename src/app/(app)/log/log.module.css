@@ -228,3 +228,103 @@
   line-height: 1.6;
   padding-bottom: var(--space-2);
 }
+
+/* Cycle-length nudge */
+.nudge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg, 12px);
+  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-bg));
+  animation: fadeInStatus 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.nudgeText {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.nudgeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.nudgeLabel {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.nudgeUnit {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.nudgeInput {
+  width: 56px;
+  padding: var(--space-2) var(--space-3);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.nudgeInput:focus {
+  border-color: var(--color-primary);
+}
+
+/* hide number input spinners */
+.nudgeInput::-webkit-inner-spin-button,
+.nudgeInput::-webkit-outer-spin-button { -webkit-appearance: none; }
+.nudgeInput { -moz-appearance: textfield; }
+
+.nudgeUpdateBtn {
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.15s;
+}
+
+.nudgeUpdateBtn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-bg));
+}
+
+.nudgeUpdateBtn:disabled {
+  opacity: 0.45;
+}
+
+.nudgeDismiss {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color 0.15s;
+}
+
+.nudgeDismiss:hover {
+  color: var(--color-text);
+}
