@@ -42,27 +42,36 @@ export default function TodayPage() {
       setGreeting(name ? `${time}, ${name}` : time)
       setAuthChecked(true)
     })
-  }, [t])
+  }, [])
 
-  const { stats, phase, loading } = useCycleStats(userId)
+  const { stats, phase, loading, storedCycleLength } = useCycleStats(userId)
 
   if (!authChecked) return null
 
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <div className={styles.logoBlock}>
-          <span className={`display ${styles.logo}`}>{tCommon('app_name')}</span>
-          <Link href="/about" className={styles.aboutLink}>{tNav('about')}</Link>
-        </div>
-        <span className={styles.greeting}>{greeting}</span>
+        <p className={styles.greeting}>{greeting}</p>
       </header>
 
       {loading ? (
-        <div className={styles.skeleton} />
+        <div className={styles.cardSkeleton} />
       ) : (
-        <TodayCard stats={stats} phase={phase} />
+        <TodayCard
+          stats={stats}
+          phase={phase}
+          storedCycleLength={storedCycleLength}
+        />
       )}
+
+      <nav className={styles.quickLinks}>
+        <Link href="/log" className={styles.quickLink}>
+          <span className={styles.quickLinkLabel}>{tNav('log')}</span>
+        </Link>
+        <Link href="/insights" className={styles.quickLink}>
+          <span className={styles.quickLinkLabel}>{tNav('insights')}</span>
+        </Link>
+      </nav>
 
       <PwaPrompt />
     </div>

@@ -26,6 +26,9 @@ export function useCycleStats(userId: string | null) {
   const [stats, setStats] = useState<CycleStats | null>(null)
   const [phase, setPhase] = useState<CyclePhase | null>(null)
   const [loading, setLoading] = useState(true)
+  // Stored user preference - used as fallback before the 28-day default
+  const [storedCycleLength, setStoredCycleLength] = useState<number | null>(null)
+  const [storedPeriodDuration, setStoredPeriodDuration] = useState<number | null>(null)
 
   useEffect(() => {
     if (!userId) return
@@ -35,7 +38,7 @@ export function useCycleStats(userId: string | null) {
       setLoading(true)
       const today = new Date().toISOString().split('T')[0]
 
-      const [{ data: statsData }, { data: phaseData }] = await Promise.all([
+      const [{ data: statsData }, { data: phaseData }, { data: userData }] = await Promise.all([
         supabase
           .from('cycle_stats')
           .select('*')
@@ -45,17 +48,24 @@ export function useCycleStats(userId: string | null) {
           p_user_id: userId,
           p_date: today,
         }),
+        supabase
+          .from('users')
+          .select('cycle_length, period_duration')
+          .eq('id', userId)
+          .single(),
       ])
 
       setStats(statsData)
       setPhase(phaseData?.[0] ?? null)
+      if (userData?.cycle_length) setStoredCycleLength(userData.cycle_length)
+      if (userData?.period_duration) setStoredPeriodDuration(userData.period_duration)
       setLoading(false)
     }
 
     load()
   }, [userId])
 
-  return { stats, phase, loading }
+  return { stats, phase, loading, storedCycleLength, storedPeriodDuration }
 }
 
 export async function getAppointmentRisk(

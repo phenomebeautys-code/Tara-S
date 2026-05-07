@@ -8,15 +8,19 @@ import styles from './TodayCard.module.css'
 export default function TodayCard({
   stats,
   phase,
+  storedCycleLength,
 }: {
   stats: CycleStats | null
   phase: CyclePhase | null
+  storedCycleLength?: number | null
 }) {
   const t = useTranslations('today')
 
   const phaseName = phase?.phase_name ?? 'unknown'
   const cycleDay = phase?.cycle_day ?? 0
-  const cycleLength = stats?.avg_cycle_length ?? 28
+
+  // Priority: computed average > user-stored preference > generic fallback
+  const cycleLength = stats?.avg_cycle_length ?? storedCycleLength ?? 28
 
   const phaseKey = phaseName.toLowerCase() as 'menstrual' | 'follicular' | 'ovulation' | 'luteal' | 'unknown'
   const validPhase = ['menstrual', 'follicular', 'ovulation', 'luteal'].includes(phaseKey)
