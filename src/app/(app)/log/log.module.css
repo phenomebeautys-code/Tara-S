@@ -125,6 +125,13 @@
   color: var(--color-text);
 }
 
+.endDateHint {
+  font-size: 0.8rem;
+  color: var(--color-text-faint);
+  font-style: italic;
+  margin-top: calc(-1 * var(--space-1));
+}
+
 .flowRow {
   display: flex;
   gap: var(--space-2);
@@ -284,7 +291,6 @@
   border-color: var(--color-primary);
 }
 
-/* hide number input spinners */
 .nudgeInput::-webkit-inner-spin-button,
 .nudgeInput::-webkit-outer-spin-button { -webkit-appearance: none; }
 .nudgeInput { -moz-appearance: textfield; }

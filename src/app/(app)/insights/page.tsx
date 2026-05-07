@@ -39,12 +39,30 @@ export default function InsightsPage() {
   const [userId, setUserId] = useState<string | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
 
+  // Rhythm settings state
+  const [cycleLength, setCycleLength] = useState('')
+  const [periodDuration, setPeriodDuration] = useState('')
+  const [rhythmSaving, setRhythmSaving] = useState(false)
+  const [rhythmSaved, setRhythmSaved] = useState(false)
+  const [rhythmError, setRhythmError] = useState(false)
+
   useEffect(() => {
     const supabase = createClient()
     supabase.auth.getSession().then(async ({ data }) => {
       const uid = data.session?.user?.id
       if (uid) {
         setUserId(uid)
+
+        // Load existing rhythm values
+        const { data: userData } = await supabase
+          .from('users')
+          .select('cycle_length, period_duration')
+          .eq('id', uid)
+          .single()
+
+        if (userData?.cycle_length) setCycleLength(String(userData.cycle_length))
+        if (userData?.period_duration) setPeriodDuration(String(userData.period_duration))
+
         const raw = await getPersonalInsights(uid)
         if (raw.length === 1 && raw[0] === 'need_more_data') {
           setNeedMoreData(true)
@@ -55,6 +73,32 @@ export default function InsightsPage() {
       setLoading(false)
     })
   }, [])
+
+  async function handleRhythmSave() {
+    const parsedCycle = cycleLength ? parseInt(cycleLength, 10) : null
+    const parsedDuration = periodDuration ? parseInt(periodDuration, 10) : null
+
+    if (parsedCycle !== null && (parsedCycle < 15 || parsedCycle > 60)) { setRhythmError(true); return }
+    if (parsedDuration !== null && (parsedDuration < 1 || parsedDuration > 14)) { setRhythmError(true); return }
+    if (!parsedCycle && !parsedDuration) return
+
+    setRhythmError(false)
+    setRhythmSaving(true)
+
+    const supabase = createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setRhythmSaving(false); return }
+
+    const updates: Record<string, number> = {}
+    if (parsedCycle) updates.cycle_length = parsedCycle
+    if (parsedDuration) updates.period_duration = parsedDuration
+
+    await supabase.from('users').update(updates).eq('id', user.id)
+
+    setRhythmSaving(false)
+    setRhythmSaved(true)
+    setTimeout(() => setRhythmSaved(false), 2500)
+  }
 
   return (
     <div className={styles.page}>
@@ -99,6 +143,73 @@ export default function InsightsPage() {
           ))}
         </ul>
       )}
+
+      {/* Your rhythm settings block */}
+      <div className={styles.rhythmBlock}>
+        <p className={styles.rhythmEyebrow}>Your rhythm</p>
+        <p className={styles.rhythmHeading}>Your cycle, your way.</p>
+        <p className={styles.rhythmBody}>
+          Every body moves to its own timing. If your cycle is longer, shorter, or simply not 28 days, tell TARA-S. Everything will adjust to fit you.
+        </p>
+
+        <div className={styles.rhythmRow}>
+          <label className={styles.rhythmLabel} htmlFor="cycle-length-input">
+            My cycle is usually
+          </label>
+          <div className={styles.rhythmInputGroup}>
+            <input
+              id="cycle-length-input"
+              type="number"
+              min={15}
+              max={60}
+              value={cycleLength}
+              onChange={(e) => { setCycleLength(e.target.value); setRhythmError(false) }}
+              className={styles.rhythmInput}
+              placeholder="28"
+              aria-label="My cycle is usually how many days"
+            />
+            <span className={styles.rhythmUnit}>days</span>
+          </div>
+        </div>
+
+        <div className={styles.rhythmRow}>
+          <label className={styles.rhythmLabel} htmlFor="period-duration-input">
+            My period usually lasts
+          </label>
+          <div className={styles.rhythmInputGroup}>
+            <input
+              id="period-duration-input"
+              type="number"
+              min={1}
+              max={14}
+              value={periodDuration}
+              onChange={(e) => { setPeriodDuration(e.target.value); setRhythmError(false) }}
+              className={styles.rhythmInput}
+              placeholder="5"
+              aria-label="My period usually lasts how many days"
+            />
+            <span className={styles.rhythmUnit}>days</span>
+          </div>
+        </div>
+
+        {rhythmError && (
+          <p className={styles.rhythmError}>
+            Please enter a cycle length between 15 and 60 days, and a period duration between 1 and 14 days.
+          </p>
+        )}
+
+        <button
+          className={styles.rhythmSaveBtn}
+          onClick={handleRhythmSave}
+          disabled={rhythmSaving || rhythmSaved || (!cycleLength && !periodDuration)}
+        >
+          {rhythmSaved
+            ? 'Saved. TARA-S will use this going forward.'
+            : rhythmSaving
+              ? 'Saving...'
+              : 'Save my rhythm'}
+        </button>
+      </div>
 
       {userId && (
         <Suspense fallback={<div style={{ height: 280 }} />}>

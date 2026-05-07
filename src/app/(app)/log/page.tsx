@@ -9,11 +9,12 @@ import styles from './log.module.css'
 const SYMPTOM_KEYS = ['cramps', 'bloating', 'skin_breakout', 'low_energy', 'mood_low', 'headache'] as const
 type SymptomKey = typeof SYMPTOM_KEYS[number]
 
-const DRIFT_THRESHOLD = 3 // days
+const DRIFT_THRESHOLD = 3
 
 export default function LogPage() {
   const t = useTranslations('log')
   const [periodDate, setPeriodDate] = useState('')
+  const [endDate, setEndDate] = useState('')
   const [flow, setFlow] = useState<'light' | 'medium' | 'heavy' | ''>('')
   const [activeSymptoms, setActiveSymptoms] = useState<Set<SymptomKey>>(new Set())
   const [saving, setSaving] = useState(false)
@@ -51,6 +52,10 @@ export default function LogPage() {
   function clearDate() {
     setPeriodDate('')
     setFlow('')
+  }
+
+  function clearEndDate() {
+    setEndDate('')
   }
 
   async function checkCycleDrift(userId: string) {
@@ -109,7 +114,6 @@ export default function LogPage() {
     if (periodDate) {
       if (online) {
         await logPeriodStart(user.id, periodDate, flow || undefined)
-        // Only check drift when we have a real period start logged and online
         if (!nudgeDismissed) {
           await checkCycleDrift(user.id)
         }
@@ -120,6 +124,33 @@ export default function LogPage() {
           start_date: periodDate,
           flow_intensity: flow || null,
         })
+      }
+    }
+
+    // Write end_date to the most recent period_log row
+    if (endDate) {
+      if (online) {
+        const { data: recentLog } = await supabase
+          .from('period_logs')
+          .select('id')
+          .eq('user_id', user.id)
+          .order('start_date', { ascending: false })
+          .limit(1)
+          .single()
+
+        if (recentLog?.id) {
+          await supabase
+            .from('period_logs')
+            .update({ end_date: endDate })
+            .eq('id', recentLog.id)
+        }
+      } else {
+        await enqueue({
+          type: 'period_end',
+          user_id: user.id,
+          end_date: endDate,
+        })
+        setSyncStatus('pending')
       }
     }
 
@@ -134,12 +165,12 @@ export default function LogPage() {
           type: 'symptom_log',
           user_id: user.id,
           log_date: today,
-          cramps:       activeSymptoms.has('cramps'),
-          bloating:     activeSymptoms.has('bloating'),
+          cramps:        activeSymptoms.has('cramps'),
+          bloating:      activeSymptoms.has('bloating'),
           skin_breakout: activeSymptoms.has('skin_breakout'),
-          low_energy:   activeSymptoms.has('low_energy'),
-          mood_low:     activeSymptoms.has('mood_low'),
-          headache:     activeSymptoms.has('headache'),
+          low_energy:    activeSymptoms.has('low_energy'),
+          mood_low:      activeSymptoms.has('mood_low'),
+          headache:      activeSymptoms.has('headache'),
         })
         setSyncStatus('pending')
       }
@@ -150,10 +181,13 @@ export default function LogPage() {
     setTimeout(() => {
       setSaved(false)
       setPeriodDate('')
+      setEndDate('')
       setFlow('')
       setActiveSymptoms(new Set())
     }, 1200)
   }
+
+  const today = new Date().toISOString().split('T')[0]
 
   return (
     <div className={styles.page}>
@@ -171,6 +205,7 @@ export default function LogPage() {
         <p className={styles.body}>{t('body')}</p>
       </header>
 
+      {/* Period start */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>{t('section_period')}</h2>
         <p className={styles.sectionSub}>{t('section_period_sub')}</p>
@@ -179,7 +214,7 @@ export default function LogPage() {
             type="date"
             value={periodDate}
             onChange={(e) => setPeriodDate(e.target.value ?? '')}
-            max={new Date().toISOString().split('T')[0]}
+            max={today}
             className={styles.dateInput}
           />
           {periodDate && (
@@ -208,6 +243,37 @@ export default function LogPage() {
         )}
       </section>
 
+      {/* Period end */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Your data</h2>
+        <p className={styles.sectionSub}>Did your flow end? Log your last day so TARA-S can learn your pattern.</p>
+        <div className={styles.dateWrap}>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value ?? '')}
+            max={today}
+            className={styles.dateInput}
+            placeholder="My period ended on"
+            aria-label="My period ended on"
+          />
+          {endDate && (
+            <button
+              type="button"
+              className={styles.dateClear}
+              onClick={clearEndDate}
+              aria-label="Clear end date"
+            >
+              &#x2715;
+            </button>
+          )}
+        </div>
+        {!endDate && (
+          <p className={styles.endDateHint}>Leave blank if you are still in your flow.</p>
+        )}
+      </section>
+
+      {/* Symptoms */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>{t('section_symptoms')}</h2>
         <div className={styles.symptomGrid}>
@@ -226,7 +292,7 @@ export default function LogPage() {
       <button
         className={styles.saveBtn}
         onClick={handleSave}
-        disabled={saving || saved || (!periodDate && activeSymptoms.size === 0)}
+        disabled={saving || saved || (!periodDate && !endDate && activeSymptoms.size === 0)}
       >
         {saved ? t('saved') : saving ? t('saving') : t('save')}
       </button>
