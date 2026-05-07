@@ -4,7 +4,7 @@
     "home": "Home",
     "log": "Log",
     "insights": "Insights",
-    "information": "Information",
+    "information": "INFO",
     "about": "About",
     "privacy": "Privacy"
   },
@@ -86,7 +86,7 @@
     "title": "What we know.",
     "subtitle": "Research that informs every insight.",
     "disclaimer_title": "Disclaimer",
-    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman’s body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
+    "disclaimer_body": "TARA-S is built on thorough research, and we hold that research to a high standard. But every woman's body is beautifully unique. Our aim is simply to offer the best possible experience and to walk alongside you through the natural phases of your cycle."
   },
   "privacy": {
     "eyebrow": "Privacy",
@@ -112,11 +112,11 @@
     "install_cta": "Add TARA-S to your home screen",
     "install_step1_safari": "Tap the three dots (•••) next to the address bar",
     "install_step2_safari": "Tap the Share icon in the menu that opens",
-    "install_step3": "Scroll down and tap “Add to Home Screen”",
-    "install_step4": "Tap “Add” in the top right",
+    "install_step3": "Scroll down and tap \"Add to Home Screen\"",
+    "install_step4": "Tap \"Add\" in the top right",
     "install_step1_chrome": "Tap the three dots (•••) in the top right",
-    "install_step2_chrome": "Tap “Add to Home Screen”",
-    "install_step3_chrome": "Tap “Add” to confirm"
+    "install_step2_chrome": "Tap \"Add to Home Screen\"",
+    "install_step3_chrome": "Tap \"Add\" to confirm"
   },
   "onboarding": {
     "welcome_body": "Before we begin, a few questions to find your cycle.",
