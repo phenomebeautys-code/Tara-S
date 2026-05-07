@@ -189,7 +189,9 @@
 .rhythmBrandName {
   font-family: var(--font-display);
   font-style: italic;
-  font-weight: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 400;
   color: var(--color-primary);
 }
 
