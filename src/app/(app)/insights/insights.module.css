@@ -188,7 +188,7 @@
 
 .rhythmBrandName {
   color: var(--color-primary);
-  font-style: normal;
+  font-style: italic;
   font-weight: inherit;
 }
 
