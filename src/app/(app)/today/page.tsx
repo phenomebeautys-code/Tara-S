@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
 import { useCycleStats } from '@/lib/hooks/useCycleStats'
@@ -10,8 +9,6 @@ import styles from '../home.module.css'
 
 export default function TodayPage() {
   const t = useTranslations('home')
-  const tCommon = useTranslations('common')
-  const tNav = useTranslations('nav')
   const [userId, setUserId] = useState<string | null>(null)
   const [displayName, setDisplayName] = useState<string | null>(null)
   const [greeting, setGreeting] = useState('')
@@ -63,15 +60,6 @@ export default function TodayPage() {
           storedCycleLength={storedCycleLength}
         />
       )}
-
-      <nav className={styles.quickLinks}>
-        <Link href="/log" className={styles.quickLink}>
-          <span className={styles.quickLinkLabel}>{tNav('log')}</span>
-        </Link>
-        <Link href="/insights" className={styles.quickLink}>
-          <span className={styles.quickLinkLabel}>{tNav('insights')}</span>
-        </Link>
-      </nav>
 
       <PwaPrompt />
     </div>
