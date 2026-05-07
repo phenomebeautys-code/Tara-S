@@ -113,7 +113,7 @@ export default function InsightsPage() {
         <p className={styles.rhythmEyebrow}>Your rhythm</p>
         <p className={styles.rhythmBody}>
           Every body moves to its own timing. If your cycle is longer, shorter, or simply not 28 days, tell{' '}
-          <span className="display">TARA-S</span>. Everything will adjust to fit you.
+          <span className={styles.rhythmBrandName}>tara-s</span>. Everything will adjust to fit you.
         </p>
 
         <div className={styles.rhythmRow}>
