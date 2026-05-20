@@ -182,7 +182,11 @@ export default function InsightsPage() {
       ) : needMoreData ? (
         <div className={styles.empty}>
           <p className={`display ${styles.emptyTitle}`}>{t('need_more_data_title')}</p>
-          <p className={styles.emptyBody}>{t('need_more_data_body')}</p>
+          <p className={styles.emptyBody}>
+            Log one more cycle and{' '}
+            <span className={styles.rhythmBrandName}>tara-s</span>
+            {' '}will start to see your pattern.
+          </p>
         </div>
       ) : insights.length === 0 ? (
         <div className={styles.empty}>
