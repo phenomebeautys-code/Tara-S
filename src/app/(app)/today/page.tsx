@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { createClient } from '@/lib/supabase/client'
@@ -48,6 +49,10 @@ export default function TodayPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
+        <div className={styles.logoBlock}>
+          <span className={styles.logo}>tara-s</span>
+          <Link href="/about" className={styles.aboutLink}>about</Link>
+        </div>
         <p className={styles.greeting}>{greeting}</p>
       </header>
 
