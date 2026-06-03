@@ -49,13 +49,6 @@ public/
   sw.js                  # Service worker
 ```
 
-## Environment Variables
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://xpmgirnixlsnwxdscitv.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_RMehjKrbp1bwltwhun7F7A_g2zXSQuG
-```
-
 ## Database
 
 All schema + logic lives in Supabase migrations:
